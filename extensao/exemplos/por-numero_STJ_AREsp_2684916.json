@@ -1,0 +1,64 @@
+{
+ "decisoes": [
+  {
+   "id": "fb71ef3d-db50-475c-a61a-45f1464eaac0",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2684916",
+   "tipo": "acordao",
+   "data_publicacao": "2025-03-18",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "ANTONIO SALDANHA PALHEIRO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=300876097&registro_numero=202402458315&publicacao_data=20250318&O=JT",
+   "url": "/decisao/fb71ef3d-db50-475c-a61a-45f1464eaac0"
+  },
+  {
+   "id": "319fcea5-583d-4269-a939-317751082b16",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2684916",
+   "tipo": "acordao",
+   "data_publicacao": "2025-03-18",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "ANTONIO SALDANHA PALHEIRO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=300876115&registro_numero=202402458315&publicacao_data=20250318&O=JT",
+   "url": "/decisao/319fcea5-583d-4269-a939-317751082b16"
+  },
+  {
+   "id": "f8b83380-1d51-4d0a-9d43-a6c45a7ba147",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2684916",
+   "tipo": "monocratica",
+   "data_publicacao": "2025-02-10",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "ANTONIO SALDANHA PALHEIRO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=293830102&num_registro=202402458315&data=20250210&tipo=0&formato=PDF",
+   "url": "/decisao/f8b83380-1d51-4d0a-9d43-a6c45a7ba147"
+  },
+  {
+   "id": "21bc2512-d24d-4bd4-ae71-8bafeacff90a",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2684916",
+   "tipo": "monocratica",
+   "data_publicacao": "2025-02-07",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "ANTONIO SALDANHA PALHEIRO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=293796955&num_registro=202402458315&data=20250207&tipo=0&formato=PDF",
+   "url": "/decisao/21bc2512-d24d-4bd4-ae71-8bafeacff90a"
+  }
+ ]
+}

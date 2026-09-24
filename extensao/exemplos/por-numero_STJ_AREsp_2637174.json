@@ -1,0 +1,79 @@
+{
+ "decisoes": [
+  {
+   "id": "7cea6f8e-3477-48a6-abd0-c633a676259e",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2637174",
+   "tipo": "monocratica",
+   "data_publicacao": "2024-12-16",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "BENEDITO GONÇALVES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=282538871&num_registro=202401400508&data=20241216&tipo=0&formato=PDF",
+   "url": "/decisao/7cea6f8e-3477-48a6-abd0-c633a676259e"
+  },
+  {
+   "id": "4fefb79d-caf3-479c-b653-7e982704b892",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2637174",
+   "tipo": "monocratica",
+   "data_publicacao": "2024-11-04",
+   "resultado": "outro",
+   "resultado_rotulo": "Outro",
+   "relator": "BENEDITO GONÇALVES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=278777699&num_registro=202401400508&data=20241104&tipo=0&formato=PDF",
+   "url": "/decisao/4fefb79d-caf3-479c-b653-7e982704b892"
+  },
+  {
+   "id": "414c33a6-281c-4ff9-9af7-4d401085def5",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2637174",
+   "tipo": "monocratica",
+   "data_publicacao": "2024-08-23",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "MARIA THEREZA DE ASSIS MOURA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=266209616&num_registro=202401400508&data=20240823&tipo=0&formato=PDF",
+   "url": "/decisao/414c33a6-281c-4ff9-9af7-4d401085def5"
+  },
+  {
+   "id": "c00a692c-c020-4565-8ae5-0c7e29453357",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2637174",
+   "tipo": "monocratica",
+   "data_publicacao": "2024-07-26",
+   "resultado": "concedido",
+   "resultado_rotulo": "Concedido",
+   "relator": "MARIA THEREZA DE ASSIS MOURA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=259759232&num_registro=202401400508&data=20240726&tipo=0&formato=PDF",
+   "url": "/decisao/c00a692c-c020-4565-8ae5-0c7e29453357"
+  },
+  {
+   "id": "90182d3d-1296-4194-8250-6129c9f5277b",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2637174",
+   "tipo": "monocratica",
+   "data_publicacao": "2024-06-26",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "MARIA THEREZA DE ASSIS MOURA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=252254541&num_registro=202401400508&data=20240626&tipo=0&formato=PDF",
+   "url": "/decisao/90182d3d-1296-4194-8250-6129c9f5277b"
+  }
+ ]
+}

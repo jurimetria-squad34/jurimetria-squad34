@@ -1,0 +1,34 @@
+{
+ "decisoes": [
+  {
+   "id": "db542bc6-443e-47dd-a662-07c63f2ec957",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2837619",
+   "tipo": "acordao",
+   "data_publicacao": "2025-06-27",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "ANTONIO CARLOS FERREIRA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=321140949&registro_numero=202500180364&publicacao_data=20250627&O=JT",
+   "url": "/decisao/db542bc6-443e-47dd-a662-07c63f2ec957"
+  },
+  {
+   "id": "62a1add9-85c2-45bc-b3e3-b475f5100135",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2837619",
+   "tipo": "monocratica",
+   "data_publicacao": "2025-03-05",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "ANTONIO CARLOS FERREIRA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=296792862&num_registro=202500180364&data=20250305&tipo=0&formato=PDF",
+   "url": "/decisao/62a1add9-85c2-45bc-b3e3-b475f5100135"
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "decisoes": [
+  {
+   "id": "77e9474b-9c4c-4710-977a-87ef0a33bcd6",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "2005844",
+   "tipo": "acordao",
+   "data_publicacao": "2024-03-07",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "RICARDO VILLAS BÔAS CUEVA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=232606990&registro_numero=202201686787&publicacao_data=20240307&O=JT",
+   "url": "/decisao/77e9474b-9c4c-4710-977a-87ef0a33bcd6"
+  },
+  {
+   "id": "86f9d722-1a81-4f79-96dc-a3257c73f185",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "2005844",
+   "tipo": "acordao",
+   "data_publicacao": "2023-10-27",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "RICARDO VILLAS BÔAS CUEVA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=214630928&registro_numero=202201686787&publicacao_data=20231027&O=JT",
+   "url": "/decisao/86f9d722-1a81-4f79-96dc-a3257c73f185"
+  },
+  {
+   "id": "5590e79c-698a-4760-b49d-a756fb7fc99a",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "2005844",
+   "tipo": "monocratica",
+   "data_publicacao": "2023-08-03",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "RICARDO VILLAS BÔAS CUEVA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=197848715&num_registro=202201686787&data=20230803&tipo=0&formato=PDF",
+   "url": "/decisao/5590e79c-698a-4760-b49d-a756fb7fc99a"
+  },
+  {
+   "id": "6cb4de86-e750-4ea6-897e-ec8a5177a102",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "2005844",
+   "tipo": "monocratica",
+   "data_publicacao": "2023-08-01",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "RICARDO VILLAS BÔAS CUEVA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=197853943&num_registro=202201686787&data=20230801&tipo=0&formato=PDF",
+   "url": "/decisao/6cb4de86-e750-4ea6-897e-ec8a5177a102"
+  }
+ ]
+}

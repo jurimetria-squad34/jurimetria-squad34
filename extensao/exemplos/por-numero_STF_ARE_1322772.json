@@ -1,0 +1,19 @@
+{
+ "decisoes": [
+  {
+   "id": "4059fc10-edbd-4594-9e3b-843c5f27d12d",
+   "tribunal": "STF",
+   "classe": "ARE",
+   "numero": "1322772",
+   "tipo": "monocratica",
+   "data_publicacao": "2021-05-04",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "PRESIDENTE",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://portal.stf.jus.br/processos/downloadPeca.asp?id=15346314669&ext=.pdf",
+   "url": "/decisao/4059fc10-edbd-4594-9e3b-843c5f27d12d"
+  }
+ ]
+}

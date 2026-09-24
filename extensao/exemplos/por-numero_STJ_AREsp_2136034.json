@@ -1,0 +1,49 @@
+{
+ "decisoes": [
+  {
+   "id": "5932c5cc-8583-4d6f-888f-79a0db24df77",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2136034",
+   "tipo": "acordao",
+   "data_publicacao": "2023-08-25",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "RAUL ARAÚJO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=204606333&registro_numero=202201557840&publicacao_data=20230825&O=JT",
+   "url": "/decisao/5932c5cc-8583-4d6f-888f-79a0db24df77"
+  },
+  {
+   "id": "0ce33b7a-58b6-49a8-909b-b52cbcda08bd",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2136034",
+   "tipo": "monocratica",
+   "data_publicacao": "2023-04-03",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "RAUL ARAÚJO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=181656576&num_registro=202201557840&data=20230403&tipo=0&formato=PDF",
+   "url": "/decisao/0ce33b7a-58b6-49a8-909b-b52cbcda08bd"
+  },
+  {
+   "id": "f43033ae-e085-456a-873d-91060ad04051",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2136034",
+   "tipo": "monocratica",
+   "data_publicacao": "2023-03-21",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "RAUL ARAÚJO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=181656306&num_registro=202201557840&data=20230321&tipo=0&formato=PDF",
+   "url": "/decisao/f43033ae-e085-456a-873d-91060ad04051"
+  }
+ ]
+}

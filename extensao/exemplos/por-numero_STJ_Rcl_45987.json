@@ -1,0 +1,64 @@
+{
+ "decisoes": [
+  {
+   "id": "74314b8a-768b-4878-8f3d-65151f89c607",
+   "tribunal": "STJ",
+   "classe": "Rcl",
+   "numero": "45987",
+   "tipo": "acordao",
+   "data_publicacao": "2024-08-22",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "BENEDITO GONÇALVES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=266351735&registro_numero=202302362487&publicacao_data=20240822&O=JT",
+   "url": "/decisao/74314b8a-768b-4878-8f3d-65151f89c607"
+  },
+  {
+   "id": "37d4f180-6d79-4a24-b7b9-bbd510bb736d",
+   "tribunal": "STJ",
+   "classe": "Rcl",
+   "numero": "45987",
+   "tipo": "acordao",
+   "data_publicacao": "2024-08-22",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "BENEDITO GONÇALVES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=266351814&registro_numero=202302362487&publicacao_data=20240822&O=JT",
+   "url": "/decisao/37d4f180-6d79-4a24-b7b9-bbd510bb736d"
+  },
+  {
+   "id": "e4f034dc-ba84-4f4d-ba35-3ca0e80fb895",
+   "tribunal": "STJ",
+   "classe": "Rcl",
+   "numero": "45987",
+   "tipo": "monocratica",
+   "data_publicacao": "2024-02-23",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "BENEDITO GONÇALVES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=229580538&num_registro=202302362487&data=20240223&tipo=0&formato=PDF",
+   "url": "/decisao/e4f034dc-ba84-4f4d-ba35-3ca0e80fb895"
+  },
+  {
+   "id": "76c5dc6f-c025-4722-aeff-b2863d8d7994",
+   "tribunal": "STJ",
+   "classe": "Rcl",
+   "numero": "45987",
+   "tipo": "monocratica",
+   "data_publicacao": "2023-11-16",
+   "resultado": "concedido",
+   "resultado_rotulo": "Concedido",
+   "relator": "BENEDITO GONÇALVES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=217610065&num_registro=202302362487&data=20231116&tipo=0&formato=PDF",
+   "url": "/decisao/76c5dc6f-c025-4722-aeff-b2863d8d7994"
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "decisoes": [
+  {
+   "id": "e1e08706-aa48-4d19-8510-95875c58f2c9",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2485586",
+   "tipo": "acordao",
+   "data_publicacao": "2025-02-28",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "LUIS FELIPE SALOMÃO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=298326416&registro_numero=202303530576&publicacao_data=20250228&O=JT",
+   "url": "/decisao/e1e08706-aa48-4d19-8510-95875c58f2c9"
+  },
+  {
+   "id": "74ca3e82-e29b-4d0e-ac6a-336e62f79b37",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2485586",
+   "tipo": "monocratica",
+   "data_publicacao": "2024-11-05",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "LUIS FELIPE SALOMÃO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=278326653&num_registro=202303530576&data=20241105&tipo=0&formato=PDF",
+   "url": "/decisao/74ca3e82-e29b-4d0e-ac6a-336e62f79b37"
+  },
+  {
+   "id": "9be1672d-efd0-475f-9033-9011647b2f00",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2485586",
+   "tipo": "acordao",
+   "data_publicacao": "2024-09-19",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "MARIA ISABEL GALLOTTI",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=271324750&registro_numero=202303530576&publicacao_data=20240919&O=JT",
+   "url": "/decisao/9be1672d-efd0-475f-9033-9011647b2f00"
+  },
+  {
+   "id": "53ef37c1-1e03-4bbe-8348-b1f5ec31c04d",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "2485586",
+   "tipo": "monocratica",
+   "data_publicacao": "2024-04-15",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "MARIA ISABEL GALLOTTI",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=234711158&num_registro=202303530576&data=20240415&tipo=0&formato=PDF",
+   "url": "/decisao/53ef37c1-1e03-4bbe-8348-b1f5ec31c04d"
+  }
+ ]
+}

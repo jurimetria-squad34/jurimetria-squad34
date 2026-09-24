@@ -1,0 +1,19 @@
+{
+ "decisoes": [
+  {
+   "id": "e0f4b298-3d5b-4dfc-a1a9-a1bb336fb5bb",
+   "tribunal": "STF",
+   "classe": "RE",
+   "numero": "35917",
+   "tipo": "acordao",
+   "data_publicacao": "1958-05-22",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "BARROS BARRETO",
+   "orgao_julgador": "Primeira Turma",
+   "tese": null,
+   "link_oficial": "https://portal.stf.jus.br/jurisprudencia/obterInteiroTeor.asp?numero=35917&classe=RE",
+   "url": "/decisao/e0f4b298-3d5b-4dfc-a1a9-a1bb336fb5bb"
+  }
+ ]
+}

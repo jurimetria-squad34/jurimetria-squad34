@@ -1,0 +1,34 @@
+{
+ "decisoes": [
+  {
+   "id": "c11bf17e-2244-40c7-9ca4-f4ad7c5371bd",
+   "tribunal": "STF",
+   "classe": "HC",
+   "numero": "142576",
+   "tipo": "acordao",
+   "data_publicacao": "2018-08-24",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "DIAS TOFFOLI",
+   "orgao_julgador": "Segunda Turma",
+   "tese": null,
+   "link_oficial": "https://portal.stf.jus.br/jurisprudencia/obterInteiroTeor.asp?idDocumento=748029411",
+   "url": "/decisao/c11bf17e-2244-40c7-9ca4-f4ad7c5371bd"
+  },
+  {
+   "id": "5e367eef-f260-4d47-8156-738e39f3e983",
+   "tribunal": "STF",
+   "classe": "HC",
+   "numero": "142576",
+   "tipo": "monocratica",
+   "data_publicacao": "2017-05-30",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "DIAS TOFFOLI",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://portal.stf.jus.br/processos/downloadPeca.asp?id=311903758&ext=.pdf",
+   "url": "/decisao/5e367eef-f260-4d47-8156-738e39f3e983"
+  }
+ ]
+}

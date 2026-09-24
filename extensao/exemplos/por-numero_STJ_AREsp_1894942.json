@@ -1,0 +1,49 @@
+{
+ "decisoes": [
+  {
+   "id": "a6a4fbed-3203-4138-951f-eff546c64475",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "1894942",
+   "tipo": "monocratica",
+   "data_publicacao": "2021-09-23",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "JORGE MUSSI",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=136080116&num_registro=202101609184&data=20210923&tipo=0&formato=PDF",
+   "url": "/decisao/a6a4fbed-3203-4138-951f-eff546c64475"
+  },
+  {
+   "id": "c940eff9-7900-433e-9732-22951fe5234e",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "1894942",
+   "tipo": "monocratica",
+   "data_publicacao": "2021-08-19",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "JESUÍNO RISSATO (DESEMBARGADOR CONVOCADO DO TJDFT)",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=130562556&num_registro=202101609184&data=20210819&tipo=0&formato=PDF",
+   "url": "/decisao/c940eff9-7900-433e-9732-22951fe5234e"
+  },
+  {
+   "id": "3ba4d17a-bc88-45c2-80ae-10422fd4f45e",
+   "tribunal": "STJ",
+   "classe": "AREsp",
+   "numero": "1894942",
+   "tipo": "monocratica",
+   "data_publicacao": "2021-08-19",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "JESUÍNO RISSATO (DESEMBARGADOR CONVOCADO DO TJDFT)",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=130567385&num_registro=202101609184&data=20210819&tipo=0&formato=PDF",
+   "url": "/decisao/3ba4d17a-bc88-45c2-80ae-10422fd4f45e"
+  }
+ ]
+}

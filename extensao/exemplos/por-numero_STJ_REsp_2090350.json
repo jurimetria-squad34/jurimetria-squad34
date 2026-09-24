@@ -1,0 +1,49 @@
+{
+ "decisoes": [
+  {
+   "id": "3118a8d7-bb6c-484b-80cf-99c7a7b74813",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "2090350",
+   "tipo": "monocratica",
+   "data_publicacao": "2023-12-12",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "SÉRGIO KUKINA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=221533327&num_registro=202302805252&data=20231212&tipo=0&formato=PDF",
+   "url": "/decisao/3118a8d7-bb6c-484b-80cf-99c7a7b74813"
+  },
+  {
+   "id": "ee700aa7-da7d-44f8-bb8e-4c4176bffa1e",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "2090350",
+   "tipo": "monocratica",
+   "data_publicacao": "2023-09-26",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "SÉRGIO KUKINA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=209585014&num_registro=202302805252&data=20230926&tipo=0&formato=PDF",
+   "url": "/decisao/ee700aa7-da7d-44f8-bb8e-4c4176bffa1e"
+  },
+  {
+   "id": "5dfd4052-f309-455c-97e0-458d231cbb55",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "2090350",
+   "tipo": "monocratica",
+   "data_publicacao": "2023-09-26",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "SÉRGIO KUKINA",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=209585060&num_registro=202302805252&data=20230926&tipo=0&formato=PDF",
+   "url": "/decisao/5dfd4052-f309-455c-97e0-458d231cbb55"
+  }
+ ]
+}

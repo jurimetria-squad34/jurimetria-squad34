@@ -1,0 +1,49 @@
+{
+ "decisoes": [
+  {
+   "id": "a183e9e0-bf02-4fba-8866-97f5cb5fb327",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "1971153",
+   "tipo": "acordao",
+   "data_publicacao": "2022-08-24",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "OG FERNANDES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=161995482&registro_numero=202103473892&publicacao_data=20220824&O=JT",
+   "url": "/decisao/a183e9e0-bf02-4fba-8866-97f5cb5fb327"
+  },
+  {
+   "id": "9d0a7269-6e4f-414b-8348-c65ce8e06b5a",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "1971153",
+   "tipo": "monocratica",
+   "data_publicacao": "2022-05-12",
+   "resultado": "concedido",
+   "resultado_rotulo": "Concedido",
+   "relator": "OG FERNANDES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=151731134&num_registro=202103473892&data=20220512&tipo=0&formato=PDF",
+   "url": "/decisao/9d0a7269-6e4f-414b-8348-c65ce8e06b5a"
+  },
+  {
+   "id": "1982264c-220f-4c29-8908-f9a78202019e",
+   "tribunal": "STJ",
+   "classe": "REsp",
+   "numero": "1971153",
+   "tipo": "monocratica",
+   "data_publicacao": "2022-05-12",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "OG FERNANDES",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=152023022&num_registro=202103473892&data=20220512&tipo=0&formato=PDF",
+   "url": "/decisao/1982264c-220f-4c29-8908-f9a78202019e"
+  }
+ ]
+}

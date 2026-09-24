@@ -1,0 +1,64 @@
+{
+ "decisoes": [
+  {
+   "id": "0dec2a76-f40c-44a5-8bcc-f952f9a9507e",
+   "tribunal": "STJ",
+   "classe": "HC",
+   "numero": "1000028",
+   "tipo": "monocratica",
+   "data_publicacao": "2026-03-27",
+   "resultado": "nao_conhecido",
+   "resultado_rotulo": "Não conhecido",
+   "relator": "LUIS FELIPE SALOMÃO",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=365169593&num_registro=202501516173&data=20260327&tipo=0&formato=PDF",
+   "url": "/decisao/0dec2a76-f40c-44a5-8bcc-f952f9a9507e"
+  },
+  {
+   "id": "82ad74a6-efb5-4809-9196-4e38a6a18beb",
+   "tribunal": "STJ",
+   "classe": "HC",
+   "numero": "1000028",
+   "tipo": "monocratica",
+   "data_publicacao": "2025-12-15",
+   "resultado": "outro",
+   "resultado_rotulo": "Outro",
+   "relator": "SEBASTIÃO REIS JÚNIOR",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=349326305&num_registro=202501516173&data=20251215&tipo=0&formato=PDF",
+   "url": "/decisao/82ad74a6-efb5-4809-9196-4e38a6a18beb"
+  },
+  {
+   "id": "0333ae66-e285-4b99-8915-2559f9775a5b",
+   "tribunal": "STJ",
+   "classe": "HC",
+   "numero": "1000028",
+   "tipo": "acordao",
+   "data_publicacao": "2025-09-15",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "SEBASTIÃO REIS JÚNIOR",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=334932793&registro_numero=202501516173&publicacao_data=20250915&O=JT",
+   "url": "/decisao/0333ae66-e285-4b99-8915-2559f9775a5b"
+  },
+  {
+   "id": "c5713770-1c81-44ec-a0c4-c47f7f287279",
+   "tribunal": "STJ",
+   "classe": "HC",
+   "numero": "1000028",
+   "tipo": "monocratica",
+   "data_publicacao": "2025-05-08",
+   "resultado": "concedido",
+   "resultado_rotulo": "Concedido",
+   "relator": "SEBASTIÃO REIS JÚNIOR",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=311510011&num_registro=202501516173&data=20250508&tipo=0&formato=PDF",
+   "url": "/decisao/c5713770-1c81-44ec-a0c4-c47f7f287279"
+  }
+ ]
+}

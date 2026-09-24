@@ -1,0 +1,19 @@
+{
+ "decisoes": [
+  {
+   "id": "8a096b1e-399a-43fd-ad13-2ea438e91754",
+   "tribunal": "STF",
+   "classe": "RE",
+   "numero": "10532",
+   "tipo": "acordao",
+   "data_publicacao": null,
+   "resultado": "outro",
+   "resultado_rotulo": "Outro",
+   "relator": "ANNIBAL FREIRE",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://portal.stf.jus.br/jurisprudencia/obterInteiroTeor.asp?numero=10532&classe=RE",
+   "url": "/decisao/8a096b1e-399a-43fd-ad13-2ea438e91754"
+  }
+ ]
+}

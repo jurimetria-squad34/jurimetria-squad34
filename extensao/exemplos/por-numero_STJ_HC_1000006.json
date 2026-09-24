@@ -1,0 +1,49 @@
+{
+ "decisoes": [
+  {
+   "id": "ea73f6be-0aad-445b-94a2-bfabf0824654",
+   "tribunal": "STJ",
+   "classe": "HC",
+   "numero": "1000006",
+   "tipo": "acordao",
+   "data_publicacao": "2025-09-15",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "JOEL ILAN PACIORNIK",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=334995728&registro_numero=202501508956&publicacao_data=20250915&O=JT",
+   "url": "/decisao/ea73f6be-0aad-445b-94a2-bfabf0824654"
+  },
+  {
+   "id": "eb3a85ee-e23b-40ff-a316-1a54d89d81db",
+   "tribunal": "STJ",
+   "classe": "HC",
+   "numero": "1000006",
+   "tipo": "acordao",
+   "data_publicacao": "2025-08-18",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "JOEL ILAN PACIORNIK",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/julgamento/eletronico/documento/?documento_tipo=integra&documento_sequencial=329915833&registro_numero=202501508956&publicacao_data=20250818&O=JT",
+   "url": "/decisao/eb3a85ee-e23b-40ff-a316-1a54d89d81db"
+  },
+  {
+   "id": "8e9d5e9f-4bf1-4707-96ad-bda45790f9ea",
+   "tribunal": "STJ",
+   "classe": "HC",
+   "numero": "1000006",
+   "tipo": "monocratica",
+   "data_publicacao": "2025-05-12",
+   "resultado": "negado",
+   "resultado_rotulo": "Negado",
+   "relator": "HERMAN BENJAMIN",
+   "orgao_julgador": null,
+   "tese": null,
+   "link_oficial": "https://processo.stj.jus.br/processo/dj/documento/mediado/?tipo_documento=documento&componente=MON&sequencial=311837035&num_registro=202501508956&data=20250512&tipo=0&formato=PDF",
+   "url": "/decisao/8e9d5e9f-4bf1-4707-96ad-bda45790f9ea"
+  }
+ ]
+}
