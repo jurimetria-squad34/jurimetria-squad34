@@ -1,0 +1,17 @@
+---
+import Base from "../layouts/Base.astro";
+import TesteIlha from "../components/TesteIlha";
+---
+
+<Base
+  title="Observatório Jurimétrico do STJ e STF"
+  description="Como o STJ e o STF decidem: taxa de decisões favoráveis por classe, matéria e relator."
+>
+  <h1 class="text-3xl font-bold">Observatório do STJ e do STF</h1>
+  <p class="mt-2 text-slate-700">Setup com Astro funcionando.</p>
+
+  <section class="mt-8">
+    <h2 class="text-xl font-semibold">Teste da ilha React</h2>
+    <TesteIlha client:visible />
+  </section>
+</Base>
