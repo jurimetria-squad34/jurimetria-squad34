@@ -1,0 +1,6 @@
+## Trocar dps ##
+
+User-agent: *
+Allow: /
+
+Sitemap: https://SEU-DOMINIO/sitemap-index.xml

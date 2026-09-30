@@ -1,0 +1,25 @@
+{
+  "planos": [
+    {
+      "nome": "Profissional",
+      "preco": "R$ 000/mês",
+      "descricao": "Para advogado autônomo",
+      "recursos": [
+        "Busca de jurisprudência do STJ e do STF",
+        "Jurimetria por classe, matéria, relator e ano",
+        "Alertas de decisão nova"
+      ]
+    },
+    {
+      "nome": "Escritório",
+      "preco": "R$ 000/mês",
+      "descricao": "Para escritórios com equipe",
+      "recursos": [
+        "Tudo do plano Profissional",
+        "Pesquisa por caso com IA",
+        "Múltiplos usuários",
+        "Relatórios para clientes"
+      ]
+    }
+  ]
+}
