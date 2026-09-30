@@ -28,11 +28,11 @@ Relatores, Metodologia).
 
 ## Como rodar
 
-\```bash
+```bash
 cd observatorio
 npm install
 npm run dev
-\```
+```
 
 Abre em http://localhost:4321.
 
