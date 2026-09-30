@@ -6,9 +6,12 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "predev": "tsx scripts/process-data.ts",
     "dev": "astro dev",
+    "prebuild": "tsx scripts/process-data.ts",
     "build": "astro build",
     "preview": "astro preview",
+    "data": "tsx scripts/process-data.ts",
     "check": "astro check",
     "lint": "eslint .",
     "test": "vitest run"
