@@ -1,83 +1,165 @@
 ---
-// ============================================
-// Ano atual — para o copyright
-// ============================================
 const ano = new Date().getFullYear();
+
+const grupos = [
+    {
+        titulo: 'Produto',
+        links: [
+            { texto: 'Como funciona', href: '/como-funciona' },
+            { texto: 'Planos', href: '/planos' },
+            { texto: 'Conteúdo', href: '/conteudo' },
+            { texto: 'Pedir acesso', href: '/pedir-acesso' },
+        ],
+    },
+    {
+        titulo: 'Legal',
+        links: [
+            { texto: 'Privacidade', href: '/privacidade' },
+            { texto: 'Termos de uso', href: '/termos' },
+        ],
+    },
+];
 ---
 
-<footer class="filete border-t mt-24">
-    <div class="max-w-5xl mx-auto px-6 py-12">
-        {/* ============================================
-        Colunas do footer
-        ============================================ */}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
-            {/* Coluna 1 — marca */}
-            <div>
-                <p class="font-titulo text-xl font-bold mb-3">Jurimetria</p>
-                <p class="legenda">
-                    Jurisprudência verificável do STJ e do STF. Toda decisão com
-                    trecho literal e link oficial.
+<footer class="rodape">
+    <div class="rodape-wrap">
+        <div class="rodape-topo">
+            <div class="rodape-marca">
+                <p class="rodape-nome">Jurimetria</p>
+                <p class="rodape-desc">
+                    Jurisprudência verificável do STJ e do STF.
                 </p>
             </div>
 
-            {/* Coluna 2 — produto */}
-            <div>
-                <p class="legenda mb-3">Produto</p>
-                <ul class="space-y-2 list-none p-0">
-                    <li>
-                        <a
-                            href="/como-funciona"
-                            class="no-underline text-tinta"
-                        >
-                            Como funciona
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/planos" class="no-underline text-tinta">
-                            Planos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/conteudo" class="no-underline text-tinta">
-                            Conteúdo
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pedir-acesso" class="no-underline text-tinta">
-                            Pedir acesso
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            {/* Coluna 3 — legal */}
-            <div>
-                <p class="legenda mb-3">Legal</p>
-                <ul class="space-y-2 list-none p-0">
-                    <li>
-                        <a href="/privacidade" class="no-underline text-tinta">
-                            Privacidade
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/termos" class="no-underline text-tinta">
-                            Termos de uso
-                        </a>
-                    </li>
-                </ul>
+            <div class="rodape-links">
+                {grupos.map((grupo) => (
+                    <nav class="rodape-grupo" aria-label={grupo.titulo}>
+                        <span class="rodape-titulo">{grupo.titulo}</span>
+                        <ul>
+                            {grupo.links.map((link) => (
+                                <li>
+                                    <a href={link.href}>{link.texto}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                ))}
             </div>
         </div>
 
-        {/* ============================================
-        Linha final
-        ============================================ */}
-        <div class="filete pt-6 flex flex-col md:flex-row justify-between gap-4">
-            <p class="legenda">
-                © {ano} Jurimetria. Todos os direitos reservados.
-            </p>
-            <p class="legenda">
-                O Jurimetria não substitui a análise de um advogado.
-            </p>
+        <div class="rodape-fim">
+            <p>© {ano} Jurimetria. Todos os direitos reservados.</p>
+            <p>O Jurimetria não substitui a análise de um advogado.</p>
         </div>
     </div>
 </footer>
+
+<style>
+    .rodape {
+        background: var(--color-tinta);
+        color: var(--color-papel);
+        font-family: var(--font-corpo);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-top: 6rem;
+    }
+
+    .rodape p,
+    .rodape ul {
+        margin: 0;
+    }
+
+    .rodape-wrap {
+        max-width: 70rem;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 1.25rem;
+    }
+
+    .rodape-topo {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+    .rodape-nome {
+        font-family: var(--font-titulo);
+        font-size: 1.3rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 0.3rem;
+        color: var(--color-papel);
+    }
+
+    .rodape-desc {
+        color: var(--color-tinta-suave);
+    }
+
+    .rodape-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .rodape-grupo {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.2rem 1.5rem;
+    }
+
+    .rodape-titulo {
+        font-weight: 600;
+        min-width: 4.5rem;
+        color: var(--color-papel);
+    }
+
+    .rodape ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2rem 1.5rem;
+        list-style: none;
+        padding: 0;
+    }
+
+    .rodape a {
+        color: var(--color-tinta-suave);
+        text-decoration: none;
+        transition: color 0.15s ease;
+    }
+
+    .rodape a:hover {
+        color: var(--color-papel);
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+        text-decoration-thickness: 1px;
+    }
+
+    .rodape a:focus-visible {
+        outline: 3px solid var(--color-mostarda);
+        outline-offset: 3px;
+        border-radius: 2px;
+    }
+
+    .rodape-fim {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem 2rem;
+        color: var(--color-tinta-suave);
+        font-size: 0.825rem;
+    }
+
+    @media (min-width: 48rem) {
+        .rodape-topo {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 3rem;
+        }
+
+        .rodape-fim {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+</style>
