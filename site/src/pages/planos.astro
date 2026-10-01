@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import planos from '../config/planos.json';
+---
+
+<Layout
+  title="Planos — Jurimetria"
+  description="Planos do Jurimetria para advogados autônomos e escritórios."
+>
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <p class="legenda mb-2">Em construção</p>
+    <h1 class="mb-6">Planos</h1>
+    <p class="text-lg max-w-2xl mb-10">
+      Dois planos, um para advogado autônomo e outro para escritório.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {planos.planos.map((plano) => (
+        <article class="card">
+          <h2 class="card-titulo">{plano.nome}</h2>
+          <p class="legenda mb-4">{plano.descricao}</p>
+          <p class="numero-grande mb-6">{plano.preco}</p>
+          <ul class="space-y-2 list-none p-0">
+            {plano.recursos.map((r) => (
+              <li class="legenda">{r}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

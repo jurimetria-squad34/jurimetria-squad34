@@ -1,6 +1,4 @@
-## Trocar dps ##
-
 User-agent: *
 Allow: /
 
-Sitemap: https://SEU-DOMINIO/sitemap-index.xml
+Sitemap: https://jurimetria.com.br/sitemap-index.xml

@@ -1,0 +1,60 @@
+---
+// ============================================
+// Ano atual — para o copyright
+// ============================================
+const ano = new Date().getFullYear();
+---
+
+<footer class="filete border-t mt-24">
+  <div class="max-w-5xl mx-auto px-6 py-12">
+
+    {/* ============================================
+        Colunas do footer
+        ============================================ */}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+
+      {/* Coluna 1 — marca */}
+      <div>
+        <p class="font-titulo text-xl font-bold mb-3">Jurimetria</p>
+        <p class="legenda">
+          Jurisprudência verificável do STJ e do STF.
+          Toda decisão com trecho literal e link oficial.
+        </p>
+      </div>
+
+      {/* Coluna 2 — produto */}
+      <div>
+        <p class="legenda mb-3">Produto</p>
+        <ul class="space-y-2 list-none p-0">
+          <li><a href="/como-funciona" class="no-underline text-tinta">Como funciona</a></li>
+          <li><a href="/planos" class="no-underline text-tinta">Planos</a></li>
+          <li><a href="/conteudo" class="no-underline text-tinta">Conteúdo</a></li>
+          <li><a href="/pedir-acesso" class="no-underline text-tinta">Pedir acesso</a></li>
+        </ul>
+      </div>
+
+      {/* Coluna 3 — legal */}
+      <div>
+        <p class="legenda mb-3">Legal</p>
+        <ul class="space-y-2 list-none p-0">
+          <li><a href="/privacidade" class="no-underline text-tinta">Privacidade</a></li>
+          <li><a href="/termos" class="no-underline text-tinta">Termos de uso</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    {/* ============================================
+        Linha final
+        ============================================ */}
+    <div class="filete pt-6 flex flex-col md:flex-row justify-between gap-4">
+      <p class="legenda">
+        © {ano} Jurimetria. Todos os direitos reservados.
+      </p>
+      <p class="legenda">
+        O Jurimetria não substitui a análise de um advogado.
+      </p>
+    </div>
+
+  </div>
+</footer>
