@@ -23,156 +23,144 @@
 /* ============================================
    Base
    ============================================ */
-html {
-  font-family: var(--font-corpo);
-  background-color: var(--color-papel);
-  color: var(--color-tinta);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+@layer base {
+  html {
+    font-family: var(--font-corpo);
+    background-color: var(--color-papel);
+    color: var(--color-tinta);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-}
+  body {
+    margin: 0;
+    min-height: 100vh;
+  }
 
-/* ============================================
-   Títulos
-   ============================================ */
-h1, h2, h3, h4 {
-  font-family: var(--font-titulo);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: var(--color-tinta);
-}
+  h1, h2, h3, h4 {
+    font-family: var(--font-titulo);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-tinta);
+  }
 
-h1 { font-size: 2.5rem; font-weight: 700; }
-h2 { font-size: 1.75rem; }
-h3 { font-size: 1.25rem; }
+  h1 { font-size: 2.5rem; font-weight: 700; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.25rem; }
 
-/* ============================================
-   Números em mono — assinatura do site
-   ============================================ */
-.numero {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
-}
+  a {
+    color: var(--color-verde);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
 
-.numero-grande {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 3rem;
-  line-height: 1;
-  letter-spacing: -0.03em;
+  a:hover {
+    color: var(--color-verde-claro);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-vinho);
+    outline-offset: 2px;
+  }
 }
 
 /* ============================================
-   Filetes
+   Componentes
    ============================================ */
-.filete {
-  border-top: 1px solid var(--color-borda);
-}
+@layer components {
+  /* Números em mono — assinatura do site */
+  .numero {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
 
-.filete-vertical {
-  border-left: 1px solid var(--color-borda);
-}
+  .numero-grande {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    overflow-wrap: anywhere;
+  }
 
-/* ============================================
-   Botões
-   ============================================ */
-.botao {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  font-family: var(--font-corpo);
-  font-weight: 500;
-  font-size: 1rem;
-  border-radius: 2px;
-  text-decoration: none;
-  transition: background-color 0.15s, color 0.15s;
-  border: 1px solid transparent;
-}
+  /* Filetes */
+  .filete {
+    border-top: 1px solid var(--color-borda);
+  }
 
-.botao-primario {
-  background-color: var(--color-verde);
-  color: var(--color-papel);
-}
+  .filete-vertical {
+    border-left: 1px solid var(--color-borda);
+  }
 
-.botao-primario:hover {
-  background-color: var(--color-verde-claro);
-}
+  /* Botões */
+  .botao {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-corpo);
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
+    border: 1px solid transparent;
+  }
 
-.botao-secundario {
-  background-color: transparent;
-  color: var(--color-tinta);
-  border: 1px solid var(--color-tinta);
-}
+  .botao-primario {
+    background-color: var(--color-verde);
+    color: var(--color-papel);
+  }
 
-.botao-secundario:hover {
-  background-color: var(--color-tinta);
-  color: var(--color-papel);
-}
+  .botao-primario:hover {
+    background-color: var(--color-verde-claro);
+  }
 
-/* ============================================
-   Cards
-   ============================================ */
-.card {
-  border: 1px solid var(--color-borda);
-  border-radius: 2px;
-  padding: 1.5rem;
-  background-color: var(--color-papel);
-}
+  .botao-secundario {
+    background-color: transparent;
+    color: var(--color-tinta);
+    border: 1px solid var(--color-tinta);
+  }
 
-.card-titulo {
-  font-family: var(--font-titulo);
-  font-weight: 600;
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
+  .botao-secundario:hover {
+    background-color: var(--color-tinta);
+    color: var(--color-papel);
+  }
 
-/* ============================================
-   Links
-   ============================================ */
-a {
-  color: var(--color-verde);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-}
+  /* Cards */
+  .card {
+    border: 1px solid var(--color-borda);
+    border-radius: 2px;
+    padding: 1.5rem;
+    background-color: var(--color-papel);
+    min-width: 0;
+  }
 
-a:hover {
-  color: var(--color-verde-claro);
-}
+  .card-titulo {
+    font-family: var(--font-titulo);
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
 
-/* ============================================
-   Foco visível para teclado
-   ============================================ */
-:focus-visible {
-  outline: 2px solid var(--color-vinho);
-  outline-offset: 2px;
-}
+  /* Citação editorial */
+  .citacao {
+    font-family: var(--font-titulo);
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--color-vinho);
+    border-left: 2px solid var(--color-vinho);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+  }
 
-/* ============================================
-   Citação editorial
-   ============================================ */
-.citacao {
-  font-family: var(--font-titulo);
-  font-style: italic;
-  font-size: 1.25rem;
-  line-height: 1.5;
-  color: var(--color-vinho);
-  border-left: 2px solid var(--color-vinho);
-  padding-left: 1rem;
-  margin: 1.5rem 0;
-}
-
-/* ============================================
-   Legenda pequena
-   ============================================ */
-.legenda {
-  font-family: var(--font-corpo);
-  font-size: 0.875rem;
-  color: var(--color-tinta-suave);
+  /* Legenda pequena */
+  .legenda {
+    font-family: var(--font-corpo);
+    font-size: 0.875rem;
+    color: var(--color-tinta-suave);
+  }
 }
