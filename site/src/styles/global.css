@@ -1,23 +1,25 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* ============================================
-   Tema — paleta editorial jurídica
+   Tema — paleta verde escura
    ============================================ */
 @theme {
-    --color-papel: #f5f1ea;
-    --color-papel-escuro: #eae4d8;
-    --color-tinta: #1a1a1a;
-    --color-tinta-suave: #5c5650;
-    --color-verde: #1f3a2e;
-    --color-verde-claro: #2c5240;
-    --color-vinho: #7a2e2e;
-    --color-borda: #d8d0c2;
-    --color-musgo: #4a5d3a;
-    --color-mostarda: #a67c3d;
+    /* Cores principais */
+    --color-papel: #eef2f0; /* fundo principal, off-white esverdeado */
+    --color-papel-escuro: #e3e9e6; /* fundo alternado, seções */
+    --color-tinta: #16231f; /* texto principal, verde escuro */
+    --color-tinta-suave: #aebbb6; /* texto secundário, cinza esverdeado */
+    --color-borda: #d3dad7; /* filetes e bordas */
+    --color-verde: #0f5c4d; /* destaque principal, verde */
+    --color-verde-claro: #1a7a67; /* hover do destaque */
+    --color-mostarda: #f2df84; /* acento, foco de teclado */
+    --color-vinho: #7a2e2e; /* reserva para realces editoriais */
+    --color-musgo: #4a5d3a; /* reserva para números favoráveis */
 
-    --font-titulo: 'Fraunces', Georgia, serif;
-    --font-corpo: 'IBM Plex Sans', system-ui, sans-serif;
-    --font-mono: 'IBM Plex Mono', monospace;
+    /* Tipografia */
+    --font-titulo: "Fraunces", Georgia, serif;
+    --font-corpo: "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", monospace;
 }
 
 /* ============================================
@@ -71,7 +73,7 @@
     }
 
     :focus-visible {
-        outline: 2px solid var(--color-vinho);
+        outline: 2px solid var(--color-mostarda);
         outline-offset: 2px;
     }
 }
@@ -113,17 +115,15 @@
         font-family: var(--font-corpo);
         font-weight: 500;
         font-size: 1rem;
-        border-radius: 2px;
+        border-radius: 4px;
         text-decoration: none;
-        transition:
-            background-color 0.15s,
-            color 0.15s;
+        transition: background-color 0.15s, color 0.15s;
         border: 1px solid transparent;
     }
 
     .botao-primario {
         background-color: var(--color-verde);
-        color: var(--color-papel);
+        color: #ffffff;
     }
 
     .botao-primario:hover {
@@ -144,9 +144,9 @@
     /* Cards */
     .card {
         border: 1px solid var(--color-borda);
-        border-radius: 2px;
+        border-radius: 6px;
         padding: 1.5rem;
-        background-color: var(--color-papel);
+        background-color: #ffffff;
         min-width: 0;
     }
 
@@ -163,8 +163,8 @@
         font-style: italic;
         font-size: 1.25rem;
         line-height: 1.5;
-        color: var(--color-vinho);
-        border-left: 2px solid var(--color-vinho);
+        color: var(--color-verde);
+        border-left: 2px solid var(--color-verde);
         padding-left: 1rem;
         margin: 1.5rem 0;
     }
