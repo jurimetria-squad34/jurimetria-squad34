@@ -11,7 +11,8 @@
         "preview": "astro preview",
         "astro": "astro",
         "test": "vitest run",
-        "test:watch": "vitest"
+        "test:watch": "vitest",
+        "extrair-universo": "tsx scripts/extrair-universo.ts"
     },
     "dependencies": {
         "@astrojs/react": "^7.0.0",
@@ -31,6 +32,7 @@
         "@vitest/ui": "^5.0.3",
         "prettier": "^3.9.9",
         "prettier-plugin-astro": "^1.1.0",
+        "tsx": "^4.23.15",
         "vitest": "^5.0.3"
     }
 }
