@@ -1,1 +1,178 @@
 @import "tailwindcss";
+
+/* ============================================
+   Tema — paleta editorial jurídica
+   ============================================ */
+@theme {
+  --color-papel: #F5F1EA;
+  --color-papel-escuro: #EAE4D8;
+  --color-tinta: #1A1A1A;
+  --color-tinta-suave: #5C5650;
+  --color-verde: #1F3A2E;
+  --color-verde-claro: #2C5240;
+  --color-vinho: #7A2E2E;
+  --color-borda: #D8D0C2;
+  --color-musgo: #4A5D3A;
+  --color-mostarda: #A67C3D;
+
+  --font-titulo: "Fraunces", Georgia, serif;
+  --font-corpo: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+/* ============================================
+   Base
+   ============================================ */
+html {
+  font-family: var(--font-corpo);
+  background-color: var(--color-papel);
+  color: var(--color-tinta);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ============================================
+   Títulos
+   ============================================ */
+h1, h2, h3, h4 {
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-tinta);
+}
+
+h1 { font-size: 2.5rem; font-weight: 700; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+
+/* ============================================
+   Números em mono — assinatura do site
+   ============================================ */
+.numero {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.numero-grande {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 3rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* ============================================
+   Filetes
+   ============================================ */
+.filete {
+  border-top: 1px solid var(--color-borda);
+}
+
+.filete-vertical {
+  border-left: 1px solid var(--color-borda);
+}
+
+/* ============================================
+   Botões
+   ============================================ */
+.botao {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-corpo);
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+  border: 1px solid transparent;
+}
+
+.botao-primario {
+  background-color: var(--color-verde);
+  color: var(--color-papel);
+}
+
+.botao-primario:hover {
+  background-color: var(--color-verde-claro);
+}
+
+.botao-secundario {
+  background-color: transparent;
+  color: var(--color-tinta);
+  border: 1px solid var(--color-tinta);
+}
+
+.botao-secundario:hover {
+  background-color: var(--color-tinta);
+  color: var(--color-papel);
+}
+
+/* ============================================
+   Cards
+   ============================================ */
+.card {
+  border: 1px solid var(--color-borda);
+  border-radius: 2px;
+  padding: 1.5rem;
+  background-color: var(--color-papel);
+}
+
+.card-titulo {
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   Links
+   ============================================ */
+a {
+  color: var(--color-verde);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  color: var(--color-verde-claro);
+}
+
+/* ============================================
+   Foco visível para teclado
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--color-vinho);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Citação editorial
+   ============================================ */
+.citacao {
+  font-family: var(--font-titulo);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--color-vinho);
+  border-left: 2px solid var(--color-vinho);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* ============================================
+   Legenda pequena
+   ============================================ */
+.legenda {
+  font-family: var(--font-corpo);
+  font-size: 0.875rem;
+  color: var(--color-tinta-suave);
+}
