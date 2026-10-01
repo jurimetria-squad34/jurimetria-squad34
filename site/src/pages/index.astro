@@ -1,26 +1,490 @@
 ---
+// ============================================
+// Imports
+// ============================================
+import universo from '../data/universo.json';
 import Layout from '../layouts/Layout.astro';
 
-const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Jurimetria',
-    applicationCategory: 'BusinessApplication',
-    description: 'Jurisprudência verificável do STJ e do STF.',
-};
+// ============================================
+// Dados da base
+// ============================================
+const { tribunais, decisoes, de, ate } = universo.universo;
+const total = decisoes.toLocaleString('pt-BR');
+const listaTribunais = new Intl.ListFormat('pt-BR', {
+    style: 'long',
+    type: 'conjunction',
+}).format(tribunais);
+
+// ============================================
+// Funções do produto
+// A propriedade `imagem` é opcional: quando o
+// cliente mandar as capturas, é só preencher.
+// ============================================
+const funcoes = [
+    {
+        titulo: 'Busca de jurisprudência',
+        resumo: 'Pesquisa por palavra ou por sentido em 12 milhões de decisões.',
+        imagem: '',
+    },
+    {
+        titulo: 'Tela da decisão',
+        resumo: 'Ementa, inteiro teor e link oficial do tribunal na mesma página.',
+        imagem: '',
+    },
+    {
+        titulo: 'Jurimetria',
+        resumo: 'Taxa de decisões favoráveis por classe, matéria, relator e ano.',
+        imagem: '',
+    },
+    {
+        titulo: 'Pesquisa por caso',
+        resumo: 'Precedentes separados em favoráveis, contrários e de distinção.',
+        imagem: '',
+    },
+    {
+        titulo: 'Alertas',
+        resumo: 'Aviso quando entra decisão nova que casa com a sua busca.',
+        imagem: '',
+    },
+];
+
+// ============================================
+// Limites do produto
+// ============================================
+const limites = [
+    'Não gera petição.',
+    'Não prevê o resultado de um processo.',
+    'Não busca por nome de parte.',
+];
 ---
 
 <Layout
     title="Jurimetria — jurisprudência verificável do STJ e do STF"
-    description="Pesquisa de jurisprudência, jurimetria e pesquisa por caso com IA, com trecho literal e link oficial."
-    schema={schema}
+    description="Pesquisa de jurisprudência, jurimetria e pesquisa por caso com IA, com trecho literal e link oficial em cada decisão."
 >
-    <section class="max-w-5xl mx-auto px-6 py-16">
-        <p class="legenda mb-2">Em construção</p>
-        <h1 class="mb-6">Jurisprudência verificável, do STJ e do STF</h1>
-        <p class="text-lg max-w-2xl">
-            A página inicial será construída na próxima etapa, com a proposta de
-            valor, as cinco funções do produto e a chamada para pedir acesso.
-        </p>
-    </section>
+    <div class="home">
+        {/* ============================================
+            Hero — texto + exemplo de decisão
+            ============================================ */}
+        <section class="hero">
+            <div class="wrap hero-grid">
+                <div class="hero-texto">
+                    <h1>
+                        Jurisprudência verificável do STJ e do STF, com trecho
+                        literal e link oficial em cada decisão.
+                    </h1>
+
+                    <p class="lead">
+                        O Jurimetria reúne as decisões dos dois tribunais,
+                        mostra a taxa de decisões favoráveis por classe,
+                        matéria, relator e ano, e separa os precedentes de um
+                        caso em favoráveis, contrários e de distinção.
+                    </p>
+
+                    <div class="acoes">
+                        <a href="/pedir-acesso" class="botao botao-primario">
+                            Pedir acesso
+                        </a>
+                        <a href="/como-funciona" class="link-secundario">
+                            Como funciona
+                        </a>
+                    </div>
+                </div>
+
+                {/* Exemplo de decisão */}
+                <figure
+                    class="decisao"
+                    aria-label="Exemplo de decisão no Jurimetria"
+                >
+                    <dl class="decisao-meta">
+                        <div>
+                            <dt>Tribunal</dt>
+                            <dd>STJ</dd>
+                        </div>
+                        <div>
+                            <dt>Classe</dt>
+                            <dd>REsp 0000000</dd>
+                        </div>
+                        <div>
+                            <dt>Julgamento</dt>
+                            <dd>00/00/0000</dd>
+                        </div>
+                    </dl>
+
+                    <blockquote class="decisao-trecho">
+                        <p>
+                            …a indenização só se justifica quando
+                            <mark>
+                                demonstrado o nexo causal entre a conduta e o
+                                abalo sofrido
+                            </mark>
+                            , sendo insuficiente a mera alegação de transtorno…
+                        </p>
+                    </blockquote>
+
+                    <div class="decisao-rodape">
+                        <a href="#" class="link-oficial" tabindex="-1">
+                            Abrir no site do tribunal
+                        </a>
+                        <span class="nota">Exemplo ilustrativo</span>
+                    </div>
+                </figure>
+            </div>
+        </section>
+
+        {/* ============================================
+            Base — faixa escura com os números
+            ============================================ */}
+        <section class="faixa-base">
+            <div class="wrap">
+                <p class="base-texto">
+                    <strong>{total} decisões</strong> do {listaTribunais}, de
+                    {de} a {ate}.
+                </p>
+                <p class="base-criterio">{universo.criterio}</p>
+            </div>
+        </section>
+
+        {/* ============================================
+            Funções
+            ============================================ */}
+        <section class="funcoes">
+            <div class="wrap">
+                <h2>O que o Jurimetria faz</h2>
+
+                <div class="funcoes-grid">
+                    {funcoes.map((funcao) => (
+                        <article class="funcao">
+                            {funcao.imagem && (
+                                <img
+                                    src={funcao.imagem}
+                                    alt={`Tela: ${funcao.titulo}`}
+                                    loading="lazy"
+                                />
+                            )}
+                            <h3>{funcao.titulo}</h3>
+                            <p>{funcao.resumo}</p>
+                        </article>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        {/* ============================================
+            Fecho — CTA + limites
+            ============================================ */}
+        <section class="fecho">
+            <div class="wrap fecho-grid">
+                <div>
+                    <h2>Peça acesso e veja como o STJ e o STF decidem.</h2>
+                    <p class="lead">
+                        Nada é inventado pela IA. Tudo vem da base, com link
+                        oficial. O advogado decide com as decisões, a taxa e a
+                        fonte na mão.
+                    </p>
+                    <div class="acoes">
+                        <a href="/pedir-acesso" class="botao botao-primario">
+                            Pedir acesso
+                        </a>
+                    </div>
+                </div>
+
+                <div class="limites">
+                    <h3>O que ele não faz</h3>
+                    <ul>
+                        {limites.map((item) => (
+                            <li>{item}</li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
 </Layout>
+
+<style>
+    /* ============================================
+       Escopo da Home
+       CSS isolado, não interfere no resto do site
+       ============================================ */
+    .home {
+        font-family: var(--font-corpo);
+        color: var(--color-tinta);
+        font-size: 1.0625rem;
+        line-height: 1.6;
+    }
+
+    .home .wrap {
+        max-width: 70rem;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .home h1,
+    .home h2,
+    .home h3 {
+        font-family: var(--font-titulo);
+        color: var(--color-tinta);
+        margin: 0;
+        letter-spacing: -0.01em;
+    }
+
+    .home h1 {
+        font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+        font-weight: 700;
+        line-height: 1.08;
+        margin-bottom: 1.75rem;
+    }
+
+    .home h2 {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 600;
+        line-height: 1.15;
+        margin-bottom: 1.25rem;
+    }
+
+    .home h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        line-height: 1.25;
+        margin-bottom: 0.4rem;
+    }
+
+    .home p {
+        margin: 0;
+    }
+
+    .home .lead {
+        font-size: 1.125rem;
+        color: var(--color-tinta);
+        max-width: 36rem;
+        margin-bottom: 2.25rem;
+    }
+
+    /* ============================================
+       Ações
+       ============================================ */
+    .home .acoes {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .home .link-secundario {
+        color: var(--color-tinta);
+        font-weight: 500;
+        text-decoration: underline;
+        text-underline-offset: 0.3em;
+        text-decoration-thickness: 1px;
+    }
+
+    .home .link-secundario:hover {
+        color: var(--color-verde);
+    }
+
+    /* ============================================
+       Hero
+       ============================================ */
+    .home .hero {
+        padding: 5rem 0 4.5rem;
+    }
+
+    .home .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+        align-items: center;
+    }
+
+    /* ============================================
+       Exemplo de decisão
+       ============================================ */
+    .home .decisao {
+        margin: 0;
+        background: #ffffff;
+        border: 1px solid var(--color-borda);
+        border-radius: 8px;
+        padding: 1.5rem 1.5rem 1.25rem;
+        box-shadow:
+            0 1px 0 var(--color-borda),
+            0 18px 40px -28px rgba(22, 35, 31, 0.5);
+    }
+
+    .home .decisao-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.75rem;
+        margin: 0 0 1.25rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--color-borda);
+        font-size: 0.875rem;
+    }
+
+    .home .decisao-meta dt {
+        color: var(--color-tinta-suave);
+        font-size: 0.8rem;
+    }
+
+    .home .decisao-meta dd {
+        margin: 0;
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .home .decisao-trecho {
+        margin: 0 0 1.25rem;
+        padding: 0;
+        font-family: var(--font-titulo);
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+
+    .home .decisao-trecho mark {
+        background: #f2df84;
+        color: inherit;
+        padding: 0.05em 0.15em;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+    }
+
+    .home .decisao-rodape {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .home .link-oficial {
+        color: var(--color-verde);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+        text-decoration-thickness: 1px;
+    }
+
+    .home .nota {
+        color: var(--color-tinta-suave);
+        font-style: italic;
+    }
+
+    /* ============================================
+       Faixa base
+       ============================================ */
+    .home .faixa-base {
+        background: var(--color-tinta);
+        color: #eef2f0;
+        padding: 2.75rem 0;
+    }
+
+    .home .base-texto {
+        font-family: var(--font-titulo);
+        font-size: clamp(1.4rem, 2.8vw, 2rem);
+        line-height: 1.25;
+    }
+
+    .home .base-texto strong {
+        font-weight: 700;
+    }
+
+    .home .base-criterio {
+        margin-top: 0.6rem;
+        color: #aebbb6;
+        font-size: 0.95rem;
+    }
+
+    /* ============================================
+       Funções
+       ============================================ */
+    .home .funcoes {
+        padding: 5rem 0 4.5rem;
+    }
+
+    .home .funcoes-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2.5rem 2.5rem;
+        margin-top: 2.5rem;
+    }
+
+    .home .funcao {
+        border-top: 2px solid var(--color-tinta);
+        padding-top: 1rem;
+    }
+
+    .home .funcao p {
+        color: var(--color-tinta);
+        max-width: 28rem;
+    }
+
+    .home .funcao img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid var(--color-borda);
+        border-radius: 6px;
+        margin-bottom: 1rem;
+    }
+
+    /* ============================================
+       Fecho
+       ============================================ */
+    .home .fecho {
+        padding: 4.5rem 0 5.5rem;
+        border-top: 1px solid var(--color-borda);
+    }
+
+    .home .fecho-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: start;
+    }
+
+    .home .limites h3 {
+        margin-bottom: 0.75rem;
+    }
+
+    .home .limites ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .home .limites li {
+        padding: 0.8rem 0;
+        border-top: 1px solid var(--color-borda);
+    }
+
+    .home .limites li:last-child {
+        border-bottom: 1px solid var(--color-borda);
+    }
+
+    /* ============================================
+       Telas maiores
+       ============================================ */
+    @media (min-width: 48rem) {
+        .home .hero-grid {
+            grid-template-columns: 7fr 5fr;
+            gap: 4rem;
+        }
+
+        .home .funcoes-grid {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        .home .funcao {
+            grid-column: span 2;
+        }
+
+        .home .funcao:nth-child(-n + 2) {
+            grid-column: span 3;
+        }
+
+        .home .fecho-grid {
+            grid-template-columns: 7fr 4fr;
+            gap: 5rem;
+        }
+    }
+</style>
