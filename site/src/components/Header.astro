@@ -3,10 +3,10 @@
 // Menu do site
 // ============================================
 const menu = [
-  { href: '/', label: 'Início' },
-  { href: '/como-funciona', label: 'Como funciona' },
-  { href: '/planos', label: 'Planos' },
-  { href: '/conteudo', label: 'Conteúdo' },
+    { href: '/', label: 'Início' },
+    { href: '/como-funciona', label: 'Como funciona' },
+    { href: '/planos', label: 'Planos' },
+    { href: '/conteudo', label: 'Conteúdo' },
 ];
 
 // ============================================
@@ -16,42 +16,50 @@ const rotaAtual = Astro.url.pathname;
 ---
 
 <header class="filete border-b">
-  <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between gap-6">
-
-    {/* ============================================
+    <div class="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between gap-6">
+        {/* ============================================
         Logo
         ============================================ */}
-    <a href="/" class="font-titulo text-2xl font-bold no-underline text-tinta">
-      Jurimetria
-    </a>
+        <a
+            href="/"
+            class="font-titulo text-2xl font-bold no-underline text-tinta"
+        >
+            Jurimetria
+        </a>
 
-    {/* ============================================
+        {/* ============================================
         Menu de navegação
         ============================================ */}
-    <nav aria-label="Menu principal" class="hidden md:flex items-center gap-6">
-      {menu.map((item) => {
-        const ativo = rotaAtual === item.href || (item.href !== '/' && rotaAtual.startsWith(item.href));
-        return (
-          <a
-            href={item.href}
-            class:list={[
-              'no-underline text-base',
-              ativo ? 'text-verde font-medium' : 'text-tinta-suave'
-            ]}
-            aria-current={ativo ? 'page' : undefined}
-          >
-            {item.label}
-          </a>
-        );
-      })}
-    </nav>
+        <nav
+            aria-label="Menu principal"
+            class="hidden md:flex items-center gap-6"
+        >
+            {menu.map((item) => {
+                const ativo =
+                    rotaAtual === item.href ||
+                    (item.href !== '/' && rotaAtual.startsWith(item.href));
+                return (
+                    <a
+                        href={item.href}
+                        class:list={[
+                            'no-underline text-base',
+                            ativo
+                                ? 'text-verde font-medium'
+                                : 'text-tinta-suave',
+                        ]}
+                        aria-current={ativo ? 'page' : undefined}
+                    >
+                        {item.label}
+                    </a>
+                );
+            })}
+        </nav>
 
-    {/* ============================================
+        {/* ============================================
         CTA — Pedir acesso
         ============================================ */}
-    <a href="/pedir-acesso" class="botao botao-primario text-sm">
-      Pedir acesso
-    </a>
-
-  </div>
+        <a href="/pedir-acesso" class="botao botao-primario text-sm">
+            Pedir acesso
+        </a>
+    </div>
 </header>

@@ -9,7 +9,12 @@ import Layout from '../layouts/Layout.astro';
 // ============================================
 const cores = [
     { nome: 'Papel', hex: '#F5F1EA', var: 'papel', texto: 'tinta' },
-    { nome: 'Papel escuro', hex: '#EAE4D8', var: 'papel-escuro', texto: 'tinta' },
+    {
+        nome: 'Papel escuro',
+        hex: '#EAE4D8',
+        var: 'papel-escuro',
+        texto: 'tinta',
+    },
     { nome: 'Tinta', hex: '#1A1A1A', var: 'tinta', texto: 'papel' },
     { nome: 'Tinta suave', hex: '#5C5650', var: 'tinta-suave', texto: 'papel' },
     { nome: 'Verde', hex: '#1F3A2E', var: 'verde', texto: 'papel' },
@@ -21,50 +26,46 @@ const cores = [
 ];
 ---
 
-<Layout title="Style guide — Jurimetria" description="Guia visual do site do Jurimetria.">
+<Layout
+    title="Style guide — Jurimetria"
+    description="Guia visual do site do Jurimetria."
+>
     <main class="max-w-4xl mx-auto px-6 py-16">
-        {
-            /* ============================================
+        {/* ============================================
         Cabeçalho
-        ============================================ */
-        }
+        ============================================ */}
         <header class="mb-16">
             <p class="legenda mb-2">Style guide interno</p>
             <h1 class="mb-4">Identidade visual do Jurimetria</h1>
             <p class="text-lg">
-                Página de validação da paleta, tipografia e componentes. Não vai para produção.
+                Página de validação da paleta, tipografia e componentes. Não vai
+                para produção.
             </p>
             <hr class="filete mt-8" />
         </header>
 
-        {
-            /* ============================================
+        {/* ============================================
         Paleta
-        ============================================ */
-        }
+        ============================================ */}
         <section class="mb-16">
             <h2 class="mb-6">Paleta</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {
-                    cores.map((cor) => (
-                        <div class="card">
-                            <div
-                                class="h-20 rounded-sm mb-3"
-                                style={`background-color: ${cor.hex};`}
-                            />
-                            <p class="font-medium">{cor.nome}</p>
-                            <p class="legenda numero">{cor.hex}</p>
-                        </div>
-                    ))
-                }
+                {cores.map((cor) => (
+                    <div class="card">
+                        <div
+                            class="h-20 rounded-sm mb-3"
+                            style={`background-color: ${cor.hex};`}
+                        />
+                        <p class="font-medium">{cor.nome}</p>
+                        <p class="legenda numero">{cor.hex}</p>
+                    </div>
+                ))}
             </div>
         </section>
 
-        {
-            /* ============================================
+        {/* ============================================
         Tipografia
-        ============================================ */
-        }
+        ============================================ */}
         <section class="mb-16">
             <h2 class="mb-6">Tipografia</h2>
 
@@ -87,32 +88,32 @@ const cores = [
                 <div>
                     <p class="legenda mb-1">Corpo — IBM Plex Sans 400</p>
                     <p>
-                        O Jurimetria reúne 12 milhões de decisões do STJ e do STF. Toda taxa aparece
-                        com universo, período e critério. Nada por nome de parte. Toda decisão com
-                        link oficial.
+                        O Jurimetria reúne 12 milhões de decisões do STJ e do
+                        STF. Toda taxa aparece com universo, período e critério.
+                        Nada por nome de parte. Toda decisão com link oficial.
                     </p>
                 </div>
 
                 <div>
                     <p class="legenda mb-1">Legenda — IBM Plex Sans 400</p>
-                    <p class="legenda">Base pequena: menos de 30 decisões no recorte.</p>
+                    <p class="legenda">
+                        Base pequena: menos de 30 decisões no recorte.
+                    </p>
                 </div>
 
                 <div>
                     <p class="legenda mb-1">Citação — Fraunces itálico</p>
                     <blockquote class="citacao">
-                        "Favorável = resultado concedido, provido ou parcial, conforme campo
-                        estruturado da fonte."
+                        "Favorável = resultado concedido, provido ou parcial,
+                        conforme campo estruturado da fonte."
                     </blockquote>
                 </div>
             </div>
         </section>
 
-        {
-            /* ============================================
+        {/* ============================================
         Números
-        ============================================ */
-        }
+        ============================================ */}
         <section class="mb-16">
             <h2 class="mb-6">Números em mono</h2>
             <p class="legenda mb-4">
@@ -135,68 +136,68 @@ const cores = [
             </div>
         </section>
 
-        {
-            /* ============================================
+        {/* ============================================
         Botões
-        ============================================ */
-        }
+        ============================================ */}
         <section class="mb-16">
             <h2 class="mb-6">Botões</h2>
             <div class="flex flex-wrap gap-4">
-                <a href="#" class="botao botao-primario">Pedir acesso</a>
-                <a href="#" class="botao botao-secundario">Ver planos</a>
+                <a href="#" class="botao botao-primario">
+                    Pedir acesso
+                </a>
+                <a href="#" class="botao botao-secundario">
+                    Ver planos
+                </a>
             </div>
             <p class="legenda mt-4">
-                Passe o mouse para ver o estado de hover. Use Tab para ver o foco.
+                Passe o mouse para ver o estado de hover. Use Tab para ver o
+                foco.
             </p>
         </section>
 
-        {
-            /* ============================================
+        {/* ============================================
         Cards
-        ============================================ */
-        }
+        ============================================ */}
         <section class="mb-16">
             <h2 class="mb-6">Cards</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <article class="card">
                     <h3 class="card-titulo">Busca de jurisprudência</h3>
                     <p>
-                        12 milhões de decisões do STJ e do STF, por palavra e por sentido, com
-                        filtros de tribunal, classe, matéria e relator.
+                        12 milhões de decisões do STJ e do STF, por palavra e
+                        por sentido, com filtros de tribunal, classe, matéria e
+                        relator.
                     </p>
                 </article>
                 <article class="card">
                     <h3 class="card-titulo">Pesquisa por caso</h3>
                     <p>
-                        O advogado descreve o caso e recebe precedentes favoráveis, contrários e de
-                        distinção, com trecho literal e link oficial.
+                        O advogado descreve o caso e recebe precedentes
+                        favoráveis, contrários e de distinção, com trecho
+                        literal e link oficial.
                     </p>
                 </article>
             </div>
         </section>
 
-        {
-            /* ============================================
+        {/* ============================================
         Links e foco
-        ============================================ */
-        }
+        ============================================ */}
         <section class="mb-16">
             <h2 class="mb-6">Links e foco</h2>
             <p class="mb-4">
-                Este é um <a href="#">link normal</a>. Passe o mouse para ver o hover. Use Tab para
-                ver o foco de teclado.
+                Este é um <a href="#">link normal</a>. Passe o mouse para ver o
+                hover. Use Tab para ver o foco de teclado.
             </p>
             <p class="legenda">
-                O foco usa contorno vinho, com offset de 2px, para ficar bem visível.
+                O foco usa contorno vinho, com offset de 2px, para ficar bem
+                visível.
             </p>
         </section>
 
-        {
-            /* ============================================
+        {/* ============================================
         Filetes
-        ============================================ */
-        }
+        ============================================ */}
         <section class="mb-16">
             <h2 class="mb-6">Filetes</h2>
             <p class="mb-2">Acima do filete.</p>
@@ -204,14 +205,13 @@ const cores = [
             <p class="mt-2">Abaixo do filete.</p>
         </section>
 
-        {
-            /* ============================================
+        {/* ============================================
         Rodapé do style guide
-        ============================================ */
-        }
+        ============================================ */}
         <footer class="filete pt-8">
             <p class="legenda">
-                Style guide do Squad 34 — Jurimetria. Página interna, não publicada.
+                Style guide do Squad 34 — Jurimetria. Página interna, não
+                publicada.
             </p>
         </footer>
     </main>
