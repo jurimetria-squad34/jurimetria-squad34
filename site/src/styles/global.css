@@ -5,16 +5,16 @@
    ============================================ */
 @theme {
     /* Cores principais */
-    --color-papel: #eef2f0; /* fundo principal, off-white esverdeado */
-    --color-papel-escuro: #e3e9e6; /* fundo alternado, seções */
-    --color-tinta: #16231f; /* texto principal, verde escuro */
-    --color-tinta-suave: #aebbb6; /* texto secundário, cinza esverdeado */
-    --color-borda: #d3dad7; /* filetes e bordas */
-    --color-verde: #0f5c4d; /* destaque principal, verde */
-    --color-verde-claro: #1a7a67; /* hover do destaque */
-    --color-mostarda: #f2df84; /* acento, foco de teclado */
-    --color-vinho: #7a2e2e; /* reserva para realces editoriais */
-    --color-musgo: #4a5d3a; /* reserva para números favoráveis */
+    --color-papel: #eef2f0;
+    --color-papel-escuro: #e3e9e6;
+    --color-tinta: #0f1a16;
+    --color-tinta-suave: #46554e;
+    --color-borda: #d3dad7;
+    --color-verde: #0f5c4d;
+    --color-verde-claro: #1a7a67;
+    --color-mostarda: #f2df84;
+    --color-vinho: #7a2e2e;
+    --color-musgo: #4a5d3a;
 
     /* Tipografia */
     --font-titulo: "Fraunces", Georgia, serif;
@@ -61,6 +61,10 @@
         font-size: 1.25rem;
     }
 
+    p {
+        color: var(--color-tinta);
+    }
+
     a {
         color: var(--color-verde);
         text-decoration: underline;
@@ -82,7 +86,6 @@
    Componentes
    ============================================ */
 @layer components {
-    /* Números em mono — assinatura do site */
     .numero {
         font-family: var(--font-mono);
         font-weight: 500;
@@ -99,7 +102,6 @@
         overflow-wrap: anywhere;
     }
 
-    /* Filetes */
     .filete {
         border-top: 1px solid var(--color-borda);
     }
@@ -108,7 +110,6 @@
         border-left: 1px solid var(--color-borda);
     }
 
-    /* Botões */
     .botao {
         display: inline-block;
         padding: 0.75rem 1.5rem;
@@ -117,7 +118,9 @@
         font-size: 1rem;
         border-radius: 4px;
         text-decoration: none;
-        transition: background-color 0.15s, color 0.15s;
+        transition:
+            background-color 0.15s,
+            color 0.15s;
         border: 1px solid transparent;
     }
 
@@ -141,7 +144,6 @@
         color: var(--color-papel);
     }
 
-    /* Cards */
     .card {
         border: 1px solid var(--color-borda);
         border-radius: 6px;
@@ -157,7 +159,6 @@
         margin-bottom: 0.5rem;
     }
 
-    /* Citação editorial */
     .citacao {
         font-family: var(--font-titulo);
         font-style: italic;
@@ -169,7 +170,6 @@
         margin: 1.5rem 0;
     }
 
-    /* Legenda pequena */
     .legenda {
         font-family: var(--font-corpo);
         font-size: 0.875rem;
