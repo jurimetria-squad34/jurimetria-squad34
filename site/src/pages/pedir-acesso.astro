@@ -1,17 +1,977 @@
 ---
+// ============================================
+// Imports
+// ============================================
 import Layout from '../layouts/Layout.astro';
+
+// ============================================
+// Endpoint do Formspree
+// TROCAR quando o Bruno passar o ID real:
+// https://formspree.io/f/SEU-ID-AQUI
+// ============================================
+const endpoint = 'https://formspree.io/f/SEU-ID-AQUI';
+
+const areas = [
+    'Cível',
+    'Criminal',
+    'Trabalhista',
+    'Tributário',
+    'Administrativo',
+    'Família e Sucessões',
+    'Consumidor',
+    'Empresarial',
+    'Previdenciário',
+    'Outra',
+];
+
+const tamanhos = [
+    'Autônomo',
+    '2 a 5 advogados',
+    '6 a 20 advogados',
+    '21 a 50 advogados',
+    'Mais de 50 advogados',
+];
+
+const depois = [
+    'Você envia o pedido.',
+    'Entramos em contato para apresentar o Jurimetria.',
+    'Liberamos o seu acesso.',
+];
 ---
 
 <Layout
     title="Pedir acesso — Jurimetria"
-    description="Solicite acesso ao Jurimetria."
+    description="Solicite acesso ao Jurimetria. Preencha o formulário e entraremos em contato para apresentar o produto."
 >
-    <section class="max-w-3xl mx-auto px-6 py-16">
-        <p class="legenda mb-2">Em construção</p>
-        <h1 class="mb-6">Pedir acesso</h1>
-        <p class="text-lg max-w-2xl">
-            O formulário será construído na etapa seguinte, com validação no
-            cliente e envio para um serviço de formulário.
-        </p>
-    </section>
+    <div class="pa bg-papel text-tinta font-corpo">
+        <section class="py-12 md:py-20">
+            <div class="max-w-[70rem] mx-auto px-6">
+                <div class="painel">
+                    {/* ============================================
+                        Lado escuro
+                        ============================================ */}
+                    <div class="lado bg-tinta text-papel">
+                        <div>
+                            <h1 class="font-titulo text-4xl md:text-5xl font-bold leading-tight mb-5 text-white">
+                                Fale com a gente.
+                            </h1>
+                            <p class="text-papel/80 max-w-sm">
+                                Preencha os dados ao lado. Entramos em contato
+                                para apresentar o Jurimetria e liberar o acesso.
+                            </p>
+                        </div>
+
+                        <ol
+                            class="flex flex-col"
+                            aria-label="O que acontece depois"
+                        >
+                            {depois.map((texto, i) => (
+                                <li class="depois-item flex items-center gap-4 py-4 border-t border-white/10 last:border-b last:border-white/10">
+                                    <span
+                                        class="depois-n shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-mostarda text-tinta font-titulo font-semibold"
+                                        aria-hidden="true"
+                                    >
+                                        {i + 1}
+                                    </span>
+                                    <span class="text-papel">{texto}</span>
+                                </li>
+                            ))}
+                        </ol>
+
+                        <p class="font-titulo text-lg md:text-xl leading-snug text-papel">
+                            Descreva o caso. Receba os precedentes,
+                            <mark class="bg-mostarda text-tinta px-1">
+                                cada um com a fonte oficial
+                            </mark>
+                            .
+                        </p>
+                    </div>
+
+                    {/* ============================================
+                        Lado do formulário
+                        ============================================ */}
+                    <div class="lado-form bg-white">
+                        <form
+                            id="form-acesso"
+                            class="form"
+                            action={endpoint}
+                            method="POST"
+                            novalidate
+                        >
+                            <input
+                                type="text"
+                                name="_gotcha"
+                                tabindex="-1"
+                                autocomplete="off"
+                                aria-hidden="true"
+                                class="hp"
+                            />
+                            <input
+                                type="hidden"
+                                name="_timestamp"
+                                id="timestamp"
+                            />
+
+                            <div class="grade">
+                                <div class="grupo cheio">
+                                    <label for="nome" class="rotulo">
+                                        Nome completo
+                                    </label>
+                                    <input
+                                        id="nome"
+                                        name="nome"
+                                        type="text"
+                                        required
+                                        minlength="2"
+                                        autocomplete="name"
+                                        class="campo"
+                                        aria-describedby="erro-nome"
+                                    />
+                                    <p id="erro-nome" class="erro" hidden></p>
+                                </div>
+
+                                <div class="grupo cheio">
+                                    <label for="email" class="rotulo">
+                                        E-mail
+                                    </label>
+                                    <input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        required
+                                        autocomplete="email"
+                                        class="campo"
+                                        aria-describedby="erro-email"
+                                    />
+                                    <p id="erro-email" class="erro" hidden></p>
+                                </div>
+
+                                <div class="grupo cheio">
+                                    <label for="escritorio" class="rotulo">
+                                        Escritório
+                                    </label>
+                                    <input
+                                        id="escritorio"
+                                        name="escritorio"
+                                        type="text"
+                                        required
+                                        autocomplete="organization"
+                                        class="campo"
+                                        aria-describedby="erro-escritorio"
+                                    />
+                                    <p
+                                        id="erro-escritorio"
+                                        class="erro"
+                                        hidden
+                                    ></p>
+                                </div>
+
+                                <div class="grupo">
+                                    <label
+                                        for="area"
+                                        id="rotulo-area"
+                                        class="rotulo"
+                                    >
+                                        Área de atuação
+                                    </label>
+                                    <div class="dd">
+                                        <select
+                                            id="area"
+                                            name="area"
+                                            required
+                                            class="nativo"
+                                            aria-describedby="erro-area"
+                                            tabindex="-1"
+                                            aria-hidden="true"
+                                        >
+                                            <option value="">Selecione…</option>
+                                            {areas.map((area) => (
+                                                <option value={area}>
+                                                    {area}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <button
+                                            type="button"
+                                            class="dd-btn vazio"
+                                            aria-haspopup="listbox"
+                                            aria-expanded="false"
+                                            aria-labelledby="rotulo-area valor-area"
+                                        >
+                                            <span
+                                                class="dd-valor"
+                                                id="valor-area"
+                                            >
+                                                Selecione…
+                                            </span>
+                                            <span
+                                                class="seta"
+                                                aria-hidden="true"
+                                            ></span>
+                                        </button>
+                                        <ul
+                                            class="dd-lista"
+                                            role="listbox"
+                                            tabindex="-1"
+                                            aria-labelledby="rotulo-area"
+                                            hidden
+                                        ></ul>
+                                    </div>
+                                    <p id="erro-area" class="erro" hidden></p>
+                                </div>
+
+                                <div class="grupo">
+                                    <label
+                                        for="tamanho"
+                                        id="rotulo-tamanho"
+                                        class="rotulo"
+                                    >
+                                        Tamanho do escritório
+                                    </label>
+                                    <div class="dd">
+                                        <select
+                                            id="tamanho"
+                                            name="tamanho"
+                                            required
+                                            class="nativo"
+                                            aria-describedby="erro-tamanho"
+                                            tabindex="-1"
+                                            aria-hidden="true"
+                                        >
+                                            <option value="">Selecione…</option>
+                                            {tamanhos.map((t) => (
+                                                <option value={t}>{t}</option>
+                                            ))}
+                                        </select>
+                                        <button
+                                            type="button"
+                                            class="dd-btn vazio"
+                                            aria-haspopup="listbox"
+                                            aria-expanded="false"
+                                            aria-labelledby="rotulo-tamanho valor-tamanho"
+                                        >
+                                            <span
+                                                class="dd-valor"
+                                                id="valor-tamanho"
+                                            >
+                                                Selecione…
+                                            </span>
+                                            <span
+                                                class="seta"
+                                                aria-hidden="true"
+                                            ></span>
+                                        </button>
+                                        <ul
+                                            class="dd-lista"
+                                            role="listbox"
+                                            tabindex="-1"
+                                            aria-labelledby="rotulo-tamanho"
+                                            hidden
+                                        ></ul>
+                                    </div>
+                                    <p
+                                        id="erro-tamanho"
+                                        class="erro"
+                                        hidden
+                                    ></p>
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                id="btn-enviar"
+                                class="btn-enviar"
+                            >
+                                Pedir acesso
+                            </button>
+
+                            <p class="aviso">
+                                Ao enviar, você concorda com a nossa{' '}
+                                <a href="/privacidade">
+                                    Política de Privacidade
+                                </a>
+                                .
+                            </p>
+
+                            <p
+                                id="status"
+                                class="status"
+                                role="status"
+                                aria-live="polite"
+                                hidden
+                            ></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </Layout>
+
+<style>
+    /* ============================================
+       Painel dividido
+       ============================================ */
+    .painel {
+        display: grid;
+        grid-template-columns: 1fr;
+        border-radius: 14px;
+        border: 1px solid var(--color-borda);
+        box-shadow: 0 30px 60px -40px rgba(22, 35, 31, 0.55);
+        overflow: hidden;
+    }
+
+    .lado {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2.5rem;
+        padding: 2.5rem 2rem;
+    }
+
+    .lado-form {
+        padding: 2.5rem 2rem;
+    }
+
+    /* ============================================
+       Grid do formulário
+       ============================================ */
+    .grade {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.4rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .grupo {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .rotulo {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--color-tinta);
+    }
+
+    /* ============================================
+       Campos de texto
+       ============================================ */
+    .campo {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.8rem 0.95rem;
+        font-family: var(--font-corpo);
+        font-size: 1rem;
+        color: var(--color-tinta);
+        background: var(--color-papel);
+        border: 1px solid var(--color-borda);
+        border-radius: 6px;
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+        transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease,
+            background-color 0.15s ease;
+    }
+
+    .campo:hover {
+        border-color: #aab5b1;
+    }
+
+    .campo:focus-visible {
+        background: #ffffff;
+        border-color: var(--color-verde);
+        box-shadow: 0 0 0 3px rgba(15, 92, 77, 0.18);
+    }
+
+    .campo[aria-invalid='true'] {
+        border-color: #b00020;
+    }
+
+    .campo[aria-invalid='true']:focus-visible {
+        box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.15);
+    }
+
+    /* ============================================
+       Dropdown personalizado
+       ============================================ */
+    .dd {
+        position: relative;
+    }
+
+    .nativo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .dd-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left;
+        padding: 0.8rem 2.75rem 0.8rem 0.95rem;
+        font-family: var(--font-corpo);
+        font-size: 1rem;
+        color: var(--color-tinta);
+        background: var(--color-papel);
+        border: 1px solid var(--color-borda);
+        border-radius: 6px;
+        cursor: pointer;
+        transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease,
+            background-color 0.15s ease;
+    }
+
+    .dd-btn:hover {
+        border-color: #aab5b1;
+    }
+
+    .dd-btn.vazio .dd-valor {
+        color: var(--color-tinta-suave);
+    }
+
+    .dd-btn:focus-visible,
+    .dd.aberto .dd-btn {
+        outline: none;
+        background: #ffffff;
+        border-color: var(--color-verde);
+        box-shadow: 0 0 0 3px rgba(15, 92, 77, 0.18);
+    }
+
+    .nativo[aria-invalid='true'] ~ .dd-btn {
+        border-color: #b00020;
+    }
+
+    .seta {
+        position: absolute;
+        right: 1.1rem;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        border-right: 1.5px solid var(--color-tinta-suave);
+        border-bottom: 1.5px solid var(--color-tinta-suave);
+        transform: translateY(-70%) rotate(45deg);
+        transition:
+            transform 0.15s ease,
+            border-color 0.15s ease;
+        pointer-events: none;
+    }
+
+    .dd.aberto .seta {
+        transform: translateY(-30%) rotate(225deg);
+        border-color: var(--color-verde);
+    }
+
+    .dd-lista {
+        position: absolute;
+        z-index: 30;
+        left: 0;
+        right: 0;
+        top: calc(100% + 6px);
+        max-height: 15rem;
+        overflow-y: auto;
+        margin: 0;
+        padding: 0.35rem;
+        list-style: none;
+        background: #ffffff;
+        border: 1px solid var(--color-borda);
+        border-radius: 8px;
+        box-shadow: 0 18px 40px -16px rgba(22, 35, 31, 0.4);
+        outline: none;
+    }
+
+    .dd-lista[hidden] {
+        display: none;
+    }
+
+    .dd.acima .dd-lista {
+        top: auto;
+        bottom: calc(100% + 6px);
+    }
+
+    /* Itens da lista — o script cria dinamicamente */
+    :global(.dd-item) {
+        position: relative;
+        padding: 0.6rem 2.25rem 0.6rem 0.8rem;
+        border-radius: 5px;
+        font-size: 0.98rem;
+        cursor: pointer;
+    }
+
+    :global(.dd-item.ativo) {
+        background: #e9eeec;
+    }
+
+    :global(.dd-item.sel) {
+        font-weight: 600;
+        color: var(--color-verde);
+    }
+
+    :global(.dd-item.sel)::after {
+        content: '';
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        width: 0.3rem;
+        height: 0.6rem;
+        border-right: 2px solid var(--color-verde);
+        border-bottom: 2px solid var(--color-verde);
+        transform: translateY(-62%) rotate(45deg);
+    }
+
+    /* ============================================
+       Erro, botão, aviso, status
+       ============================================ */
+    .erro {
+        font-size: 0.85rem;
+        color: #b00020;
+        margin: 0;
+    }
+
+    .btn-enviar {
+        width: 100%;
+        background: var(--color-verde);
+        color: #ffffff;
+        font-family: var(--font-corpo);
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.95rem 2rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition:
+            background-color 0.15s ease,
+            opacity 0.15s ease;
+    }
+
+    .btn-enviar:hover:not(:disabled) {
+        background: var(--color-verde-claro);
+    }
+
+    .btn-enviar:focus-visible {
+        outline: 3px solid var(--color-mostarda);
+        outline-offset: 3px;
+    }
+
+    .btn-enviar:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .aviso {
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: var(--color-tinta-suave);
+    }
+
+    .aviso a {
+        color: var(--color-tinta);
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+    }
+
+    .aviso a:hover {
+        color: var(--color-verde);
+    }
+
+    .status {
+        margin-top: 1.25rem;
+        padding: 0.9rem 1.1rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .status.sucesso {
+        background: rgba(15, 92, 77, 0.1);
+        color: var(--color-verde);
+        border-left: 3px solid var(--color-verde);
+    }
+
+    .status.erro {
+        background: rgba(176, 0, 32, 0.08);
+        color: #b00020;
+        border-left: 3px solid #b00020;
+    }
+
+    .hp {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    /* ============================================
+       Telas maiores
+       ============================================ */
+    @media (min-width: 48rem) {
+        .grade {
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .grupo.cheio {
+            grid-column: 1 / -1;
+        }
+    }
+
+    @media (min-width: 64rem) {
+        .painel {
+            grid-template-columns: 5fr 7fr;
+        }
+
+        .lado {
+            padding: 3.5rem 3rem;
+        }
+
+        .lado-form {
+            padding: 3.5rem 3.5rem;
+        }
+    }
+</style>
+
+<script>
+    // ============================================
+    // Configuração
+    // ============================================
+    const endpoint = 'https://formspree.io/f/SEU-ID-AQUI';
+    const ehModoTeste = endpoint.includes('SEU-ID-AQUI');
+
+    const form = document.getElementById('form-acesso') as HTMLFormElement;
+    const botao = document.getElementById('btn-enviar') as HTMLButtonElement;
+    const status = document.getElementById('status') as HTMLParagraphElement;
+    const timestamp = document.getElementById('timestamp') as HTMLInputElement;
+
+    timestamp.value = String(Date.now());
+
+    // ============================================
+    // Validação
+    // ============================================
+    type Campo = {
+        id: string;
+        validar: (valor: string) => string | null;
+    };
+
+    const campos: Campo[] = [
+        {
+            id: 'nome',
+            validar: (v) =>
+                v.trim().length < 2 ? 'Informe o nome completo.' : null,
+        },
+        {
+            id: 'email',
+            validar: (v) =>
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
+                    ? null
+                    : 'Informe um e-mail válido.',
+        },
+        {
+            id: 'escritorio',
+            validar: (v) =>
+                v.trim().length === 0 ? 'Informe o escritório.' : null,
+        },
+        {
+            id: 'area',
+            validar: (v) => (v === '' ? 'Selecione a área.' : null),
+        },
+        {
+            id: 'tamanho',
+            validar: (v) => (v === '' ? 'Selecione o tamanho.' : null),
+        },
+    ];
+
+    function limparErro(id: string) {
+        const campo = document.getElementById(id) as HTMLInputElement;
+        const erro = document.getElementById(
+            `erro-${id}`,
+        ) as HTMLParagraphElement;
+        campo.removeAttribute('aria-invalid');
+        erro.hidden = true;
+        erro.textContent = '';
+    }
+
+    function mostrarErro(id: string, mensagem: string) {
+        const campo = document.getElementById(id) as HTMLInputElement;
+        const erro = document.getElementById(
+            `erro-${id}`,
+        ) as HTMLParagraphElement;
+        campo.setAttribute('aria-invalid', 'true');
+        erro.textContent = mensagem;
+        erro.hidden = false;
+    }
+
+    function validarTudo(): boolean {
+        let ok = true;
+        let primeiroErro: HTMLElement | null = null;
+
+        for (const campo of campos) {
+            const el = document.getElementById(campo.id) as
+                HTMLInputElement | HTMLSelectElement;
+            limparErro(campo.id);
+            const mensagem = campo.validar(el.value);
+            if (mensagem) {
+                mostrarErro(campo.id, mensagem);
+                ok = false;
+                if (!primeiroErro) primeiroErro = el;
+            }
+        }
+
+        if (primeiroErro) primeiroErro.focus();
+        return ok;
+    }
+
+    for (const campo of campos) {
+        const el = document.getElementById(campo.id);
+        el?.addEventListener('input', () => limparErro(campo.id));
+        el?.addEventListener('change', () => limparErro(campo.id));
+    }
+
+    // ============================================
+    // Envio
+    // ============================================
+    function mostrarStatus(tipo: 'sucesso' | 'erro', texto: string) {
+        status.className = `status ${tipo}`;
+        status.textContent = texto;
+        status.hidden = false;
+    }
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const honeypot = form.querySelector(
+            'input[name="_gotcha"]',
+        ) as HTMLInputElement;
+        if (honeypot.value !== '') return;
+
+        const agora = Date.now();
+        const carregado = Number(timestamp.value);
+        if (agora - carregado < 3000) {
+            mostrarStatus(
+                'erro',
+                'Envio muito rápido. Tente novamente em alguns segundos.',
+            );
+            return;
+        }
+
+        if (!validarTudo()) return;
+
+        botao.disabled = true;
+        botao.textContent = 'Enviando…';
+        status.hidden = true;
+
+        try {
+            if (ehModoTeste) {
+                await new Promise((resolve) => setTimeout(resolve, 800));
+                mostrarStatus(
+                    'sucesso',
+                    'Recebemos seu pedido (modo de teste). Em produção, você receberia um e-mail de confirmação.',
+                );
+                form.reset();
+                timestamp.value = String(Date.now());
+                return;
+            }
+
+            const dados = new FormData(form);
+            const resposta = await fetch(endpoint, {
+                method: 'POST',
+                body: dados,
+                headers: { Accept: 'application/json' },
+            });
+
+            if (resposta.ok) {
+                mostrarStatus(
+                    'sucesso',
+                    'Recebemos seu pedido. Entraremos em contato em breve.',
+                );
+                form.reset();
+                timestamp.value = String(Date.now());
+            } else {
+                const json = await resposta.json().catch(() => null);
+                const mensagem =
+                    json?.errors?.[0]?.message ||
+                    'Não foi possível enviar. Tente novamente.';
+                mostrarStatus('erro', mensagem);
+            }
+        } catch {
+            mostrarStatus(
+                'erro',
+                'Não foi possível enviar. Verifique sua conexão e tente novamente.',
+            );
+        } finally {
+            botao.disabled = false;
+            botao.textContent = 'Pedir acesso';
+        }
+    });
+</script>
+
+<script>
+    // ============================================
+    // Dropdown personalizado (sincroniza com o <select> nativo)
+    // ============================================
+    document.querySelectorAll<HTMLElement>('.dd').forEach((dd) => {
+        const select = dd.querySelector('select') as HTMLSelectElement;
+        const botao = dd.querySelector('.dd-btn') as HTMLButtonElement;
+        const valor = dd.querySelector('.dd-valor') as HTMLElement;
+        const lista = dd.querySelector('.dd-lista') as HTMLUListElement;
+        const placeholder = select.options[0]?.text ?? 'Selecione…';
+        const itens: HTMLLIElement[] = [];
+        let ativo = -1;
+
+        Array.from(select.options).forEach((opt) => {
+            if (opt.value === '') return;
+            const li = document.createElement('li');
+            li.className = 'dd-item';
+            li.setAttribute('role', 'option');
+            li.id = `${select.id}-op-${itens.length}`;
+            li.dataset.valor = opt.value;
+            li.textContent = opt.text;
+            const indice = itens.length;
+            li.addEventListener('mouseenter', () => marcar(indice));
+            li.addEventListener('click', () => escolher(indice));
+            lista.appendChild(li);
+            itens.push(li);
+        });
+
+        function sincronizar() {
+            const sel = itens.find((li) => li.dataset.valor === select.value);
+            valor.textContent = sel ? sel.textContent : placeholder;
+            botao.classList.toggle('vazio', !sel);
+            itens.forEach((li) => {
+                li.setAttribute('aria-selected', String(li === sel));
+                li.classList.toggle('sel', li === sel);
+            });
+        }
+
+        function marcar(i: number) {
+            if (itens.length === 0) return;
+            ativo = Math.max(0, Math.min(itens.length - 1, i));
+            itens.forEach((li) => li.classList.remove('ativo'));
+            itens[ativo].classList.add('ativo');
+            lista.setAttribute('aria-activedescendant', itens[ativo].id);
+            itens[ativo].scrollIntoView({ block: 'nearest' });
+        }
+
+        function abrir() {
+            lista.hidden = false;
+            dd.classList.add('aberto');
+            botao.setAttribute('aria-expanded', 'true');
+            const r = botao.getBoundingClientRect();
+            const abaixo = window.innerHeight - r.bottom;
+            dd.classList.toggle(
+                'acima',
+                abaixo < lista.offsetHeight + 16 && r.top > abaixo,
+            );
+            const atual = itens.findIndex(
+                (li) => li.dataset.valor === select.value,
+            );
+            marcar(atual >= 0 ? atual : 0);
+            lista.focus({ preventScroll: true });
+        }
+
+        function fechar(devolverFoco: boolean) {
+            lista.hidden = true;
+            dd.classList.remove('aberto');
+            botao.setAttribute('aria-expanded', 'false');
+            if (devolverFoco) botao.focus();
+        }
+
+        function escolher(i: number) {
+            const li = itens[i];
+            if (!li) return;
+            select.value = li.dataset.valor ?? '';
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            sincronizar();
+            fechar(true);
+        }
+
+        botao.addEventListener('click', () =>
+            lista.hidden ? abrir() : fechar(false),
+        );
+
+        botao.addEventListener('keydown', (e) => {
+            if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) {
+                e.preventDefault();
+                abrir();
+            }
+        });
+
+        lista.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    marcar(ativo + 1);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    marcar(ativo - 1);
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    marcar(0);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    marcar(itens.length - 1);
+                    break;
+                case 'Enter':
+                case ' ':
+                    e.preventDefault();
+                    escolher(ativo);
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    fechar(true);
+                    break;
+                case 'Tab':
+                    fechar(false);
+                    break;
+                default: {
+                    if (e.key.length === 1) {
+                        const letra = e.key.toLowerCase();
+                        const i = itens.findIndex(
+                            (li, idx) =>
+                                idx > ativo &&
+                                (li.textContent ?? '')
+                                    .toLowerCase()
+                                    .startsWith(letra),
+                        );
+                        const j =
+                            i >= 0
+                                ? i
+                                : itens.findIndex((li) =>
+                                      (li.textContent ?? '')
+                                          .toLowerCase()
+                                          .startsWith(letra),
+                                  );
+                        if (j >= 0) marcar(j);
+                    }
+                }
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!dd.contains(e.target as Node)) fechar(false);
+        });
+
+        select.addEventListener('focus', () => botao.focus());
+
+        select.form?.addEventListener('reset', () =>
+            setTimeout(sincronizar, 0),
+        );
+
+        sincronizar();
+    });
+</script>
