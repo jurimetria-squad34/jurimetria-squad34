@@ -5,10 +5,10 @@
 import Layout from '../layouts/Layout.astro';
 
 // ============================================
-// Endpoint do Formspree
-// TROCAR quando o Bruno passar o ID real:
-// https://formspree.io/f/SEU-ID-AQUI
+// Configuração do formulário
 // ============================================
+// TROCAR quando o Bruno passar o ID real do Formspree:
+// https://formspree.io/f/SEU-ID-AQUI
 const endpoint = 'https://formspree.io/f/SEU-ID-AQUI';
 
 const areas = [
@@ -43,41 +43,41 @@ const depois = [
     title="Pedir acesso — Jurimetria"
     description="Solicite acesso ao Jurimetria. Preencha o formulário e entraremos em contato para apresentar o produto."
 >
-    <section class="py-12 md:py-20">
-        <div class="max-w-280 mx-auto px-6">
+    <div class="bg-papel text-tinta font-corpo">
+        <section class="max-w-[70rem] mx-auto px-6 py-12 md:py-20">
             <div class="painel">
                 {/* ============================================
-                        Lado escuro
-                        ============================================ */}
+                    Lado escuro
+                    ============================================ */}
                 <div class="lado bg-tinta text-papel">
                     <div>
                         <h1 class="font-titulo text-4xl md:text-5xl font-bold leading-tight mb-5 text-white">
                             Fale com a gente.
                         </h1>
-                        <p class="text-papel/80 max-w-sm">
+                        <p class="text-white/85 max-w-sm">
                             Preencha os dados ao lado. Entramos em contato para
                             apresentar o Jurimetria e liberar o acesso.
                         </p>
                     </div>
 
                     <ol
-                        class="flex flex-col"
+                        class="flex flex-col list-none p-0 m-0"
                         aria-label="O que acontece depois"
                     >
                         {depois.map((texto, i) => (
-                            <li class="depois-item flex items-center gap-4 py-4 border-t border-white/10 last:border-b last:border-white/10">
+                            <li class="flex items-center gap-4 py-4 border-t border-white/10 last:border-b last:border-white/10">
                                 <span
-                                    class="depois-n shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-mostarda text-tinta font-titulo font-semibold"
+                                    class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-mostarda text-tinta font-titulo font-semibold"
                                     aria-hidden="true"
                                 >
                                     {i + 1}
                                 </span>
-                                <span class="text-papel">{texto}</span>
+                                <span class="text-white">{texto}</span>
                             </li>
                         ))}
                     </ol>
 
-                    <p class="font-titulo text-lg md:text-xl leading-snug text-papel">
+                    <p class="font-titulo text-lg md:text-xl leading-snug text-white m-0">
                         Descreva o caso. Receba os precedentes,
                         <mark class="bg-mostarda text-tinta px-1">
                             cada um com a fonte oficial
@@ -87,15 +87,17 @@ const depois = [
                 </div>
 
                 {/* ============================================
-                        Lado do formulário
-                        ============================================ */}
+                    Lado do formulário
+                    ============================================ */}
                 <div class="lado-form bg-white">
                     <form
                         id="form-acesso"
-                        class="form"
                         action={endpoint}
                         method="POST"
                         novalidate
+                        data-endpoint={endpoint}
+                        data-areas={JSON.stringify(areas)}
+                        data-tamanhos={JSON.stringify(tamanhos)}
                     >
                         <input
                             type="text"
@@ -282,8 +284,8 @@ const depois = [
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </Layout>
 
 <style>
@@ -311,9 +313,6 @@ const depois = [
         padding: 2.5rem 2rem;
     }
 
-    /* ============================================
-       Grid do formulário
-       ============================================ */
     .grade {
         display: grid;
         grid-template-columns: 1fr;
@@ -333,9 +332,6 @@ const depois = [
         color: var(--color-tinta);
     }
 
-    /* ============================================
-       Campos de texto
-       ============================================ */
     .campo {
         width: 100%;
         box-sizing: border-box;
@@ -348,7 +344,6 @@ const depois = [
         border-radius: 6px;
         outline: none;
         appearance: none;
-        -webkit-appearance: none;
         transition:
             border-color 0.15s ease,
             box-shadow 0.15s ease,
@@ -358,28 +353,21 @@ const depois = [
     .campo:hover {
         border-color: #aab5b1;
     }
-
     .campo:focus-visible {
         background: #ffffff;
         border-color: var(--color-verde);
         box-shadow: 0 0 0 3px rgba(15, 92, 77, 0.18);
     }
-
     .campo[aria-invalid='true'] {
         border-color: #b00020;
     }
-
     .campo[aria-invalid='true']:focus-visible {
         box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.15);
     }
 
-    /* ============================================
-       Dropdown personalizado
-       ============================================ */
     .dd {
         position: relative;
     }
-
     .nativo {
         position: absolute;
         inset: 0;
@@ -411,15 +399,12 @@ const depois = [
             box-shadow 0.15s ease,
             background-color 0.15s ease;
     }
-
     .dd-btn:hover {
         border-color: #aab5b1;
     }
-
     .dd-btn.vazio .dd-valor {
         color: var(--color-tinta-suave);
     }
-
     .dd-btn:focus-visible,
     .dd.aberto .dd-btn {
         outline: none;
@@ -427,7 +412,6 @@ const depois = [
         border-color: var(--color-verde);
         box-shadow: 0 0 0 3px rgba(15, 92, 77, 0.18);
     }
-
     .nativo[aria-invalid='true'] ~ .dd-btn {
         border-color: #b00020;
     }
@@ -446,7 +430,6 @@ const depois = [
             border-color 0.15s ease;
         pointer-events: none;
     }
-
     .dd.aberto .seta {
         transform: translateY(-30%) rotate(225deg);
         border-color: var(--color-verde);
@@ -469,17 +452,14 @@ const depois = [
         box-shadow: 0 18px 40px -16px rgba(22, 35, 31, 0.4);
         outline: none;
     }
-
     .dd-lista[hidden] {
         display: none;
     }
-
     .dd.acima .dd-lista {
         top: auto;
         bottom: calc(100% + 6px);
     }
 
-    /* Itens da lista — o script cria dinamicamente */
     :global(.dd-item) {
         position: relative;
         padding: 0.6rem 2.25rem 0.6rem 0.8rem;
@@ -487,16 +467,13 @@ const depois = [
         font-size: 0.98rem;
         cursor: pointer;
     }
-
     :global(.dd-item.ativo) {
         background: #e9eeec;
     }
-
     :global(.dd-item.sel) {
         font-weight: 600;
         color: var(--color-verde);
     }
-
     :global(.dd-item.sel)::after {
         content: '';
         position: absolute;
@@ -509,9 +486,6 @@ const depois = [
         transform: translateY(-62%) rotate(45deg);
     }
 
-    /* ============================================
-       Erro, botão, aviso, status
-       ============================================ */
     .erro {
         font-size: 0.85rem;
         color: #b00020;
@@ -533,16 +507,13 @@ const depois = [
             background-color 0.15s ease,
             opacity 0.15s ease;
     }
-
     .btn-enviar:hover:not(:disabled) {
         background: var(--color-verde-claro);
     }
-
     .btn-enviar:focus-visible {
         outline: 3px solid var(--color-mostarda);
         outline-offset: 3px;
     }
-
     .btn-enviar:disabled {
         opacity: 0.6;
         cursor: not-allowed;
@@ -553,13 +524,11 @@ const depois = [
         font-size: 0.875rem;
         color: var(--color-tinta-suave);
     }
-
     .aviso a {
         color: var(--color-tinta);
         text-decoration: underline;
         text-underline-offset: 0.2em;
     }
-
     .aviso a:hover {
         color: var(--color-verde);
     }
@@ -571,13 +540,11 @@ const depois = [
         font-size: 1rem;
         line-height: 1.5;
     }
-
     .status.sucesso {
         background: rgba(15, 92, 77, 0.1);
         color: var(--color-verde);
         border-left: 3px solid var(--color-verde);
     }
-
     .status.erro {
         background: rgba(176, 0, 32, 0.08);
         color: #b00020;
@@ -592,29 +559,22 @@ const depois = [
         opacity: 0;
     }
 
-    /* ============================================
-       Telas maiores
-       ============================================ */
     @media (min-width: 48rem) {
         .grade {
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
         }
-
         .grupo.cheio {
             grid-column: 1 / -1;
         }
     }
-
     @media (min-width: 64rem) {
         .painel {
             grid-template-columns: 5fr 7fr;
         }
-
         .lado {
             padding: 3.5rem 3rem;
         }
-
         .lado-form {
             padding: 3.5rem 3.5rem;
         }
@@ -623,20 +583,37 @@ const depois = [
 
 <script>
     // ============================================
-    // Configuração
+    // Imports das funções testadas
     // ============================================
-    const endpoint = 'https://formspree.io/f/SEU-ID-AQUI';
-    const ehModoTeste = endpoint.includes('SEU-ID-AQUI');
+    import {
+    validarArea,
+    validarEmail,
+    validarEscritorio,
+    validarNome,
+    validarTamanho,
+} from '../lib/validacao';
 
+    // ============================================
+    // Elementos
+    // ============================================
     const form = document.getElementById('form-acesso') as HTMLFormElement;
     const botao = document.getElementById('btn-enviar') as HTMLButtonElement;
     const status = document.getElementById('status') as HTMLParagraphElement;
     const timestamp = document.getElementById('timestamp') as HTMLInputElement;
 
+    // ============================================
+    // Configuração — vem dos data-attributes do form
+    // ============================================
+    const endpoint = form.dataset.endpoint ?? '';
+    const ehModoTeste = endpoint.includes('SEU-ID-AQUI');
+    const areas = JSON.parse(form.dataset.areas ?? '[]') as string[];
+    const tamanhos = JSON.parse(form.dataset.tamanhos ?? '[]') as string[];
+
     timestamp.value = String(Date.now());
 
     // ============================================
-    // Validação
+    // Regras de validação
+    // Usa as funções testadas de src/lib/validacao.ts
     // ============================================
     type Campo = {
         id: string;
@@ -644,31 +621,11 @@ const depois = [
     };
 
     const campos: Campo[] = [
-        {
-            id: 'nome',
-            validar: (v) =>
-                v.trim().length < 2 ? 'Informe o nome completo.' : null,
-        },
-        {
-            id: 'email',
-            validar: (v) =>
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
-                    ? null
-                    : 'Informe um e-mail válido.',
-        },
-        {
-            id: 'escritorio',
-            validar: (v) =>
-                v.trim().length === 0 ? 'Informe o escritório.' : null,
-        },
-        {
-            id: 'area',
-            validar: (v) => (v === '' ? 'Selecione a área.' : null),
-        },
-        {
-            id: 'tamanho',
-            validar: (v) => (v === '' ? 'Selecione o tamanho.' : null),
-        },
+        { id: 'nome', validar: validarNome },
+        { id: 'email', validar: validarEmail },
+        { id: 'escritorio', validar: validarEscritorio },
+        { id: 'area', validar: (v) => validarArea(v, areas) },
+        { id: 'tamanho', validar: (v) => validarTamanho(v, tamanhos) },
     ];
 
     function limparErro(id: string) {
@@ -797,7 +754,7 @@ const depois = [
 
 <script>
     // ============================================
-    // Dropdown personalizado (sincroniza com o <select> nativo)
+    // Dropdown personalizado
     // ============================================
     document.querySelectorAll<HTMLElement>('.dd').forEach((dd) => {
         const select = dd.querySelector('select') as HTMLSelectElement;
@@ -878,7 +835,6 @@ const depois = [
         botao.addEventListener('click', () =>
             lista.hidden ? abrir() : fechar(false),
         );
-
         botao.addEventListener('keydown', (e) => {
             if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) {
                 e.preventDefault();
@@ -945,11 +901,9 @@ const depois = [
         });
 
         select.addEventListener('focus', () => botao.focus());
-
         select.form?.addEventListener('reset', () =>
             setTimeout(sincronizar, 0),
         );
-
         sincronizar();
     });
 </script>
