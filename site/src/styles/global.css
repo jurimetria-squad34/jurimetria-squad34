@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* ============================================
+   Tema — paleta verde escura
+   ============================================ */
+@theme {
+    /* Cores principais */
+    --color-papel: #eef2f0; /* fundo principal, off-white esverdeado */
+    --color-papel-escuro: #e3e9e6; /* fundo alternado, seções */
+    --color-tinta: #16231f; /* texto principal, verde escuro */
+    --color-tinta-suave: #aebbb6; /* texto secundário, cinza esverdeado */
+    --color-borda: #d3dad7; /* filetes e bordas */
+    --color-verde: #0f5c4d; /* destaque principal, verde */
+    --color-verde-claro: #1a7a67; /* hover do destaque */
+    --color-mostarda: #f2df84; /* acento, foco de teclado */
+    --color-vinho: #7a2e2e; /* reserva para realces editoriais */
+    --color-musgo: #4a5d3a; /* reserva para números favoráveis */
+
+    /* Tipografia */
+    --font-titulo: "Fraunces", Georgia, serif;
+    --font-corpo: "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", monospace;
+}
+
+/* ============================================
+   Base
+   ============================================ */
+@layer base {
+    html {
+        font-family: var(--font-corpo);
+        background-color: var(--color-papel);
+        color: var(--color-tinta);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-titulo);
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: var(--color-tinta);
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+    h2 {
+        font-size: 1.75rem;
+    }
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    a {
+        color: var(--color-verde);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+    }
+
+    a:hover {
+        color: var(--color-verde-claro);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-mostarda);
+        outline-offset: 2px;
+    }
+}
+
+/* ============================================
+   Componentes
+   ============================================ */
+@layer components {
+    /* Números em mono — assinatura do site */
+    .numero {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.02em;
+    }
+
+    .numero-grande {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: clamp(2rem, 6vw, 3rem);
+        line-height: 1;
+        letter-spacing: -0.03em;
+        overflow-wrap: anywhere;
+    }
+
+    /* Filetes */
+    .filete {
+        border-top: 1px solid var(--color-borda);
+    }
+
+    .filete-vertical {
+        border-left: 1px solid var(--color-borda);
+    }
+
+    /* Botões */
+    .botao {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        font-family: var(--font-corpo);
+        font-weight: 500;
+        font-size: 1rem;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.15s, color 0.15s;
+        border: 1px solid transparent;
+    }
+
+    .botao-primario {
+        background-color: var(--color-verde);
+        color: #ffffff;
+    }
+
+    .botao-primario:hover {
+        background-color: var(--color-verde-claro);
+    }
+
+    .botao-secundario {
+        background-color: transparent;
+        color: var(--color-tinta);
+        border: 1px solid var(--color-tinta);
+    }
+
+    .botao-secundario:hover {
+        background-color: var(--color-tinta);
+        color: var(--color-papel);
+    }
+
+    /* Cards */
+    .card {
+        border: 1px solid var(--color-borda);
+        border-radius: 6px;
+        padding: 1.5rem;
+        background-color: #ffffff;
+        min-width: 0;
+    }
+
+    .card-titulo {
+        font-family: var(--font-titulo);
+        font-weight: 600;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Citação editorial */
+    .citacao {
+        font-family: var(--font-titulo);
+        font-style: italic;
+        font-size: 1.25rem;
+        line-height: 1.5;
+        color: var(--color-verde);
+        border-left: 2px solid var(--color-verde);
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    /* Legenda pequena */
+    .legenda {
+        font-family: var(--font-corpo);
+        font-size: 0.875rem;
+        color: var(--color-tinta-suave);
+    }
+}

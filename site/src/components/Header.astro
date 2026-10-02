@@ -1,0 +1,160 @@
+---
+// ============================================
+// Menu do site
+// ============================================
+const menu = [
+    { href: '/', label: 'Início' },
+    { href: '/como-funciona', label: 'Como funciona' },
+    { href: '/planos', label: 'Planos' },
+    { href: '/conteudo', label: 'Conteúdo' },
+];
+
+// ============================================
+// Rota atual — para marcar o item ativo
+// ============================================
+const rotaAtual = Astro.url.pathname;
+---
+
+<header class="cabecalho">
+    <div class="cabecalho-wrap">
+        {/* ============================================
+            Logo
+            ============================================ */}
+        <a href="/" class="logo">
+            Jurimetria
+        </a>
+
+        {/* ============================================
+            Menu de navegação
+            ============================================ */}
+        <nav aria-label="Menu principal" class="menu">
+            {menu.map((item) => {
+                const ativo =
+                    rotaAtual === item.href ||
+                    (item.href !== '/' && rotaAtual.startsWith(item.href));
+                return (
+                    <a
+                        href={item.href}
+                        class:list={['menu-link', { ativo }]}
+                        aria-current={ativo ? 'page' : undefined}
+                    >
+                        {item.label}
+                    </a>
+                );
+            })}
+        </nav>
+
+        {/* ============================================
+            CTA — Pedir acesso
+            ============================================ */}
+        <a href="/pedir-acesso" class="botao botao-primario cta">
+            Pedir acesso
+        </a>
+    </div>
+</header>
+
+<style>
+    /* ============================================
+       Header — sticky com efeito glass
+       ============================================ */
+    .cabecalho {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+
+        background: rgba(238, 242, 240, 0.72);
+        backdrop-filter: blur(12px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
+
+        border-bottom: 1px solid rgba(211, 218, 215, 0.6);
+    }
+
+    /* Fallback para navegadores sem backdrop-filter */
+    @supports not (backdrop-filter: blur(12px)) {
+        .cabecalho {
+            background: var(--color-papel);
+        }
+    }
+
+    /* ============================================
+       Container — alinhado com o index e o footer
+       ============================================ */
+    .cabecalho-wrap {
+        max-width: 70rem;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    /* ============================================
+       Logo
+       ============================================ */
+    .logo {
+        font-family: var(--font-titulo);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--color-tinta);
+        text-decoration: none;
+        letter-spacing: -0.01em;
+        line-height: 1;
+    }
+
+    .logo:hover {
+        color: var(--color-verde);
+    }
+
+    /* ============================================
+       Menu
+       ============================================ */
+    .menu {
+        display: none;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .menu-link {
+        color: var(--color-tinta-suave);
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.15s ease;
+    }
+
+    .menu-link:hover {
+        color: var(--color-tinta);
+    }
+
+    .menu-link.ativo {
+        color: var(--color-verde);
+        font-weight: 600;
+    }
+
+    /* ============================================
+       CTA
+       ============================================ */
+    .cta {
+        font-size: 0.9rem;
+        padding: 0.55rem 1rem;
+    }
+
+    /* ============================================
+       Telas maiores
+       ============================================ */
+    @media (min-width: 48rem) {
+        .menu {
+            display: flex;
+        }
+    }
+
+    /* ============================================
+       Foco de teclado
+       ============================================ */
+    .cabecalho a:focus-visible {
+        outline: 2px solid var(--color-mostarda);
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+</style>
