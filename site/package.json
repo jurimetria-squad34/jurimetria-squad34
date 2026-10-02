@@ -12,7 +12,8 @@
         "astro": "astro",
         "test": "vitest run",
         "test:watch": "vitest",
-        "extrair-universo": "tsx scripts/extrair-universo.ts"
+        "extrair-universo": "tsx scripts/extrair-universo.ts",
+        "extrair-recortes": "tsx scripts/extrair-recortes.ts"
     },
     "dependencies": {
         "@astrojs/react": "^7.0.0",
