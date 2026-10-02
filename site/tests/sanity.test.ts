@@ -1,7 +1,7 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 describe('ambiente de testes', () => {
-  it('deve estar configurado corretamente', () => {
-    expect(1 + 1).toBe(2);
-  });
+    it('deve estar configurado corretamente', () => {
+        expect(1 + 1).toBe(2);
+    });
 });
