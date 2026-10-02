@@ -4,7 +4,7 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
 import { lerObservatorio, normalizarDados } from "../scripts/ler-dados.ts";
-import { montarSaida } from "../scripts/process-data.ts";
+import { montarResumo, montarSaida } from "../scripts/process-data.ts";
 
 const caminhoDadosReais = fileURLToPath(new URL("../dados/observatorio.json", import.meta.url));
 
@@ -40,5 +40,38 @@ describe("process-data com o arquivo real", () => {
     expect(recorte!.classeOriginais).toContain("REsp");
     expect(recorte!.mensal.length).toBeGreaterThan(0);
     expect(Object.keys(recorte!.mensal[0]).sort()).toEqual(["emAndamento", "favoraveis", "mes", "total"]);
+  });
+});
+
+describe("montarResumo com o arquivo real", () => {
+  test("marca exatamente um ano como emAndamento, igual ao ano de gerado_em", () => {
+    const dados = normalizarDados(lerObservatorio(caminhoDadosReais));
+    const resumo = montarResumo(dados);
+    const anoReferencia = Number(dados.gerado_em.slice(0, 4));
+    const anosEmAndamento = new Set(resumo.porAno.filter((p) => p.emAndamento).map((p) => p.ano));
+    expect(anosEmAndamento).toEqual(new Set([anoReferencia]));
+  });
+
+  test("topClasses tem no máximo 8 classes, ordenadas da maior para a menor", () => {
+    const dados = normalizarDados(lerObservatorio(caminhoDadosReais));
+    const resumo = montarResumo(dados);
+    expect(resumo.topClasses.length).toBeLessThanOrEqual(8);
+    const totais = resumo.topClasses.map((c) => c.total);
+    expect(totais).toEqual([...totais].sort((a, b) => b - a));
+  });
+
+  test("porTribunal tem STJ e STF, e a soma dos dois bate com universo.decisoes", () => {
+    const dados = normalizarDados(lerObservatorio(caminhoDadosReais));
+    const resumo = montarResumo(dados);
+    expect(resumo.porTribunal.map((t) => t.tribunal).sort()).toEqual(["STF", "STJ"]);
+    const soma = resumo.porTribunal.reduce((s, t) => s + t.total, 0);
+    expect(soma).toBe(dados.universo.decisoes);
+  });
+
+  test("resumo.json fica bem pequeno (cabe tranquilo numa página inicial)", () => {
+    const dados = normalizarDados(lerObservatorio(caminhoDadosReais));
+    const resumo = montarResumo(dados);
+    const tamanhoKB = JSON.stringify(resumo).length / 1024;
+    expect(tamanhoKB).toBeLessThan(20);
   });
 });

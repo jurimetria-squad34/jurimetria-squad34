@@ -8,10 +8,11 @@ import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { lerObservatorio, normalizarDados } from "./ler-dados.ts";
 import type { MensalNormalizado, ObservatorioNormalizado, RelatorNormalizado } from "./ler-dados.ts";
-import type { ArquivoRecorte, EntradaManifesto, Manifesto } from "../src/types/recorte.ts";
+import type { ArquivoRecorte, ClasseDestaque, EntradaManifesto, Manifesto, PontoAnual, Resumo, TribunalResumo } from "../src/types/recorte.ts";
 
 const CAMINHO_DADOS = fileURLToPath(new URL("../dados/observatorio.json", import.meta.url));
 const PASTA_SAIDA = fileURLToPath(new URL("../public/data", import.meta.url));
+const ANOS_RESUMO = 11;
 
 export function sanitizarNomeArquivo(texto: string): string {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -77,6 +78,7 @@ export function montarSaida(dados: ObservatorioNormalizado): {
     nomesUsados.add(nomeArquivo);
 
     const totalDecisoes = grupo.mensal.reduce((soma, linha) => soma + linha.total, 0);
+    const totalFavoraveis = grupo.mensal.reduce((soma, linha) => soma + linha.favoraveis, 0);
 
     arquivos.set(nomeArquivo, {
       tribunal: grupo.tribunal as ArquivoRecorte["tribunal"],
@@ -103,6 +105,7 @@ export function montarSaida(dados: ObservatorioNormalizado): {
       classe: grupo.classe,
       materia: grupo.materia,
       totalDecisoes,
+      totalFavoraveis,
       arquivo: nomeArquivo,
     });
   }
@@ -124,7 +127,61 @@ export function montarSaida(dados: ObservatorioNormalizado): {
   return { arquivos, manifesto };
 }
 
-export function escreverSaida(pastaSaida: string, arquivos: Map<string, ArquivoRecorte>, manifesto: Manifesto): void {
+export function montarResumo(dados: ObservatorioNormalizado): Resumo {
+  const anoReferencia = Number(dados.gerado_em.slice(0, 4));
+  const anoMinimoResumo = anoReferencia - (ANOS_RESUMO - 1);
+
+  const porAno = new Map<string, PontoAnual>();
+  const porTribunal = new Map<string, TribunalResumo>();
+  const porClasse = new Map<string, ClasseDestaque>();
+
+  for (const linha of dados.mensal) {
+    const ano = Number(linha.mes.slice(0, 4));
+
+    if (!porTribunal.has(linha.tribunal)) {
+      porTribunal.set(linha.tribunal, { tribunal: linha.tribunal, total: 0, favoraveis: 0 });
+    }
+    const totalTribunal = porTribunal.get(linha.tribunal)!;
+    totalTribunal.total += linha.total;
+    totalTribunal.favoraveis += linha.favoraveis;
+
+    const chaveClasse = `${linha.tribunal}::${linha.classe}`;
+    if (!porClasse.has(chaveClasse)) {
+      porClasse.set(chaveClasse, { tribunal: linha.tribunal, classe: linha.classe, total: 0, favoraveis: 0 });
+    }
+    const totalClasse = porClasse.get(chaveClasse)!;
+    totalClasse.total += linha.total;
+    totalClasse.favoraveis += linha.favoraveis;
+
+    if (ano >= anoMinimoResumo) {
+      const chaveAno = `${linha.tribunal}::${ano}`;
+      if (!porAno.has(chaveAno)) {
+        porAno.set(chaveAno, { tribunal: linha.tribunal, ano, total: 0, favoraveis: 0, emAndamento: ano === anoReferencia });
+      }
+      const totalAno = porAno.get(chaveAno)!;
+      totalAno.total += linha.total;
+      totalAno.favoraveis += linha.favoraveis;
+    }
+  }
+
+  const topClasses = [...porClasse.values()].sort((a, b) => b.total - a.total).slice(0, 8);
+
+  return {
+    geradoEm: dados.gerado_em,
+    criterio: dados.criterio,
+    universo: dados.universo,
+    porAno: [...porAno.values()].sort((a, b) => a.tribunal.localeCompare(b.tribunal) || a.ano - b.ano),
+    porTribunal: [...porTribunal.values()].sort((a, b) => a.tribunal.localeCompare(b.tribunal)),
+    topClasses,
+  };
+}
+
+export function escreverSaida(
+  pastaSaida: string,
+  arquivos: Map<string, ArquivoRecorte>,
+  manifesto: Manifesto,
+  resumo: Resumo,
+): void {
   rmSync(pastaSaida, { recursive: true, force: true });
   mkdirSync(join(pastaSaida, "recortes"), { recursive: true });
 
@@ -132,12 +189,14 @@ export function escreverSaida(pastaSaida: string, arquivos: Map<string, ArquivoR
     writeFileSync(join(pastaSaida, nomeArquivo), JSON.stringify(conteudo));
   }
   writeFileSync(join(pastaSaida, "manifest.json"), JSON.stringify(manifesto));
+  writeFileSync(join(pastaSaida, "resumo.json"), JSON.stringify(resumo));
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const dados = lerObservatorio(CAMINHO_DADOS);
   const normalizados = normalizarDados(dados);
   const { arquivos, manifesto } = montarSaida(normalizados);
-  escreverSaida(PASTA_SAIDA, arquivos, manifesto);
-  console.log(`public/data/: ${arquivos.size} arquivos de recorte + manifest.json`);
+  const resumo = montarResumo(normalizados);
+  escreverSaida(PASTA_SAIDA, arquivos, manifesto, resumo);
+  console.log(`public/data/: ${arquivos.size} arquivos de recorte + manifest.json + resumo.json`);
 }

@@ -33,6 +33,7 @@ export interface EntradaManifesto {
   classe: string;
   materia: string | null;
   totalDecisoes: number;
+  totalFavoraveis: number;
   arquivo: string;
 }
 
@@ -41,4 +42,34 @@ export interface Manifesto {
   criterio: string;
   universo: { tribunais: Tribunal[]; decisoes: number; de: number; ate: number };
   recortes: EntradaManifesto[];
+}
+
+export interface PontoAnual {
+  tribunal: Tribunal;
+  ano: number;
+  total: number;
+  favoraveis: number;
+  emAndamento: boolean;
+}
+
+export interface ClasseDestaque {
+  tribunal: Tribunal;
+  classe: string;
+  total: number;
+  favoraveis: number;
+}
+
+export interface TribunalResumo {
+  tribunal: Tribunal;
+  total: number;
+  favoraveis: number;
+}
+
+export interface Resumo {
+  geradoEm: string;
+  criterio: string;
+  universo: { tribunais: Tribunal[]; decisoes: number; de: number; ate: number };
+  porAno: PontoAnual[];
+  porTribunal: TribunalResumo[];
+  topClasses: ClasseDestaque[];
 }

@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+@import "@fontsource/source-serif-4/600.css";
+@import "@fontsource/source-serif-4/700.css";
+@import "@fontsource/public-sans/400.css";
+@import "@fontsource/public-sans/500.css";
+@import "@fontsource/public-sans/600.css";
+
+@theme {
+  --color-papel: #f4f6f8;
+  --color-tinta: #16202e;
+  --color-toga: #1b2a4a;
+  --color-stj: #2b5f8a;
+  --color-stf: #a67c3c;
+  --color-linha: #d8dee4;
+
+  --font-titulo: "Source Serif 4", Georgia, serif;
+  --font-corpo: "Public Sans", system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-stj);
+  outline-offset: 2px;
+}

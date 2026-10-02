@@ -1,17 +1,110 @@
 ---
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import Base from "../layouts/Base.astro";
-import TesteIlha from "../components/TesteIlha";
+import GraficoTaxaAnual from "../components/GraficoTaxaAnual";
+import GraficoTopClasses from "../components/GraficoTopClasses";
+import GraficoTaxaPorTribunal from "../components/GraficoTaxaPorTribunal";
+import { calcularTaxa } from "@/lib/taxa";
+import { formatarPercentual } from "@/lib/formato";
+import type { Resumo } from "@/types/recorte";
+
+// Lê o resumo.json direto do disco, em tempo de build (não é um fetch no
+// navegador): o predev/prebuild já gerou esse arquivo antes do Astro rodar.
+// process.cwd() é a raiz do projeto (onde o npm script roda), e não muda
+// mesmo quando o Astro empacota este arquivo num lugar diferente dentro de
+// dist/ — usar import.meta.url aqui quebraria por esse motivo.
+// Como os números não mudam depois que a página carrega, não precisam de
+// nenhum JavaScript no navegador — só os 3 gráficos (que são interativos,
+// com tooltip) é que viram ilhas React.
+const caminhoResumo = join(process.cwd(), "public/data/resumo.json");
+const resumo: Resumo = JSON.parse(readFileSync(caminhoResumo, "utf-8"));
+
+const totalDecisoes = resumo.universo.decisoes.toLocaleString("pt-BR");
+const periodo = `${resumo.universo.de}–${resumo.universo.ate}`;
+
+const taxasPorTribunal = resumo.porTribunal.map((t) => {
+  const r = calcularTaxa(t.total, t.favoraveis);
+  return { tribunal: t.tribunal, texto: r.status === "ok" ? formatarPercentual(r.taxa) : "base pequena" };
+});
 ---
 
 <Base
   title="Observatório Jurimétrico do STJ e STF"
-  description="Como o STJ e o STF decidem: taxa de decisões favoráveis por classe, matéria e relator."
+  description="Como o STJ e o STF decidem: taxa de decisões favoráveis por classe, matéria, relator e ano, a partir de 12 milhões de decisões."
 >
-  <h1 class="text-3xl font-bold">Observatório do STJ e do STF</h1>
-  <p class="mt-2 text-slate-700">Setup com Astro funcionando.</p>
+  <header class="grid gap-10 border-b border-linha pb-10 md:grid-cols-[1.3fr_1fr]">
+    <div>
+      <h1 class="font-titulo text-4xl font-semibold leading-tight text-toga md:text-5xl">
+        Como o STJ e o STF decidem, em números
+      </h1>
+      <p class="mt-4 max-w-prose text-lg leading-relaxed text-tinta/80">
+        O Observatório reúne as decisões do Superior Tribunal de Justiça e do Supremo Tribunal Federal e mostra, em
+        gráficos, a taxa de decisões favoráveis por tribunal, classe, matéria, relator e ano.
+      </p>
+    </div>
+    <dl class="grid grid-cols-2 gap-6 border-linha md:border-l md:pl-10">
+      <div>
+        <dt class="text-sm text-tinta/70">Decisões analisadas</dt>
+        <dd class="font-titulo text-3xl font-semibold text-toga">{totalDecisoes}</dd>
+      </div>
+      <div>
+        <dt class="text-sm text-tinta/70">Período coberto</dt>
+        <dd class="font-titulo text-3xl font-semibold text-toga">{periodo}</dd>
+      </div>
+      {
+        taxasPorTribunal.map((t) => (
+          <div>
+            <dt class="text-sm text-tinta/70">Taxa favorável · {t.tribunal}</dt>
+            <dd class="font-titulo text-3xl font-semibold text-toga">{t.texto}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </header>
 
-  <section class="mt-8">
-    <h2 class="text-xl font-semibold">Teste da ilha React</h2>
-    <TesteIlha client:visible />
+  <p class="mt-6 max-w-prose text-sm text-tinta/70">
+    <strong class="font-medium text-tinta">Universo:</strong> STJ e STF, todas as classes e matérias, {periodo}.{" "}
+    <strong class="font-medium text-tinta">Critério de decisão favorável:</strong> {resumo.criterio}
+  </p>
+
+  <section class="mt-14" aria-labelledby="titulo-taxa-anual">
+    <h2 id="titulo-taxa-anual" class="font-titulo text-2xl font-semibold text-toga">
+      Taxa favorável por ano
+    </h2>
+    <p class="mt-1 max-w-prose text-sm text-tinta/70">Últimos 11 anos, STJ e STF.</p>
+    <div class="mt-6 rounded-lg border border-linha p-6">
+      <GraficoTaxaAnual pontos={resumo.porAno} client:visible />
+    </div>
   </section>
+
+  <div class="mt-14 grid gap-14 md:grid-cols-2">
+    <section aria-labelledby="titulo-top-classes">
+      <h2 id="titulo-top-classes" class="font-titulo text-2xl font-semibold text-toga">
+        As classes com mais decisões
+      </h2>
+      <p class="mt-1 max-w-prose text-sm text-tinta/70">Período completo, STJ e STF juntos.</p>
+      <div class="mt-6">
+        <GraficoTopClasses classes={resumo.topClasses} client:visible />
+      </div>
+    </section>
+
+    <section aria-labelledby="titulo-taxa-tribunal">
+      <h2 id="titulo-taxa-tribunal" class="font-titulo text-2xl font-semibold text-toga">
+        Taxa favorável por tribunal
+      </h2>
+      <p class="mt-1 max-w-prose text-sm text-tinta/70">Período completo.</p>
+      <div class="mt-6">
+        <GraficoTaxaPorTribunal porTribunal={resumo.porTribunal} client:visible />
+      </div>
+    </section>
+  </div>
+
+  <footer class="mt-16 border-t border-linha pt-6 text-sm text-tinta/70">
+    <p>
+      Dados agregados, sem nome de parte, atualizados a partir do pacote da Krohn
+      (gerado em {new Date(resumo.geradoEm).toLocaleDateString("pt-BR")}). Veja a metodologia completa para entender
+      de onde vêm os números e as limitações da base.
+    </p>
+  </footer>
 </Base>
