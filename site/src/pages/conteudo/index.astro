@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const conteudos = (await getCollection('conteudo')).sort(
+    (a, b) => (a.data.ordem ?? 99) - (b.data.ordem ?? 99),
+);
+---
+
+<Layout
+    title="Conteúdo — Jurimetria"
+    description="Artigos sobre jurimetria, jurisprudência do STJ e do STF e como usar os números na estratégia do escritório."
+>
+    <div class="bg-papel text-tinta font-corpo">
+        <section class="max-w-280 mx-auto px-6 pt-20 pb-12">
+            <p class="text-sm text-tinta-suave uppercase tracking-wider mb-3">
+                Conteúdo
+            </p>
+            <h1 class="font-titulo text-4xl md:text-5xl font-bold leading-tight mb-6 max-w-3xl">
+                Artigos sobre jurimetria e jurisprudência.
+            </h1>
+            <p class="text-lg max-w-2xl">
+                Textos que respondem a dúvidas comuns de advogados sobre
+                jurimetria, pesquisa de jurisprudência no STJ e no STF e uso
+                dos números na estratégia do escritório.
+            </p>
+        </section>
+
+        <section class="max-w-280 mx-auto px-6 pb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {conteudos.map((item) => (
+                    <a
+                        href={`/conteudo/${item.id}`}
+                        class="conteudo-card group"
+                    >
+                        <p class="text-xs text-tinta-suave uppercase tracking-wider mb-3">
+                            {item.data.categoria}
+                        </p>
+                        <h2 class="font-titulo text-xl font-semibold leading-snug mb-3 group-hover:text-verde transition-colors">
+                            {item.data.titulo}
+                        </h2>
+                        <p class="text-sm text-tinta-suave leading-relaxed">
+                            {item.data.descricao}
+                        </p>
+                        <span class="conteudo-link">
+                            Ler artigo
+                            <span aria-hidden="true">→</span>
+                        </span>
+                    </a>
+                ))}
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<style>
+    .conteudo-card {
+        display: flex;
+        flex-direction: column;
+        padding: 1.75rem;
+        background: #ffffff;
+        border: 1px solid var(--color-borda);
+        border-radius: 8px;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .conteudo-card:hover {
+        border-color: var(--color-verde);
+        box-shadow: 0 12px 30px -20px rgba(22, 35, 31, 0.4);
+        transform: translateY(-2px);
+    }
+
+    .conteudo-card:focus-visible {
+        outline: 3px solid var(--color-mostarda);
+        outline-offset: 3px;
+    }
+
+    .conteudo-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-top: 1.25rem;
+        color: var(--color-verde);
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .conteudo-link span {
+        transition: transform 0.15s ease;
+    }
+
+    .conteudo-card:hover .conteudo-link span {
+        transform: translateX(3px);
+    }
+</style>
