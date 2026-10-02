@@ -1,31 +1,288 @@
 ---
+// ============================================
+// Imports
+// ============================================
+import dados from '../config/planos.json';
 import Layout from '../layouts/Layout.astro';
-import planos from '../config/planos.json';
+
+// ============================================
+// Dados
+// ============================================
+const { planos, faq } = dados;
 ---
 
 <Layout
     title="Planos — Jurimetria"
-    description="Planos do Jurimetria para advogados autônomos e escritórios."
+    description="Planos do Jurimetria para advogados autônomos e escritórios. Jurisprudência verificável do STJ e do STF, com trecho literal e link oficial."
 >
-    <section class="max-w-5xl mx-auto px-6 py-16">
-        <p class="legenda mb-2">Em construção</p>
-        <h1 class="mb-6">Planos</h1>
-        <p class="text-lg max-w-2xl mb-10">
-            Dois planos, um para advogado autônomo e outro para escritório.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {planos.planos.map((plano) => (
-                <article class="card">
-                    <h2 class="card-titulo">{plano.nome}</h2>
-                    <p class="legenda mb-4">{plano.descricao}</p>
-                    <p class="numero-grande mb-6">{plano.preco}</p>
-                    <ul class="space-y-2 list-none p-0">
-                        {plano.recursos.map((r) => (
-                            <li class="legenda">{r}</li>
-                        ))}
-                    </ul>
-                </article>
-            ))}
-        </div>
-    </section>
+    <div class="bg-papel text-tinta font-corpo">
+        {/* ============================================
+            Hero
+            ============================================ */}
+        <section class="max-w-5xl mx-auto px-6 pt-20 pb-12">
+            <p class="text-sm text-tinta-suave uppercase tracking-wider mb-3">
+                Planos
+            </p>
+            <h1 class="font-titulo text-4xl md:text-5xl font-bold leading-tight mb-6 max-w-3xl">
+                Jurisprudência verificável, no ritmo do seu escritório.
+            </h1>
+            <p class="text-lg max-w-2xl">
+                Dois planos, um para advogado autônomo e outro para escritórios
+                com equipe. Todos incluem as 12 milhões de decisões do STJ e do
+                STF, com trecho literal e link oficial em cada uma.
+            </p>
+        </section>
+
+        {/* ============================================
+            Planos
+            ============================================ */}
+        <section class="max-w-5xl mx-auto px-6 pb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {planos.map((plano) => (
+                    <article
+                        class:list={[
+                            'relative flex flex-col gap-6 p-8 bg-white rounded-lg',
+                            plano.destaque
+                                ? 'border-2 border-verde shadow-2xl shadow-tinta/10'
+                                : 'border border-borda',
+                        ]}
+                    >
+                        {plano.destaque && (
+                            <p class="absolute -top-3 left-8 bg-verde text-white text-xs font-semibold tracking-wide uppercase px-3 py-1 rounded">
+                                Mais escolhido
+                            </p>
+                        )}
+
+                        <header class="flex flex-col gap-2">
+                            <h2 class="font-titulo text-2xl font-semibold">
+                                {plano.nome}
+                            </h2>
+                            <p class="text-sm text-tinta-suave">
+                                {plano.descricao}
+                            </p>
+                        </header>
+
+                        <div class="flex items-baseline gap-1 pb-6 border-b border-borda">
+                            <span class="font-mono text-5xl font-medium tracking-tight leading-none">
+                                {plano.preco}
+                            </span>
+                            <span class="text-tinta-suave">
+                                {plano.periodo}
+                            </span>
+                        </div>
+
+                        <ul class="flex flex-col gap-3 list-none p-0 m-0 flex-1">
+                            {plano.recursos.map((recurso) => (
+                                <li class="relative pl-6 text-base recurso">
+                                    {recurso}
+                                </li>
+                            ))}
+                        </ul>
+
+                        <a
+                            href="/pedir-acesso"
+                            class:list={[
+                                'block text-center py-3 px-6 rounded font-semibold no-underline transition-colors',
+                                plano.destaque
+                                    ? 'bg-verde text-white hover:bg-verde-claro'
+                                    : 'border border-tinta text-tinta hover:bg-tinta hover:text-papel',
+                            ]}
+                        >
+                            Pedir acesso
+                        </a>
+                    </article>
+                ))}
+            </div>
+
+            <p class="mt-6 text-sm text-tinta-suave italic text-center">
+                Os valores finais serão definidos em breve. Ao pedir acesso,
+                você recebe a proposta atualizada.
+            </p>
+        </section>
+
+        {/* ============================================
+            FAQ — acordeão com <details> nativo
+            ============================================ */}
+        <section class="border-t border-borda">
+            <div class="max-w-5xl mx-auto px-6 py-16">
+                <h2 class="font-titulo text-3xl font-semibold mb-8">
+                    Perguntas frequentes
+                </h2>
+
+                <div class="max-w-3xl">
+                    {faq.map((item, i) => (
+                        <details
+                            class="faq-item border-t border-borda group"
+                            open={i === 0}
+                        >
+                            <summary class="faq-pergunta">
+                                <span class="faq-texto">{item.pergunta}</span>
+                                <span
+                                    class="faq-icone"
+                                    aria-hidden="true"
+                                ></span>
+                            </summary>
+                            <div class="faq-resposta">
+                                <p>{item.resposta}</p>
+                            </div>
+                        </details>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        {/* ============================================
+            CTA final
+            ============================================ */}
+        <section class="bg-verde text-white">
+            <div class="max-w-5xl mx-auto px-6 py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+                <div>
+                    <h2 class="font-titulo text-3xl font-semibold mb-3 max-w-lg">
+                        Peça acesso e veja o Jurimetria por dentro.
+                    </h2>
+                    <p class="text-white/80 max-w-lg">
+                        Nós entramos em contato para apresentar o produto e
+                        liberar o acesso.
+                    </p>
+                </div>
+                <a
+                    href="/pedir-acesso"
+                    class="inline-block bg-white text-verde font-semibold no-underline py-3 px-7 rounded hover:bg-mostarda transition-colors"
+                >
+                    Pedir acesso
+                </a>
+            </div>
+        </section>
+    </div>
 </Layout>
+
+<style>
+    /* ============================================
+       Bolinha verde nos recursos do plano
+       ============================================ */
+    .recurso::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.55em;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--color-verde);
+    }
+
+    /* ============================================
+       FAQ — acordeão com <details>/<summary>
+       ============================================ */
+    .faq-item:last-of-type {
+        border-bottom: 1px solid var(--color-borda);
+    }
+
+    .faq-pergunta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.5rem 0;
+        cursor: pointer;
+        list-style: none;
+        font-family: var(--font-titulo);
+        font-size: 1.125rem;
+        font-weight: 600;
+        line-height: 1.35;
+        color: var(--color-tinta);
+        transition: color 0.15s ease;
+    }
+
+    /* Remove o triângulo padrão do <summary> */
+    .faq-pergunta::-webkit-details-marker {
+        display: none;
+    }
+    .faq-pergunta::marker {
+        content: '';
+    }
+
+    .faq-pergunta:hover {
+        color: var(--color-verde);
+    }
+
+    .faq-pergunta:focus-visible {
+        outline: 3px solid var(--color-mostarda);
+        outline-offset: 3px;
+        border-radius: 4px;
+    }
+
+    .faq-texto {
+        flex: 1;
+    }
+
+    /* Ícone +/− desenhado em CSS, sem SVG */
+    .faq-icone {
+        flex-shrink: 0;
+        position: relative;
+        width: 20px;
+        height: 20px;
+    }
+
+    .faq-icone::before,
+    .faq-icone::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background: var(--color-verde);
+        transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+    }
+
+    /* Barra horizontal */
+    .faq-icone::before {
+        width: 14px;
+        height: 2px;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Barra vertical */
+    .faq-icone::after {
+        width: 2px;
+        height: 14px;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Quando aberto, a barra vertical gira 90° e vira "−" */
+    details[open] .faq-icone::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+        opacity: 0;
+    }
+
+    /* Resposta com animação suave */
+    .faq-resposta {
+        padding: 0 0 1.5rem;
+        max-width: 42rem;
+    }
+
+    .faq-resposta p {
+        margin: 0;
+        color: var(--color-tinta);
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        details[open] .faq-resposta {
+            animation: faq-abrir 0.2s ease-out;
+        }
+
+        @keyframes faq-abrir {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+</style>
