@@ -36,34 +36,40 @@ const imagemAbsoluta = new URL(image, Astro.site);
 <!doctype html>
 <html lang="pt-BR">
     <head>
-        {/* ============================================
-        Metadados básicos
-        ============================================ */}
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-Content-Type-Options" content="nosniff" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
 
         {/* ============================================
-        Fontes
-        ============================================ */}
+            Fontes — carregamento sem bloqueio
+            ============================================ */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
             rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+            media="print"
+            onload="this.media='all'"
         />
+        <noscript>
+            <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+            />
+        </noscript>
 
         {/* ============================================
-        SEO
-        ============================================ */}
+            SEO
+            ============================================ */}
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={url} />
 
         {/* ============================================
-        Open Graph
-        ============================================ */}
+            Open Graph
+            ============================================ */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
@@ -73,16 +79,16 @@ const imagemAbsoluta = new URL(image, Astro.site);
         <meta property="og:site_name" content="Jurimetria" />
 
         {/* ============================================
-        Twitter Card
-        ============================================ */}
+            Twitter Card
+            ============================================ */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={imagemAbsoluta} />
 
         {/* ============================================
-        Schema.org (JSON-LD)
-        ============================================ */}
+            Schema.org
+            ============================================ */}
         {schema && (
             <script
                 type="application/ld+json"
@@ -91,31 +97,20 @@ const imagemAbsoluta = new URL(image, Astro.site);
         )}
     </head>
     <body>
-        {/* ============================================
-        Skip link — acessibilidade
-        ============================================ */}
+        {/* Skip link */}
         <a
             href="#conteudo"
-            class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-verde focus:text-papel focus:px-4 focus:py-2 focus:z-50"
+            class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-verde focus:text-white focus:px-4 focus:py-2 focus:z-50 focus:rounded"
         >
             Pular para o conteúdo
         </a>
 
-        {/* ============================================
-        Header
-        ============================================ */}
         <Header />
 
-        {/* ============================================
-        Conteúdo principal
-        ============================================ */}
         <main id="conteudo">
             <slot />
         </main>
 
-        {/* ============================================
-        Footer
-        ============================================ */}
         <Footer />
     </body>
 </html>
