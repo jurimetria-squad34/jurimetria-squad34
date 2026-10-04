@@ -12,7 +12,7 @@ const conteudos = (await getCollection('conteudo')).sort(
     description="Artigos sobre jurimetria, jurisprudência do STJ e do STF e como usar os números na estratégia do escritório."
 >
     <div class="bg-papel text-tinta font-corpo">
-        <section class="max-w-280 mx-auto px-6 pt-20 pb-12">
+        <section class="container-site pt-20 pb-12">
             <p class="text-sm text-tinta-suave uppercase tracking-wider mb-3">
                 Conteúdo
             </p>
@@ -26,7 +26,7 @@ const conteudos = (await getCollection('conteudo')).sort(
             </p>
         </section>
 
-        <section class="max-w-280 mx-auto px-6 pb-20">
+        <section class="container-site pb-20">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {conteudos.map((item) => (
                     <a
