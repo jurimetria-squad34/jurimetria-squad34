@@ -1,7 +1,13 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+// ============================================
+// Imports
+// ============================================
 import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
+// ============================================
+// Rotas estáticas — gera uma URL por artigo
+// ============================================
 export async function getStaticPaths() {
     const conteudos = await getCollection('conteudo');
     return conteudos.map((item) => ({
@@ -10,6 +16,9 @@ export async function getStaticPaths() {
     }));
 }
 
+// ============================================
+// Props do artigo atual
+// ============================================
 const { item } = Astro.props;
 const { Content } = await render(item);
 ---
@@ -20,6 +29,9 @@ const { Content } = await render(item);
 >
     <div class="bg-papel text-tinta font-corpo">
         <article class="max-w-3xl mx-auto px-6 py-20">
+            {/* ============================================
+                Cabeçalho — categoria, título e data
+                ============================================ */}
             <header class="mb-12">
                 <p class="text-sm text-tinta-suave uppercase tracking-wider mb-3">
                     {item.data.categoria}
@@ -32,10 +44,16 @@ const { Content } = await render(item);
                 </p>
             </header>
 
+            {/* ============================================
+                Conteúdo do Markdown — renderizado pelo Astro
+                ============================================ */}
             <div class="prosa">
                 <Content />
             </div>
 
+            {/* ============================================
+                CTA — pedir acesso ao produto
+                ============================================ */}
             <aside class="mt-16 pt-8 border-t border-borda">
                 <h2 class="font-titulo text-2xl font-semibold mb-3">
                     Peça acesso ao Jurimetria.
@@ -52,6 +70,9 @@ const { Content } = await render(item);
                 </a>
             </aside>
 
+            {/* ============================================
+                Voltar para o índice de conteúdo
+                ============================================ */}
             <p class="mt-12">
                 <a
                     href="/conteudo"
@@ -65,12 +86,21 @@ const { Content } = await render(item);
 </Layout>
 
 <style>
+    /* ============================================
+       Escopo — prosa do artigo
+       Aplica estilos ao HTML gerado pelo Markdown.
+       O `:global()` é necessário porque o conteúdo
+       não está no escopo do componente.
+       ============================================ */
     .prosa {
         font-size: 1.0625rem;
         line-height: 1.7;
         color: var(--color-tinta);
     }
 
+    /* ============================================
+       Títulos dentro do artigo
+       ============================================ */
     .prosa :global(h2) {
         font-family: var(--font-titulo);
         font-size: 1.6rem;
@@ -81,10 +111,16 @@ const { Content } = await render(item);
         margin-bottom: 1rem;
     }
 
+    /* ============================================
+       Parágrafos
+       ============================================ */
     .prosa :global(p) {
         margin: 0 0 1rem;
     }
 
+    /* ============================================
+       Listas — com bolinha verde
+       ============================================ */
     .prosa :global(ul),
     .prosa :global(ol) {
         list-style: none;
@@ -109,6 +145,9 @@ const { Content } = await render(item);
         background: var(--color-verde);
     }
 
+    /* ============================================
+       Links e negrito
+       ============================================ */
     .prosa :global(a) {
         color: var(--color-verde);
         text-decoration: underline;
