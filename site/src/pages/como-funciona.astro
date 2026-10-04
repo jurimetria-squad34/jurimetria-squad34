@@ -2,8 +2,9 @@
 // ============================================
 // Imports
 // ============================================
-import exemplo from '../data/exemplo.json';
 import Layout from '../layouts/Layout.astro';
+import TelaHero from '../components/como-funciona/TelaHero.astro';
+import PassoPesquisa from '../components/como-funciona/PassoPesquisa.astro';
 
 // ============================================
 // Passos da pesquisa por caso
@@ -83,63 +84,12 @@ const limites = [
                         o link oficial.
                     </p>
                     <div class="acoes">
-                        <a href="/pedir-acesso" class="btn">
-                            Pedir acesso
-                        </a>
-                        <a href="#passos" class="link">
-                            Ver os passos
-                        </a>
+                        <a href="/pedir-acesso" class="btn">Pedir acesso</a>
+                        <a href="#passos" class="link">Ver os passos</a>
                     </div>
                 </div>
 
-                <figure class="tela" aria-label="Exemplo de pesquisa por caso">
-                    <div class="tela-topo">Pesquisa por caso</div>
-                    <div class="tela-corpo">
-                        <dl class="plano">
-                            <div>
-                                <dt>Processo</dt>
-                                <dd>
-                                    {exemplo.favoravel.classe}{' '}
-                                    {exemplo.favoravel.numero}
-                                </dd>
-                            </div>
-                            <div>
-                                <dt>Relator</dt>
-                                <dd>{exemplo.favoravel.relator}</dd>
-                            </div>
-                            <div>
-                                <dt>Publicação</dt>
-                                <dd>{exemplo.favoravel.data}</dd>
-                            </div>
-                            <div>
-                                <dt>Resultado</dt>
-                                <dd>{exemplo.favoravel.resultado}</dd>
-                            </div>
-                        </dl>
-
-                        <div class="abas">
-                            <span class="aba aba-on">Favoráveis</span>
-                            <span class="aba">Contrários</span>
-                            <span class="aba">De distinção</span>
-                        </div>
-
-                        <div class="resultado">
-                            <p class="trecho-txt">
-                                …<mark>gera dano moral presumido</mark>,
-                                dispensada a prova do prejuízo…
-                            </p>
-                            <a
-                                href={exemplo.favoravel.link}
-                                class="link-of"
-                                target="_blank"
-                                rel="noopener"
-                            >
-                                Abrir no site do tribunal
-                            </a>
-                        </div>
-                    </div>
-                    <figcaption>{exemplo.aviso}</figcaption>
-                </figure>
+                <TelaHero />
             </div>
         </section>
 
@@ -148,15 +98,9 @@ const limites = [
             ============================================ */}
         <section class="fatos">
             <div class="container-site fatos-grid">
-                <p>
-                    <strong>12 milhões</strong> de decisões
-                </p>
-                <p>
-                    <strong>STJ e STF</strong> na mesma busca
-                </p>
-                <p>
-                    <strong>Trecho literal</strong> e link oficial em cada uma
-                </p>
+                <p><strong>12 milhões</strong> de decisões</p>
+                <p><strong>STJ e STF</strong> na mesma busca</p>
+                <p><strong>Trecho literal</strong> e link oficial em cada uma</p>
             </div>
         </section>
 
@@ -169,162 +113,24 @@ const limites = [
 
                 <ol class="lista-passos">
                     {passos.map((passo, i) => (
-                        <li class="passo">
-                            <div class="passo-texto">
-                                <span class="passo-n" aria-hidden="true">
-                                    {i + 1}
-                                </span>
-                                <h3>{passo.titulo}</h3>
-                                <p>{passo.texto}</p>
-                            </div>
-
-                            <div
-                                class="tela tela-p"
-                                role="img"
-                                aria-label="Tela ilustrativa do passo"
-                            >
-                                {passo.id === 'caso' && (
-                                    <>
-                                        <div class="tela-topo">
-                                            Descrição do caso
-                                        </div>
-                                        <div class="tela-corpo">
-                                            <p class="caso">
-                                                {exemplo.caso.descricao}
-                                            </p>
-                                            <span class="btn-mini">
-                                                Buscar precedentes
-                                            </span>
-                                        </div>
-                                    </>
-                                )}
-
-                                {passo.id === 'plano' && (
-                                    <>
-                                        <div class="tela-topo">
-                                            Plano de busca
-                                        </div>
-                                        <dl class="plano">
-                                            <div>
-                                                <dt>Teses</dt>
-                                                <dd>{exemplo.plano.teses}</dd>
-                                            </div>
-                                            <div>
-                                                <dt>Classes</dt>
-                                                <dd>{exemplo.plano.classes}</dd>
-                                            </div>
-                                            <div>
-                                                <dt>Filtros</dt>
-                                                <dd>{exemplo.plano.filtros}</dd>
-                                            </div>
-                                        </dl>
-                                    </>
-                                )}
-
-                                {passo.id === 'precedentes' && (
-                                    <>
-                                        <div class="tela-topo">Precedentes</div>
-                                        <ul class="blocos">
-                                            <li class="bloco bloco-fav">
-                                                <b>Favoráveis</b>
-                                                <span>
-                                                    Trecho literal e link
-                                                </span>
-                                            </li>
-                                            <li class="bloco bloco-con">
-                                                <b>Contrários</b>
-                                                <span>
-                                                    Trecho literal e link
-                                                </span>
-                                            </li>
-                                            <li class="bloco bloco-dis">
-                                                <b>De distinção</b>
-                                                <span>
-                                                    Trecho literal e link
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </>
-                                )}
-
-                                {passo.id === 'trecho' && (
-                                    <>
-                                        <div class="tela-topo">
-                                            Trecho e fonte
-                                        </div>
-                                        <div class="tela-corpo">
-                                            <p class="trecho-txt">
-                                                …
-                                                <mark>
-                                                    gera dano moral presumido
-                                                </mark>
-                                                , dispensada a prova do
-                                                prejuízo…
-                                            </p>
-                                            <p class="acoes-mini">
-                                                <a
-                                                    href={
-                                                        exemplo.favoravel.link
-                                                    }
-                                                    class="link-of"
-                                                    target="_blank"
-                                                    rel="noopener"
-                                                >
-                                                    Abrir no site do tribunal
-                                                </a>
-                                            </p>
-                                        </div>
-                                    </>
-                                )}
-
-                                {passo.id === 'decisao' && (
-                                    <>
-                                        <div class="tela-topo">
-                                            Decisão completa
-                                        </div>
-                                        <dl class="plano">
-                                            <div>
-                                                <dt>Processo</dt>
-                                                <dd>
-                                                    {exemplo.favoravel.classe}{' '}
-                                                    {exemplo.favoravel.numero}
-                                                </dd>
-                                            </div>
-                                            <div>
-                                                <dt>Relator</dt>
-                                                <dd>
-                                                    {exemplo.favoravel.relator}
-                                                </dd>
-                                            </div>
-                                            <div>
-                                                <dt>Publicação</dt>
-                                                <dd>
-                                                    {exemplo.favoravel.data}
-                                                </dd>
-                                            </div>
-                                            <div>
-                                                <dt>Resultado</dt>
-                                                <dd>
-                                                    {
-                                                        exemplo.favoravel
-                                                            .resultado
-                                                    }
-                                                </dd>
-                                            </div>
-                                        </dl>
-                                    </>
-                                )}
-                            </div>
-                        </li>
+                        <PassoPesquisa
+                            indice={i + 1}
+                            id={passo.id}
+                            titulo={passo.titulo}
+                            texto={passo.texto}
+                        />
                     ))}
                 </ol>
 
-                <p class="nota-telas">{exemplo.aviso}</p>
+                <p class="nota-telas">
+                    Telas ilustrativas. Números, relator, data e link são do
+                    tribunal.
+                </p>
             </div>
         </section>
 
         {/* ============================================
-            Regra
+            Regra de ouro
             ============================================ */}
         <section class="regra">
             <div class="container-site regra-grid">
@@ -494,181 +300,6 @@ const limites = [
 
     .cf .cta .btn:focus-visible {
         outline-color: #ffffff;
-    }
-
-    /* ============================================
-       Telas ilustrativas
-       ============================================ */
-    .cf .tela {
-        background: #ffffff;
-        border: 1px solid var(--color-borda);
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow:
-            0 1px 0 var(--color-borda),
-            0 26px 50px -34px rgba(22, 35, 31, 0.55);
-    }
-
-    .cf .tela-topo {
-        background: var(--color-papel-escuro);
-        border-bottom: 1px solid var(--color-borda);
-        padding: 0.6rem 1.1rem;
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--color-tinta-suave);
-    }
-
-    .cf .tela-corpo {
-        padding: 1.1rem;
-        display: grid;
-        gap: 1rem;
-    }
-
-    .cf .tela figcaption {
-        padding: 0.55rem 1.1rem;
-        border-top: 1px solid var(--color-borda);
-        font-size: 0.8rem;
-        font-style: italic;
-        color: var(--color-tinta-suave);
-    }
-
-    .cf .caso {
-        font-size: 0.95rem;
-        color: var(--color-tinta);
-        background: var(--color-papel);
-        border: 1px solid var(--color-borda);
-        border-radius: 6px;
-        padding: 0.7rem 0.9rem;
-    }
-
-    .cf .abas {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25rem;
-        border-bottom: 1px solid var(--color-borda);
-    }
-
-    .cf .aba {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-        color: var(--color-tinta-suave);
-        border-bottom: 2px solid transparent;
-        margin-bottom: -1px;
-    }
-
-    .cf .aba-on {
-        color: var(--color-verde);
-        font-weight: 600;
-        border-bottom-color: var(--color-verde);
-    }
-
-    .cf .trecho-txt {
-        font-family: var(--font-titulo);
-        font-size: 1.12rem;
-        line-height: 1.55;
-    }
-
-    .cf mark {
-        background: var(--color-mostarda);
-        color: inherit;
-        padding: 0.05em 0.15em;
-        -webkit-box-decoration-break: clone;
-        box-decoration-break: clone;
-    }
-
-    .cf .link-of {
-        display: inline-block;
-        margin-top: 0.7rem;
-        color: var(--color-verde);
-        font-weight: 600;
-        font-size: 0.9rem;
-        text-decoration: underline;
-        text-underline-offset: 0.25em;
-        text-decoration-thickness: 1px;
-    }
-
-    .cf .acoes-mini {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.4rem 1.5rem;
-    }
-
-    .cf .acoes-mini .link-of {
-        margin-top: 0;
-    }
-
-    .cf .btn-mini {
-        justify-self: start;
-        background: var(--color-verde);
-        color: #ffffff;
-        font-size: 0.88rem;
-        font-weight: 600;
-        padding: 0.45rem 0.9rem;
-        border-radius: 5px;
-    }
-
-    .cf .resultado {
-        padding: 0 0 0.25rem;
-    }
-
-    .cf .plano {
-        padding: 0.4rem 1.1rem 0.6rem;
-    }
-
-    .cf .plano > div {
-        display: grid;
-        grid-template-columns: 6rem 1fr;
-        gap: 1rem;
-        padding: 0.7rem 0;
-        border-bottom: 1px solid var(--color-borda);
-        font-size: 0.95rem;
-    }
-
-    .cf .plano > div:last-child {
-        border-bottom: none;
-    }
-
-    .cf .plano dt {
-        color: var(--color-tinta-suave);
-    }
-
-    .cf .plano dd {
-        font-weight: 500;
-        font-variant-numeric: tabular-nums;
-    }
-
-    .cf .blocos {
-        padding: 1.1rem;
-        display: grid;
-        gap: 0.6rem;
-    }
-
-    .cf .bloco {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 0.2rem 1rem;
-        border: 1px solid var(--color-borda);
-        border-left: 5px solid;
-        border-radius: 4px;
-        padding: 0.6rem 0.9rem;
-        font-size: 0.92rem;
-    }
-
-    .cf .bloco span {
-        color: var(--color-tinta-suave);
-    }
-
-    .cf .bloco-fav {
-        border-left-color: var(--color-tinta);
-    }
-
-    .cf .bloco-con {
-        border-left-color: var(--color-tinta);
-    }
-
-    .cf .bloco-dis {
-        border-left-color: var(--color-tinta);
     }
 
     /* ============================================
