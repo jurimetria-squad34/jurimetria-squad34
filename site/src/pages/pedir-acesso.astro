@@ -3,6 +3,7 @@
 // Imports
 // ============================================
 import Layout from '../layouts/Layout.astro';
+import PainelEsquerdo from '../components/pedir-acesso/PainelEsquerdo.astro';
 
 // ============================================
 // Configuração do formulário
@@ -31,12 +32,6 @@ const tamanhos = [
     '21 a 50 advogados',
     'Mais de 50 advogados',
 ];
-
-const depois = [
-    'Você envia o pedido.',
-    'Entramos em contato para apresentar o Jurimetria.',
-    'Liberamos o seu acesso.',
-];
 ---
 
 <Layout
@@ -49,42 +44,7 @@ const depois = [
                 {/* ============================================
                     Lado escuro
                     ============================================ */}
-                <div class="lado bg-tinta text-papel">
-                    <div>
-                        <h1 class="font-titulo text-4xl md:text-5xl font-bold leading-tight mb-5 text-white">
-                            Fale com a gente.
-                        </h1>
-                        <p class="text-white/85 max-w-sm">
-                            Preencha os dados ao lado. Entramos em contato para
-                            apresentar o Jurimetria e liberar o acesso.
-                        </p>
-                    </div>
-
-                    <ol
-                        class="flex flex-col list-none p-0 m-0"
-                        aria-label="O que acontece depois"
-                    >
-                        {depois.map((texto, i) => (
-                            <li class="flex items-center gap-4 py-4 border-t border-white/10 last:border-b last:border-white/10">
-                                <span
-                                    class="shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-mostarda text-tinta font-titulo font-semibold"
-                                    aria-hidden="true"
-                                >
-                                    {i + 1}
-                                </span>
-                                <span class="text-white">{texto}</span>
-                            </li>
-                        ))}
-                    </ol>
-
-                    <p class="font-titulo text-lg md:text-xl leading-snug text-white m-0">
-                        Descreva o caso. Receba os precedentes,
-                        <mark class="bg-mostarda text-tinta px-1">
-                            cada um com a fonte oficial
-                        </mark>
-                        .
-                    </p>
-                </div>
+                <PainelEsquerdo />
 
                 {/* ============================================
                     Lado do formulário
@@ -299,14 +259,6 @@ const depois = [
         border: 1px solid var(--color-borda);
         box-shadow: 0 30px 60px -40px rgba(22, 35, 31, 0.55);
         overflow: hidden;
-    }
-
-    .lado {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 2.5rem;
-        padding: 2.5rem 2rem;
     }
 
     .lado-form {
@@ -571,9 +523,6 @@ const depois = [
     @media (min-width: 64rem) {
         .painel {
             grid-template-columns: 5fr 7fr;
-        }
-        .lado {
-            padding: 3.5rem 3rem;
         }
         .lado-form {
             padding: 3.5rem 3.5rem;
