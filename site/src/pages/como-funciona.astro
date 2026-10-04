@@ -117,7 +117,7 @@ const limites = [
                             </div>
                         </dl>
 
-                        <div class="abas" role="tablist">
+                        <div class="abas">
                             <span class="aba aba-on">Favoráveis</span>
                             <span class="aba">Contrários</span>
                             <span class="aba">De distinção</span>
@@ -178,7 +178,7 @@ const limites = [
                                 <p>{passo.texto}</p>
                             </div>
 
-                            <div class="tela tela-p" aria-hidden="true">
+                            <div class="tela tela-p" role="img" aria-label="Tela ilustrativa do passo">
                                 {passo.id === 'caso' && (
                                     <>
                                         <div class="tela-topo">
@@ -786,7 +786,7 @@ const limites = [
     }
 
     .cf .regra-lista {
-        color: var(--color-tinta-suave);
+        color: #c7d2ce;
     }
 
     .cf .regra-lista li {
