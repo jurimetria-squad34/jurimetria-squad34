@@ -73,7 +73,7 @@ const limites = [
             Hero — texto + exemplo de decisão
             ============================================ */}
         <section class="hero">
-            <div class="wrap hero-grid">
+            <div class="container-site hero-grid">
                 <div>
                     <h1>Precedentes que você confere na fonte.</h1>
                     <p class="lead">
@@ -147,7 +147,7 @@ const limites = [
             Fatos
             ============================================ */}
         <section class="fatos">
-            <div class="wrap fatos-grid">
+            <div class="container-site fatos-grid">
                 <p>
                     <strong>12 milhões</strong> de decisões
                 </p>
@@ -164,7 +164,7 @@ const limites = [
             Passos
             ============================================ */}
         <section class="passos" id="passos">
-            <div class="wrap">
+            <div class="container-site">
                 <h2>Do caso ao precedente, em cinco passos</h2>
 
                 <ol class="lista-passos">
@@ -178,7 +178,11 @@ const limites = [
                                 <p>{passo.texto}</p>
                             </div>
 
-                            <div class="tela tela-p" role="img" aria-label="Tela ilustrativa do passo">
+                            <div
+                                class="tela tela-p"
+                                role="img"
+                                aria-label="Tela ilustrativa do passo"
+                            >
                                 {passo.id === 'caso' && (
                                     <>
                                         <div class="tela-topo">
@@ -323,7 +327,7 @@ const limites = [
             Regra
             ============================================ */}
         <section class="regra">
-            <div class="wrap regra-grid">
+            <div class="container-site regra-grid">
                 <p class="regra-texto">
                     Tudo o que aparece vem da base, com trecho literal e link
                     oficial. Nada é inventado pela IA.
@@ -340,7 +344,7 @@ const limites = [
             Limites
             ============================================ */}
         <section class="limites">
-            <div class="wrap">
+            <div class="container-site">
                 <h2>O que a pesquisa por caso não faz</h2>
                 <dl class="limites-lista">
                     {limites.map((l) => (
@@ -357,7 +361,7 @@ const limites = [
             CTA final
             ============================================ */}
         <section class="cta">
-            <div class="wrap cta-grid">
+            <div class="container-site cta-grid">
                 <div>
                     <h2>Peça acesso e faça uma pesquisa por caso.</h2>
                     <p>
@@ -383,12 +387,6 @@ const limites = [
         font-family: var(--font-corpo);
         font-size: 1.0625rem;
         line-height: 1.6;
-    }
-
-    .cf .wrap {
-        max-width: 70rem;
-        margin: 0 auto;
-        padding: 0 1.5rem;
     }
 
     .cf h1,
