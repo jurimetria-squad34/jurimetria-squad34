@@ -2,8 +2,8 @@
 // ============================================
 // Imports
 // ============================================
-import universo from '../data/universo.json';
 import relatores from '../data/relatores.json';
+import universo from '../data/universo.json';
 import Layout from '../layouts/Layout.astro';
 
 // ============================================
@@ -374,7 +374,7 @@ const limites = [
         {/* Como funciona */}
         <section class="bg-tinta text-papel py-20">
             <div class="max-w-280 mx-auto px-6">
-                <h2 class="font-titulo text-3xl md:text-4xl font-semibold leading-tight mb-12">
+                <h2 class="font-titulo text-3xl md:text-4xl font-semibold leading-tight mb-12 text-papel">
                     Do caso ao precedente em três passos.
                 </h2>
 
@@ -387,7 +387,9 @@ const limites = [
                             <h3 class="font-titulo text-xl font-semibold leading-tight mt-2 mb-2 text-papel">
                                 {p.titulo}
                             </h3>
-                            <p class="max-w-sm text-base m-0">{p.texto}</p>
+                            <p class="max-w-sm text-base m-0 text-papel/85">
+                                {p.texto}
+                            </p>
                         </li>
                     ))}
                 </ol>
