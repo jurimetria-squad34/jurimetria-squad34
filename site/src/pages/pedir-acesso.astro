@@ -5,6 +5,7 @@
 import Layout from '../layouts/Layout.astro';
 import PainelEsquerdo from '../components/pedir-acesso/PainelEsquerdo.astro';
 import CampoTexto from '../components/pedir-acesso/CampoTexto.astro';
+import Dropdown from '../components/pedir-acesso/Dropdown.astro';
 
 // ============================================
 // Configuração do formulário
@@ -60,6 +61,7 @@ const tamanhos = [
                         data-areas={JSON.stringify(areas)}
                         data-tamanhos={JSON.stringify(tamanhos)}
                     >
+                        {/* Honeypot — invisível para humanos, visível para bots */}
                         <input
                             type="text"
                             name="_gotcha"
@@ -68,8 +70,11 @@ const tamanhos = [
                             aria-hidden="true"
                             class="hp"
                         />
+
+                        {/* Time-trap — timestamp do carregamento */}
                         <input type="hidden" name="_timestamp" id="timestamp" />
 
+                        {/* Campos do formulário */}
                         <div class="grade">
                             <CampoTexto
                                 id="nome"
@@ -94,108 +99,22 @@ const tamanhos = [
                                 required={true}
                             />
 
-                            <div class="grupo">
-                                <label
-                                    for="area"
-                                    id="rotulo-area"
-                                    class="rotulo"
-                                >
-                                    Área de atuação
-                                </label>
-                                <div class="dd">
-                                    <select
-                                        id="area"
-                                        name="area"
-                                        required
-                                        class="nativo"
-                                        aria-describedby="erro-area"
-                                        tabindex="-1"
-                                        aria-hidden="true"
-                                    >
-                                        <option value="">Selecione…</option>
-                                        {areas.map((area) => (
-                                            <option value={area}>{area}</option>
-                                        ))}
-                                    </select>
-                                    <button
-                                        type="button"
-                                        class="dd-btn vazio"
-                                        aria-haspopup="listbox"
-                                        aria-expanded="false"
-                                        aria-labelledby="rotulo-area valor-area"
-                                    >
-                                        <span class="dd-valor" id="valor-area">
-                                            Selecione…
-                                        </span>
-                                        <span
-                                            class="seta"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                    <ul
-                                        class="dd-lista"
-                                        role="listbox"
-                                        tabindex="-1"
-                                        aria-labelledby="rotulo-area"
-                                        hidden
-                                    ></ul>
-                                </div>
-                                <p id="erro-area" class="erro" hidden></p>
-                            </div>
+                            <Dropdown
+                                id="area"
+                                rotulo="Área de atuação"
+                                opcoes={areas}
+                                required={true}
+                            />
 
-                            <div class="grupo">
-                                <label
-                                    for="tamanho"
-                                    id="rotulo-tamanho"
-                                    class="rotulo"
-                                >
-                                    Tamanho do escritório
-                                </label>
-                                <div class="dd">
-                                    <select
-                                        id="tamanho"
-                                        name="tamanho"
-                                        required
-                                        class="nativo"
-                                        aria-describedby="erro-tamanho"
-                                        tabindex="-1"
-                                        aria-hidden="true"
-                                    >
-                                        <option value="">Selecione…</option>
-                                        {tamanhos.map((t) => (
-                                            <option value={t}>{t}</option>
-                                        ))}
-                                    </select>
-                                    <button
-                                        type="button"
-                                        class="dd-btn vazio"
-                                        aria-haspopup="listbox"
-                                        aria-expanded="false"
-                                        aria-labelledby="rotulo-tamanho valor-tamanho"
-                                    >
-                                        <span
-                                            class="dd-valor"
-                                            id="valor-tamanho"
-                                        >
-                                            Selecione…
-                                        </span>
-                                        <span
-                                            class="seta"
-                                            aria-hidden="true"
-                                        ></span>
-                                    </button>
-                                    <ul
-                                        class="dd-lista"
-                                        role="listbox"
-                                        tabindex="-1"
-                                        aria-labelledby="rotulo-tamanho"
-                                        hidden
-                                    ></ul>
-                                </div>
-                                <p id="erro-tamanho" class="erro" hidden></p>
-                            </div>
+                            <Dropdown
+                                id="tamanho"
+                                rotulo="Tamanho do escritório"
+                                opcoes={tamanhos}
+                                required={true}
+                            />
                         </div>
 
+                        {/* Botão */}
                         <button
                             type="submit"
                             id="btn-enviar"
@@ -204,11 +123,13 @@ const tamanhos = [
                             Pedir acesso
                         </button>
 
+                        {/* Aviso de privacidade */}
                         <p class="aviso">
                             Ao enviar, você concorda com a nossa{' '}
                             <a href="/privacidade">Política de Privacidade</a>.
                         </p>
 
+                        {/* Mensagem de status */}
                         <p
                             id="status"
                             class="status"
@@ -240,6 +161,9 @@ const tamanhos = [
         padding: 2.5rem 2rem;
     }
 
+    /* ============================================
+       Grid do formulário
+       ============================================ */
     .grade {
         display: grid;
         grid-template-columns: 1fr;
@@ -247,178 +171,9 @@ const tamanhos = [
         margin-bottom: 1.75rem;
     }
 
-    .grupo {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-    }
-
-    .rotulo {
-        font-size: 0.92rem;
-        font-weight: 600;
-        color: var(--color-tinta);
-    }
-
-    .campo {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 0.8rem 0.95rem;
-        font-family: var(--font-corpo);
-        font-size: 1rem;
-        color: var(--color-tinta);
-        background: var(--color-papel);
-        border: 1px solid var(--color-borda);
-        border-radius: 6px;
-        outline: none;
-        appearance: none;
-        transition:
-            border-color 0.15s ease,
-            box-shadow 0.15s ease,
-            background-color 0.15s ease;
-    }
-
-    .campo:hover {
-        border-color: #aab5b1;
-    }
-    .campo:focus-visible {
-        background: #ffffff;
-        border-color: var(--color-verde);
-        box-shadow: 0 0 0 3px rgba(15, 92, 77, 0.18);
-    }
-    .campo[aria-invalid='true'] {
-        border-color: #b00020;
-    }
-    .campo[aria-invalid='true']:focus-visible {
-        box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.15);
-    }
-
-    .dd {
-        position: relative;
-    }
-    .nativo {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    .dd-btn {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-        width: 100%;
-        box-sizing: border-box;
-        text-align: left;
-        padding: 0.8rem 2.75rem 0.8rem 0.95rem;
-        font-family: var(--font-corpo);
-        font-size: 1rem;
-        color: var(--color-tinta);
-        background: var(--color-papel);
-        border: 1px solid var(--color-borda);
-        border-radius: 6px;
-        cursor: pointer;
-        transition:
-            border-color 0.15s ease,
-            box-shadow 0.15s ease,
-            background-color 0.15s ease;
-    }
-    .dd-btn:hover {
-        border-color: #aab5b1;
-    }
-    .dd-btn.vazio .dd-valor {
-        color: var(--color-tinta-suave);
-    }
-    .dd-btn:focus-visible,
-    .dd.aberto .dd-btn {
-        outline: none;
-        background: #ffffff;
-        border-color: var(--color-verde);
-        box-shadow: 0 0 0 3px rgba(15, 92, 77, 0.18);
-    }
-    .nativo[aria-invalid='true'] ~ .dd-btn {
-        border-color: #b00020;
-    }
-
-    .seta {
-        position: absolute;
-        right: 1.1rem;
-        top: 50%;
-        width: 8px;
-        height: 8px;
-        border-right: 1.5px solid var(--color-tinta-suave);
-        border-bottom: 1.5px solid var(--color-tinta-suave);
-        transform: translateY(-70%) rotate(45deg);
-        transition:
-            transform 0.15s ease,
-            border-color 0.15s ease;
-        pointer-events: none;
-    }
-    .dd.aberto .seta {
-        transform: translateY(-30%) rotate(225deg);
-        border-color: var(--color-verde);
-    }
-
-    .dd-lista {
-        position: absolute;
-        z-index: 30;
-        left: 0;
-        right: 0;
-        top: calc(100% + 6px);
-        max-height: 15rem;
-        overflow-y: auto;
-        margin: 0;
-        padding: 0.35rem;
-        list-style: none;
-        background: #ffffff;
-        border: 1px solid var(--color-borda);
-        border-radius: 8px;
-        box-shadow: 0 18px 40px -16px rgba(22, 35, 31, 0.4);
-        outline: none;
-    }
-    .dd-lista[hidden] {
-        display: none;
-    }
-    .dd.acima .dd-lista {
-        top: auto;
-        bottom: calc(100% + 6px);
-    }
-
-    :global(.dd-item) {
-        position: relative;
-        padding: 0.6rem 2.25rem 0.6rem 0.8rem;
-        border-radius: 5px;
-        font-size: 0.98rem;
-        cursor: pointer;
-    }
-    :global(.dd-item.ativo) {
-        background: #e9eeec;
-    }
-    :global(.dd-item.sel) {
-        font-weight: 600;
-        color: var(--color-verde);
-    }
-    :global(.dd-item.sel)::after {
-        content: '';
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        width: 0.3rem;
-        height: 0.6rem;
-        border-right: 2px solid var(--color-verde);
-        border-bottom: 2px solid var(--color-verde);
-        transform: translateY(-62%) rotate(45deg);
-    }
-
-    .erro {
-        font-size: 0.85rem;
-        color: #b00020;
-        margin: 0;
-    }
-
+    /* ============================================
+       Botão de enviar
+       ============================================ */
     .btn-enviar {
         width: 100%;
         background: var(--color-verde);
@@ -434,32 +189,43 @@ const tamanhos = [
             background-color 0.15s ease,
             opacity 0.15s ease;
     }
+
     .btn-enviar:hover:not(:disabled) {
         background: var(--color-verde-claro);
     }
+
     .btn-enviar:focus-visible {
         outline: 3px solid var(--color-mostarda);
         outline-offset: 3px;
     }
+
     .btn-enviar:disabled {
         opacity: 0.6;
         cursor: not-allowed;
     }
 
+    /* ============================================
+       Aviso de privacidade
+       ============================================ */
     .aviso {
         margin-top: 1rem;
         font-size: 0.875rem;
         color: var(--color-tinta-suave);
     }
+
     .aviso a {
         color: var(--color-tinta);
         text-decoration: underline;
         text-underline-offset: 0.2em;
     }
+
     .aviso a:hover {
         color: var(--color-verde);
     }
 
+    /* ============================================
+       Mensagem de status
+       ============================================ */
     .status {
         margin-top: 1.25rem;
         padding: 0.9rem 1.1rem;
@@ -467,17 +233,22 @@ const tamanhos = [
         font-size: 1rem;
         line-height: 1.5;
     }
+
     .status.sucesso {
         background: rgba(15, 92, 77, 0.1);
         color: var(--color-verde);
         border-left: 3px solid var(--color-verde);
     }
+
     .status.erro {
         background: rgba(176, 0, 32, 0.08);
         color: #b00020;
         border-left: 3px solid #b00020;
     }
 
+    /* ============================================
+       Honeypot — invisível para humanos
+       ============================================ */
     .hp {
         position: absolute;
         left: -9999px;
@@ -486,16 +257,21 @@ const tamanhos = [
         opacity: 0;
     }
 
+    /* ============================================
+       Telas maiores
+       ============================================ */
     @media (min-width: 48rem) {
         .grade {
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
         }
     }
+
     @media (min-width: 64rem) {
         .painel {
             grid-template-columns: 5fr 7fr;
         }
+
         .lado-form {
             padding: 3.5rem 3.5rem;
         }
@@ -676,6 +452,7 @@ const tamanhos = [
 <script>
     // ============================================
     // Dropdown personalizado
+    // Manipula todos os `.dd` da página de uma vez.
     // ============================================
     document.querySelectorAll<HTMLElement>('.dd').forEach((dd) => {
         const select = dd.querySelector('select') as HTMLSelectElement;
