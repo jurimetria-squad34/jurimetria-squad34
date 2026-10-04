@@ -1,7 +1,13 @@
 ---
+// ============================================
+// Imports
+// ============================================
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
+// ============================================
+// Dados — lê a coleção e ordena pelo campo `ordem`
+// ============================================
 const conteudos = (await getCollection('conteudo')).sort(
     (a, b) => (a.data.ordem ?? 99) - (b.data.ordem ?? 99),
 );
@@ -12,6 +18,9 @@ const conteudos = (await getCollection('conteudo')).sort(
     description="Artigos sobre jurimetria, jurisprudência do STJ e do STF e como usar os números na estratégia do escritório."
 >
     <div class="bg-papel text-tinta font-corpo">
+        {/* ============================================
+            Hero — título e introdução
+            ============================================ */}
         <section class="container-site pt-20 pb-12">
             <p class="text-sm text-tinta-suave uppercase tracking-wider mb-3">
                 Conteúdo
@@ -26,6 +35,9 @@ const conteudos = (await getCollection('conteudo')).sort(
             </p>
         </section>
 
+        {/* ============================================
+            Grid de artigos — lê da coleção
+            ============================================ */}
         <section class="container-site pb-20">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {conteudos.map((item) => (
@@ -33,15 +45,22 @@ const conteudos = (await getCollection('conteudo')).sort(
                         href={`/conteudo/${item.id}`}
                         class="conteudo-card group"
                     >
+                        {/* Categoria */}
                         <p class="text-xs text-tinta-suave uppercase tracking-wider mb-3">
                             {item.data.categoria}
                         </p>
+
+                        {/* Título */}
                         <h2 class="font-titulo text-xl font-semibold leading-snug mb-3 group-hover:text-verde transition-colors">
                             {item.data.titulo}
                         </h2>
+
+                        {/* Descrição */}
                         <p class="text-sm text-tinta-suave leading-relaxed">
                             {item.data.descricao}
                         </p>
+
+                        {/* Chamada para ler */}
                         <span class="conteudo-link">
                             Ler artigo
                             <span aria-hidden="true">→</span>
@@ -54,6 +73,9 @@ const conteudos = (await getCollection('conteudo')).sort(
 </Layout>
 
 <style>
+    /* ============================================
+       Card de artigo — visual e hover
+       ============================================ */
     .conteudo-card {
         display: flex;
         flex-direction: column;
@@ -63,7 +85,10 @@ const conteudos = (await getCollection('conteudo')).sort(
         border-radius: 8px;
         text-decoration: none;
         color: inherit;
-        transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+        transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease,
+            transform 0.15s ease;
     }
 
     .conteudo-card:hover {
@@ -77,6 +102,9 @@ const conteudos = (await getCollection('conteudo')).sort(
         outline-offset: 3px;
     }
 
+    /* ============================================
+       Link "Ler artigo" — com seta animada
+       ============================================ */
     .conteudo-link {
         display: inline-flex;
         align-items: center;
