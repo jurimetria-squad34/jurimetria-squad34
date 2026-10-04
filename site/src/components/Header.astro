@@ -16,7 +16,7 @@ const rotaAtual = Astro.url.pathname;
 ---
 
 <header class="cabecalho sticky top-0 z-50 border-b border-borda/60">
-    <div class="max-w-280 mx-auto px-6 py-4 flex items-center justify-between gap-8">
+    <div class="container-site py-4 flex items-center justify-between gap-8">
         {/* Logo */}
         <a
             href="/"
@@ -78,7 +78,7 @@ const rotaAtual = Astro.url.pathname;
         hidden
     >
         <nav aria-label="Menu principal no celular">
-            <ul class="max-w-280 mx-auto px-6 py-2 list-none m-0 flex flex-col gap-1">
+            <ul class="container-site py-2 list-none m-0 flex flex-col gap-1">
                 {menu.map((item) => {
                     const ativo =
                         rotaAtual === item.href ||
