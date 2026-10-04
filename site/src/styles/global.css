@@ -181,4 +181,13 @@
         font-size: 0.875rem;
         color: var(--color-tinta-suave);
     }
+
+        /* ============================================
+       Campo que ocupa a linha inteira no grid
+       ============================================ */
+    @media (min-width: 48rem) {
+        .grupo.cheio {
+            grid-column: 1 / -1;
+        }
+    }
 }

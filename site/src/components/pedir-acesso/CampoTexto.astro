@@ -1,0 +1,121 @@
+---
+// ============================================
+// Campo de texto do formulário de acesso
+// Renderiza label + input + mensagem de erro.
+// ============================================
+
+// ============================================
+// Props
+// ============================================
+interface Props {
+    /** ID do campo (usado no for, name, id e erro) */
+    id: string;
+    /** Rótulo visível */
+    rotulo: string;
+    /** Tipo do input (text, email, etc.) */
+    tipo?: string;
+    /** Atributo autocomplete */
+    autocomplete?: string;
+    /** Se o campo é obrigatório */
+    required?: boolean;
+    /** Tamanho mínimo (opcional) */
+    minlength?: number;
+    /** Se ocupa a linha inteira do grid */
+    cheio?: boolean;
+}
+
+const {
+    id,
+    rotulo,
+    tipo = 'text',
+    autocomplete,
+    required = false,
+    minlength,
+    cheio = true,
+} = Astro.props;
+---
+
+<div class:list={['grupo', { cheio }]}>
+    <label for={id} class="rotulo">
+        {rotulo}
+    </label>
+    <input
+        id={id}
+        name={id}
+        type={tipo}
+        required={required}
+        minlength={minlength}
+        autocomplete={autocomplete}
+        class="campo"
+        aria-describedby={`erro-${id}`}
+    />
+    <p id={`erro-${id}`} class="erro" hidden></p>
+</div>
+
+<style>
+    /* ============================================
+       Grupo do campo
+       ============================================ */
+    .grupo {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    /* ============================================
+       Rótulo
+       ============================================ */
+    .rotulo {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--color-tinta);
+    }
+
+    /* ============================================
+       Input
+       ============================================ */
+    .campo {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.8rem 0.95rem;
+        font-family: var(--font-corpo);
+        font-size: 1rem;
+        color: var(--color-tinta);
+        background: var(--color-papel);
+        border: 1px solid var(--color-borda);
+        border-radius: 6px;
+        outline: none;
+        appearance: none;
+        transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease,
+            background-color 0.15s ease;
+    }
+
+    .campo:hover {
+        border-color: #aab5b1;
+    }
+
+    .campo:focus-visible {
+        background: #ffffff;
+        border-color: var(--color-verde);
+        box-shadow: 0 0 0 3px rgba(15, 92, 77, 0.18);
+    }
+
+    .campo[aria-invalid='true'] {
+        border-color: #b00020;
+    }
+
+    .campo[aria-invalid='true']:focus-visible {
+        box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.15);
+    }
+
+    /* ============================================
+       Mensagem de erro
+       ============================================ */
+    .erro {
+        font-size: 0.85rem;
+        color: #b00020;
+        margin: 0;
+    }
+</style>

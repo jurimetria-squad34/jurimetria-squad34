@@ -4,6 +4,7 @@
 // ============================================
 import Layout from '../layouts/Layout.astro';
 import PainelEsquerdo from '../components/pedir-acesso/PainelEsquerdo.astro';
+import CampoTexto from '../components/pedir-acesso/CampoTexto.astro';
 
 // ============================================
 // Configuração do formulário
@@ -70,54 +71,28 @@ const tamanhos = [
                         <input type="hidden" name="_timestamp" id="timestamp" />
 
                         <div class="grade">
-                            <div class="grupo cheio">
-                                <label for="nome" class="rotulo">
-                                    Nome completo
-                                </label>
-                                <input
-                                    id="nome"
-                                    name="nome"
-                                    type="text"
-                                    required
-                                    minlength="2"
-                                    autocomplete="name"
-                                    class="campo"
-                                    aria-describedby="erro-nome"
-                                />
-                                <p id="erro-nome" class="erro" hidden></p>
-                            </div>
+                            <CampoTexto
+                                id="nome"
+                                rotulo="Nome completo"
+                                autocomplete="name"
+                                required={true}
+                                minlength={2}
+                            />
 
-                            <div class="grupo cheio">
-                                <label for="email" class="rotulo">
-                                    E-mail
-                                </label>
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    required
-                                    autocomplete="email"
-                                    class="campo"
-                                    aria-describedby="erro-email"
-                                />
-                                <p id="erro-email" class="erro" hidden></p>
-                            </div>
+                            <CampoTexto
+                                id="email"
+                                rotulo="E-mail"
+                                tipo="email"
+                                autocomplete="email"
+                                required={true}
+                            />
 
-                            <div class="grupo cheio">
-                                <label for="escritorio" class="rotulo">
-                                    Escritório
-                                </label>
-                                <input
-                                    id="escritorio"
-                                    name="escritorio"
-                                    type="text"
-                                    required
-                                    autocomplete="organization"
-                                    class="campo"
-                                    aria-describedby="erro-escritorio"
-                                />
-                                <p id="erro-escritorio" class="erro" hidden></p>
-                            </div>
+                            <CampoTexto
+                                id="escritorio"
+                                rotulo="Escritório"
+                                autocomplete="organization"
+                                required={true}
+                            />
 
                             <div class="grupo">
                                 <label
@@ -515,9 +490,6 @@ const tamanhos = [
         .grade {
             grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
-        }
-        .grupo.cheio {
-            grid-column: 1 / -1;
         }
     }
     @media (min-width: 64rem) {
