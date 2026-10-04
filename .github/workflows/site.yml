@@ -22,10 +22,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.12.0
           cache: npm
           cache-dependency-path: site/package-lock.json
 
       - run: npm ci
+      - run: npm run extrair-universo
+      - run: npm run extrair-recortes
+      - run: npm run extrair-relatores
       - run: npm run build
       - run: npm run test
