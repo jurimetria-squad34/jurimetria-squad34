@@ -13,7 +13,8 @@
         "test": "vitest run",
         "test:watch": "vitest",
         "extrair-universo": "tsx scripts/extrair-universo.ts",
-        "extrair-recortes": "tsx scripts/extrair-recortes.ts"
+        "extrair-recortes": "tsx scripts/extrair-recortes.ts",
+        "extrair-relatores": "tsx scripts/extrair-relatores.ts"
     },
     "dependencies": {
         "@astrojs/sitemap": "^3.7.4",

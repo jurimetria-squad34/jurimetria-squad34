@@ -75,3 +75,27 @@ export interface Recortes {
         anterior: string;
     };
 }
+
+/** Relator com taxa agregada. */
+export interface RelatorAgregado {
+    nome: string;
+    total: number;
+    favoraveis: number;
+    taxa: number | null;
+    basePequena: boolean;
+    anos: number[];
+}
+
+/** Relatores extraídos para os gráficos do Site. */
+export interface Relatores {
+    gerado_em: string;
+    criterio: string;
+    recorte: {
+        tribunal: string;
+        classe: string;
+        materia: string;
+        periodo: string;
+        minimoDecisoes: number;
+    };
+    relatores: RelatorAgregado[];
+}
