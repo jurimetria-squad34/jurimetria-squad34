@@ -10,24 +10,23 @@ const menu = [
 ];
 
 // ============================================
-// Rota atual — para marcar o item ativo
+// Rota atual
 // ============================================
 const rotaAtual = Astro.url.pathname;
 ---
 
-<header class="cabecalho">
-    <div class="cabecalho-wrap">
-        {/* ============================================
-            Logo
-            ============================================ */}
-        <a href="/" class="logo">
+<header class="cabecalho sticky top-0 z-50 border-b border-borda/60">
+    <div class="max-w-280 mx-auto px-6 py-4 flex items-center justify-between gap-8">
+        {/* Logo */}
+        <a
+            href="/"
+            class="font-titulo text-xl font-bold text-tinta no-underline tracking-tight leading-none hover:text-verde transition-colors"
+        >
             Jurimetria
         </a>
 
-        {/* ============================================
-            Menu de navegação
-            ============================================ */}
-        <nav aria-label="Menu principal" class="menu">
+        {/* Menu desktop */}
+        <nav aria-label="Menu principal" class="hidden md:flex items-center gap-8">
             {menu.map((item) => {
                 const ativo =
                     rotaAtual === item.href ||
@@ -35,7 +34,12 @@ const rotaAtual = Astro.url.pathname;
                 return (
                     <a
                         href={item.href}
-                        class:list={['menu-link', { ativo }]}
+                        class:list={[
+                            'text-[0.95rem] font-medium no-underline transition-colors',
+                            ativo
+                                ? 'text-verde font-semibold'
+                                : 'text-tinta-suave hover:text-tinta',
+                        ]}
                         aria-current={ativo ? 'page' : undefined}
                     >
                         {item.label}
@@ -44,32 +48,81 @@ const rotaAtual = Astro.url.pathname;
             })}
         </nav>
 
-        {/* ============================================
-            CTA — Pedir acesso
-            ============================================ */}
-        <a href="/pedir-acesso" class="botao botao-primario cta">
+        {/* CTA desktop */}
+        <a
+            href="/pedir-acesso"
+            class="hidden md:inline-block text-sm font-medium no-underline bg-verde text-white px-4 py-2 rounded hover:bg-verde-claro transition-colors"
+        >
             Pedir acesso
         </a>
+
+        {/* Botão hambúrguer — mobile */}
+        <button
+            type="button"
+            class="hamburguer md:hidden flex flex-col justify-center gap-1.5 w-10 h-10 p-0 bg-transparent border border-borda rounded cursor-pointer transition-colors hover:border-verde hover:bg-verde/5 focus-visible:outline-3 focus-visible:outline-mostarda focus-visible:outline-offset-3"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="menu-mobile"
+            id="botao-menu"
+        >
+            <span class="hamburguer-linha block w-4.5 h-0.5 mx-auto bg-tinta rounded"></span>
+            <span class="hamburguer-linha block w-4.5 h-0.5 mx-auto bg-tinta rounded"></span>
+            <span class="hamburguer-linha block w-4.5 h-0.5 mx-auto bg-tinta rounded"></span>
+        </button>
+    </div>
+
+    {/* Painel mobile */}
+    <div
+        id="menu-mobile"
+        class="menu-mobile md:hidden border-t border-borda/60"
+        hidden
+    >
+        <nav aria-label="Menu principal no celular">
+            <ul class="max-w-280 mx-auto px-6 py-2 list-none m-0 flex flex-col gap-1">
+                {menu.map((item) => {
+                    const ativo =
+                        rotaAtual === item.href ||
+                        (item.href !== '/' && rotaAtual.startsWith(item.href));
+                    return (
+                        <li>
+                            <a
+                                href={item.href}
+                                class:list={[
+                                    'block py-3.5 px-1 text-base font-medium no-underline border-b border-borda transition-colors',
+                                    ativo
+                                        ? 'text-verde font-semibold'
+                                        : 'text-tinta hover:text-verde',
+                                ]}
+                                aria-current={ativo ? 'page' : undefined}
+                            >
+                                {item.label}
+                            </a>
+                        </li>
+                    );
+                })}
+                <li>
+                    <a
+                        href="/pedir-acesso"
+                        class="block mt-3 py-3.5 px-5 text-center bg-verde text-white font-semibold no-underline rounded hover:bg-verde-claro transition-colors"
+                    >
+                        Pedir acesso
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </header>
 
 <style>
     /* ============================================
-       Header — sticky com efeito glass
+       Efeito glass — não tem classe Tailwind nativa
        ============================================ */
     .cabecalho {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-
         background: rgba(238, 242, 240, 0.72);
         backdrop-filter: blur(12px) saturate(160%);
         -webkit-backdrop-filter: blur(12px) saturate(160%);
-
-        border-bottom: 1px solid rgba(211, 218, 215, 0.6);
     }
 
-    /* Fallback para navegadores sem backdrop-filter */
     @supports not (backdrop-filter: blur(12px)) {
         .cabecalho {
             background: var(--color-papel);
@@ -77,84 +130,76 @@ const rotaAtual = Astro.url.pathname;
     }
 
     /* ============================================
-       Container — alinhado com o index e o footer
+       Painel mobile — mesmo efeito glass
        ============================================ */
-    .cabecalho-wrap {
-        max-width: 70rem;
-        margin: 0 auto;
-        padding: 1rem 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 2rem;
+    .menu-mobile {
+        background: rgba(238, 242, 240, 0.96);
+        backdrop-filter: blur(12px) saturate(160%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%);
     }
 
-    /* ============================================
-       Logo
-       ============================================ */
-    .logo {
-        font-family: var(--font-titulo);
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: var(--color-tinta);
-        text-decoration: none;
-        letter-spacing: -0.01em;
-        line-height: 1;
-    }
-
-    .logo:hover {
-        color: var(--color-verde);
-    }
-
-    /* ============================================
-       Menu
-       ============================================ */
-    .menu {
+    .menu-mobile[hidden] {
         display: none;
-        align-items: center;
-        gap: 2rem;
-    }
-
-    .menu-link {
-        color: var(--color-tinta-suave);
-        font-size: 0.95rem;
-        font-weight: 500;
-        text-decoration: none;
-        transition: color 0.15s ease;
-    }
-
-    .menu-link:hover {
-        color: var(--color-tinta);
-    }
-
-    .menu-link.ativo {
-        color: var(--color-verde);
-        font-weight: 600;
     }
 
     /* ============================================
-       CTA
+       Hambúrguer vira X — usa [aria-expanded]
        ============================================ */
-    .cta {
-        font-size: 0.9rem;
-        padding: 0.55rem 1rem;
+    .hamburguer[aria-expanded='true'] .hamburguer-linha:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
     }
 
-    /* ============================================
-       Telas maiores
-       ============================================ */
-    @media (min-width: 48rem) {
-        .menu {
-            display: flex;
-        }
+    .hamburguer[aria-expanded='true'] .hamburguer-linha:nth-child(2) {
+        opacity: 0;
     }
 
-    /* ============================================
-       Foco de teclado
-       ============================================ */
-    .cabecalho a:focus-visible {
-        outline: 2px solid var(--color-mostarda);
-        outline-offset: 2px;
-        border-radius: 4px;
+    .hamburguer[aria-expanded='true'] .hamburguer-linha:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .hamburguer-linha {
+        transition: transform 0.2s ease, opacity 0.2s ease;
     }
 </style>
+
+<script>
+    const botao = document.getElementById('botao-menu') as HTMLButtonElement | null;
+    const painel = document.getElementById('menu-mobile') as HTMLDivElement | null;
+
+    if (botao && painel) {
+        function abrir() {
+            painel!.hidden = false;
+            botao!.setAttribute('aria-expanded', 'true');
+            botao!.setAttribute('aria-label', 'Fechar menu');
+        }
+
+        function fechar(devolverFoco = true) {
+            painel!.hidden = true;
+            botao!.setAttribute('aria-expanded', 'false');
+            botao!.setAttribute('aria-label', 'Abrir menu');
+            if (devolverFoco) botao!.focus();
+        }
+
+        botao.addEventListener('click', () => {
+            if (painel!.hidden) abrir();
+            else fechar();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !painel!.hidden) {
+                fechar();
+            }
+        });
+
+        painel.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => fechar(false));
+        });
+
+        const mediaQuery = window.matchMedia('(min-width: 48rem)');
+        mediaQuery.addEventListener('change', (e) => {
+            if (e.matches && !painel!.hidden) {
+                fechar(false);
+            }
+        });
+    }
+</script>
