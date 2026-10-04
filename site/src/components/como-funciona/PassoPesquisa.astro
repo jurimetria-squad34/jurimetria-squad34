@@ -1,0 +1,350 @@
+---
+// ============================================
+// Passo da pesquisa por caso
+// Renderiza um <li> completo: número, título,
+// texto e a tela ilustrativa correspondente.
+// ============================================
+import exemplo from '../../data/exemplo.json';
+
+// ============================================
+// Props
+// ============================================
+interface Props {
+    indice: number;
+    id: string;
+    titulo: string;
+    texto: string;
+}
+
+const { indice, id, titulo, texto } = Astro.props;
+
+// ============================================
+// Trecho com destaque — só usado no passo "trecho"
+// ============================================
+const trechoHtml = exemplo.favoravel.trecho.replace(
+    exemplo.favoravel.trechoDestaque,
+    `<mark class="bg-mostarda text-inherit px-[0.15em] [box-decoration-break:clone]">${exemplo.favoravel.trechoDestaque}</mark>`,
+);
+---
+
+<li class="passo">
+    <div class="passo-texto">
+        <span class="passo-n" aria-hidden="true">
+            {indice}
+        </span>
+        <h3>{titulo}</h3>
+        <p>{texto}</p>
+    </div>
+
+    <div
+        class="tela tela-p"
+        role="img"
+        aria-label={`Tela ilustrativa do passo: ${titulo}`}
+    >
+        {/* ============================================
+            Passo 1 — Descrição do caso
+            ============================================ */}
+        {id === 'caso' && (
+            <>
+                <div class="tela-topo">Descrição do caso</div>
+                <div class="tela-corpo">
+                    <p class="caso">{exemplo.caso.descricao}</p>
+                    <span class="btn-mini">Buscar precedentes</span>
+                </div>
+            </>
+        )}
+
+        {/* ============================================
+            Passo 2 — Plano de busca
+            ============================================ */}
+        {id === 'plano' && (
+            <>
+                <div class="tela-topo">Plano de busca</div>
+                <dl class="plano">
+                    <div>
+                        <dt>Teses</dt>
+                        <dd>{exemplo.plano.teses}</dd>
+                    </div>
+                    <div>
+                        <dt>Classes</dt>
+                        <dd>{exemplo.plano.classes}</dd>
+                    </div>
+                    <div>
+                        <dt>Filtros</dt>
+                        <dd>{exemplo.plano.filtros}</dd>
+                    </div>
+                </dl>
+            </>
+        )}
+
+        {/* ============================================
+            Passo 3 — Precedentes separados
+            ============================================ */}
+        {id === 'precedentes' && (
+            <>
+                <div class="tela-topo">Precedentes</div>
+                <ul class="blocos">
+                    <li class="bloco bloco-fav">
+                        <b>Favoráveis</b>
+                        <span>Trecho literal e link</span>
+                    </li>
+                    <li class="bloco bloco-con">
+                        <b>Contrários</b>
+                        <span>Trecho literal e link</span>
+                    </li>
+                    <li class="bloco bloco-dis">
+                        <b>De distinção</b>
+                        <span>Trecho literal e link</span>
+                    </li>
+                </ul>
+            </>
+        )}
+
+        {/* ============================================
+            Passo 4 — Trecho e fonte
+            ============================================ */}
+        {id === 'trecho' && (
+            <>
+                <div class="tela-topo">Trecho e fonte</div>
+                <div class="tela-corpo">
+                    <p class="trecho-txt" set:html={trechoHtml} />
+                    <p class="acoes-mini">
+                        <a
+                            href={exemplo.favoravel.link}
+                            class="link-of"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            Abrir no site do tribunal
+                        </a>
+                    </p>
+                </div>
+            </>
+        )}
+
+        {/* ============================================
+            Passo 5 — Decisão completa
+            ============================================ */}
+        {id === 'decisao' && (
+            <>
+                <div class="tela-topo">Decisão completa</div>
+                <dl class="plano">
+                    <div>
+                        <dt>Processo</dt>
+                        <dd>
+                            {exemplo.favoravel.classe}{' '}
+                            {exemplo.favoravel.numero}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt>Relator</dt>
+                        <dd>{exemplo.favoravel.relator}</dd>
+                    </div>
+                    <div>
+                        <dt>Publicação</dt>
+                        <dd>{exemplo.favoravel.data}</dd>
+                    </div>
+                    <div>
+                        <dt>Resultado</dt>
+                        <dd>{exemplo.favoravel.resultado}</dd>
+                    </div>
+                </dl>
+            </>
+        )}
+    </div>
+</li>
+
+<style>
+    /* ============================================
+       Container do passo
+       ============================================ */
+    .passo {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+        padding: 2.75rem 0;
+        border-top: 1px solid var(--color-borda);
+        align-items: center;
+    }
+
+    .passo-n {
+        display: block;
+        font-family: var(--font-titulo);
+        font-size: 3.2rem;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--color-verde);
+        margin-bottom: 0.75rem;
+    }
+
+    .passo-texto p {
+        color: var(--color-tinta);
+        max-width: 30rem;
+    }
+
+    /* ============================================
+       Container da tela
+       ============================================ */
+    .tela {
+        background: #ffffff;
+        border: 1px solid var(--color-borda);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow:
+            0 1px 0 var(--color-borda),
+            0 26px 50px -34px rgba(22, 35, 31, 0.55);
+    }
+
+    .tela-topo {
+        background: var(--color-papel-escuro);
+        border-bottom: 1px solid var(--color-borda);
+        padding: 0.6rem 1.1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-tinta-suave);
+    }
+
+    .tela-corpo {
+        padding: 1.1rem;
+        display: grid;
+        gap: 1rem;
+    }
+
+    /* ============================================
+       Texto do caso
+       ============================================ */
+    .caso {
+        font-size: 0.95rem;
+        color: var(--color-tinta);
+        background: var(--color-papel);
+        border: 1px solid var(--color-borda);
+        border-radius: 6px;
+        padding: 0.7rem 0.9rem;
+    }
+
+    /* ============================================
+       Lista de metadados
+       ============================================ */
+    .plano {
+        padding: 0.4rem 1.1rem 0.6rem;
+    }
+
+    .plano > div {
+        display: grid;
+        grid-template-columns: 6rem 1fr;
+        gap: 1rem;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid var(--color-borda);
+        font-size: 0.95rem;
+    }
+
+    .plano > div:last-child {
+        border-bottom: none;
+    }
+
+    .plano dt {
+        color: var(--color-tinta-suave);
+    }
+
+    .plano dd {
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       Blocos de precedentes
+       ============================================ */
+    .blocos {
+        padding: 1.1rem;
+        display: grid;
+        gap: 0.6rem;
+        list-style: none;
+        margin: 0;
+    }
+
+    .bloco {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.2rem 1rem;
+        border: 1px solid var(--color-borda);
+        border-left: 5px solid;
+        border-radius: 4px;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.92rem;
+    }
+
+    .bloco span {
+        color: var(--color-tinta-suave);
+    }
+
+    .bloco-fav {
+        border-left-color: var(--color-verde);
+    }
+
+    .bloco-con {
+        border-left-color: var(--color-tinta);
+    }
+
+    .bloco-dis {
+        border-left-color: var(--color-mostarda);
+    }
+
+    /* ============================================
+       Trecho e link
+       ============================================ */
+    .trecho-txt {
+        font-family: var(--font-titulo);
+        font-size: 1.12rem;
+        line-height: 1.55;
+    }
+
+    .link-of {
+        display: inline-block;
+        margin-top: 0.7rem;
+        color: var(--color-verde);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+        text-decoration-thickness: 1px;
+    }
+
+    .acoes-mini {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1.5rem;
+    }
+
+    .acoes-mini .link-of {
+        margin-top: 0;
+    }
+
+    /* ============================================
+       Botão pequeno
+       ============================================ */
+    .btn-mini {
+        justify-self: start;
+        background: var(--color-verde);
+        color: #ffffff;
+        font-size: 0.88rem;
+        font-weight: 600;
+        padding: 0.45rem 0.9rem;
+        border-radius: 5px;
+    }
+
+    /* ============================================
+       Telas maiores
+       ============================================ */
+    @media (min-width: 64rem) {
+        .passo {
+            grid-template-columns: 5fr 6fr;
+            gap: 5rem;
+            padding: 3.5rem 0;
+        }
+
+        .passo:nth-child(even) .passo-texto {
+            order: 2;
+        }
+    }
+</style>

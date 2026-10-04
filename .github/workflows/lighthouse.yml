@@ -1,0 +1,52 @@
+name: Lighthouse CI
+
+on:
+    push:
+        paths:
+            - 'site/**'
+            - 'lighthouserc.json'
+            - '.github/workflows/lighthouse.yml'
+    pull_request:
+        paths:
+            - 'site/**'
+            - 'lighthouserc.json'
+            - '.github/workflows/lighthouse.yml'
+
+jobs:
+    lighthouse:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22.12.0
+                  cache: npm
+                  cache-dependency-path: site/package-lock.json
+
+            - name: Instalar dependências
+              working-directory: site
+              run: npm ci
+
+            - name: Gerar dados de extração
+              working-directory: site
+              run: |
+                  npm run extrair-universo
+                  npm run extrair-recortes
+                  npm run extrair-relatores
+
+            - name: Build do site
+              working-directory: site
+              run: npm run build
+
+            - name: Rodar Lighthouse CI
+              run: npx @lhci/cli@0.14.x autorun
+
+            - name: Salvar resultados
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: lighthouse-results
+                  path: .lighthouseci/
+                  retention-days: 7

@@ -1,0 +1,170 @@
+---
+// ============================================
+// Tela ilustrativa do hero
+// Mostra um exemplo de decisão do Jurimetria
+// com abas (Favoráveis, Contrários, Distinção)
+// ============================================
+import exemplo from '../../data/exemplo.json';
+
+// ============================================
+// Destaque do trecho (parte em <mark>)
+// ============================================
+const trechoHtml = exemplo.favoravel.trecho.replace(
+    exemplo.favoravel.trechoDestaque,
+    `<mark class="bg-mostarda text-inherit px-[0.15em] [box-decoration-break:clone]">${exemplo.favoravel.trechoDestaque}</mark>`,
+);
+---
+
+<figure class="tela" aria-label="Exemplo de pesquisa por caso">
+    <div class="tela-topo">Pesquisa por caso</div>
+    <div class="tela-corpo">
+        <dl class="plano">
+            <div>
+                <dt>Processo</dt>
+                <dd>{exemplo.favoravel.classe} {exemplo.favoravel.numero}</dd>
+            </div>
+            <div>
+                <dt>Relator</dt>
+                <dd>{exemplo.favoravel.relator}</dd>
+            </div>
+            <div>
+                <dt>Publicação</dt>
+                <dd>{exemplo.favoravel.data}</dd>
+            </div>
+            <div>
+                <dt>Resultado</dt>
+                <dd>{exemplo.favoravel.resultado}</dd>
+            </div>
+        </dl>
+
+        <div class="abas">
+            <span class="aba aba-on">Favoráveis</span>
+            <span class="aba">Contrários</span>
+            <span class="aba">De distinção</span>
+        </div>
+
+        <div class="resultado">
+            <p class="trecho-txt" set:html={trechoHtml} />
+            <a
+                href={exemplo.favoravel.link}
+                class="link-of"
+                target="_blank"
+                rel="noopener"
+            >
+                Abrir no site do tribunal
+            </a>
+        </div>
+    </div>
+    <figcaption>{exemplo.aviso}</figcaption>
+</figure>
+
+<style>
+    /* ============================================
+       Container da tela
+       ============================================ */
+    .tela {
+        background: #ffffff;
+        border: 1px solid var(--color-borda);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow:
+            0 1px 0 var(--color-borda),
+            0 26px 50px -34px rgba(22, 35, 31, 0.55);
+    }
+
+    .tela-topo {
+        background: var(--color-papel-escuro);
+        border-bottom: 1px solid var(--color-borda);
+        padding: 0.6rem 1.1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-tinta-suave);
+    }
+
+    .tela-corpo {
+        padding: 1.1rem;
+        display: grid;
+        gap: 1rem;
+    }
+
+    figcaption {
+        padding: 0.55rem 1.1rem;
+        border-top: 1px solid var(--color-borda);
+        font-size: 0.8rem;
+        font-style: italic;
+        color: var(--color-tinta-suave);
+    }
+
+    /* ============================================
+       Lista de metadados
+       ============================================ */
+    .plano {
+        padding: 0.4rem 1.1rem 0.6rem;
+    }
+
+    .plano > div {
+        display: grid;
+        grid-template-columns: 6rem 1fr;
+        gap: 1rem;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid var(--color-borda);
+        font-size: 0.95rem;
+    }
+
+    .plano > div:last-child {
+        border-bottom: none;
+    }
+
+    .plano dt {
+        color: var(--color-tinta-suave);
+    }
+
+    .plano dd {
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================
+       Abas
+       ============================================ */
+    .abas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        border-bottom: 1px solid var(--color-borda);
+    }
+
+    .aba {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        color: var(--color-tinta-suave);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+    }
+
+    .aba-on {
+        color: var(--color-verde);
+        font-weight: 600;
+        border-bottom-color: var(--color-verde);
+    }
+
+    /* ============================================
+       Trecho e link
+       ============================================ */
+    .trecho-txt {
+        font-family: var(--font-titulo);
+        font-size: 1.12rem;
+        line-height: 1.55;
+    }
+
+    .link-of {
+        display: inline-block;
+        margin-top: 0.7rem;
+        color: var(--color-verde);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+        text-decoration-thickness: 1px;
+    }
+</style>
