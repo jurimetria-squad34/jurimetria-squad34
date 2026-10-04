@@ -2,6 +2,7 @@
 // ============================================
 // Imports
 // ============================================
+import exemplo from '../data/exemplo.json';
 import relatores from '../data/relatores.json';
 import universo from '../data/universo.json';
 import Layout from '../layouts/Layout.astro';
@@ -177,38 +178,39 @@ const limites = [
                         <div>
                             <dt class="text-tinta-suave text-xs">Classe</dt>
                             <dd class="m-0 font-semibold tabular-nums">
-                                REsp 0000000
+                                {exemplo.favoravel.classe}{' '}
+                                {exemplo.favoravel.numero}
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-tinta-suave text-xs">Julgamento</dt>
+                            <dt class="text-tinta-suave text-xs">Publicação</dt>
                             <dd class="m-0 font-semibold tabular-nums">
-                                00/00/0000
+                                {exemplo.favoravel.data}
                             </dd>
                         </div>
                     </dl>
 
                     <blockquote class="m-0 mb-5 p-0 font-titulo text-xl leading-relaxed">
-                        <p class="m-0">
-                            …a indenização só se justifica quando
-                            <mark class="bg-mostarda text-inherit px-[0.15em] [box-decoration-break:clone]">
-                                demonstrado o nexo causal entre a conduta e o
-                                abalo sofrido
-                            </mark>
-                            , sendo insuficiente a mera alegação de transtorno…
-                        </p>
+                        <p
+                            class="m-0"
+                            set:html={exemplo.favoravel.trecho.replace(
+                                exemplo.favoravel.trechoDestaque,
+                                `<mark class="bg-mostarda text-inherit px-[0.15em] [box-decoration-break:clone]">${exemplo.favoravel.trechoDestaque}</mark>`,
+                            )}
+                        />
                     </blockquote>
 
                     <div class="flex flex-wrap justify-between gap-x-4 gap-y-2 text-sm">
                         <a
-                            href="#"
+                            href={exemplo.favoravel.link}
+                            target="_blank"
+                            rel="noopener"
                             class="text-verde font-semibold underline underline-offset-4 decoration-1"
-                            tabindex="-1"
                         >
                             Abrir no site do tribunal
                         </a>
-                        <span class="text-tinta-suave italic">
-                            Exemplo ilustrativo
+                        <span class="text-tinta-suave italic text-xs">
+                            Exemplo com dados reais
                         </span>
                     </div>
                 </figure>
