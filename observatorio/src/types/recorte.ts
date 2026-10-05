@@ -1,6 +1,7 @@
 /**
  * Tipos dos arquivos menores que scripts/process-data.ts gera dentro de public/data/
  */
+export type { Tribunal } from "./observatorio.ts";
 import type { Tribunal } from "./observatorio.ts";
 
 export interface LinhaMensal {
