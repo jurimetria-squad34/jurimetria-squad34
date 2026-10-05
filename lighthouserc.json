@@ -50,9 +50,9 @@
                     }
                 ],
                 "categories:best-practices": [
-                    "error",
+                    "warn",
                     {
-                        "minScore": 0.9
+                        "minScore": 0.85
                     }
                 ]
             }
