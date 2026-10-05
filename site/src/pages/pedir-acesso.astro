@@ -12,7 +12,10 @@ import Dropdown from '../components/pedir-acesso/Dropdown.astro';
 // ============================================
 // TROCAR quando o Bruno passar o ID real do Formspree:
 // https://formspree.io/f/SEU-ID-AQUI
-const endpoint = 'https://formspree.io/f/SEU-ID-AQUI';
+const endpoint = import.meta.env.PUBLIC_FORMSPREE_URL ?? '';
+if (endpoint === '' && import.meta.env.PROD) {
+    throw new Error('Defina PUBLIC_FORMSPREE_URL antes do build.');
+}
 
 const areas = [
     'Cível',
@@ -302,7 +305,7 @@ const tamanhos = [
     // Configuração — vem dos data-attributes do form
     // ============================================
     const endpoint = form.dataset.endpoint ?? '';
-    const ehModoTeste = endpoint.includes('SEU-ID-AQUI');
+    const ehModoTeste = import.meta.env.DEV && endpoint === '';
     const areas = JSON.parse(form.dataset.areas ?? '[]') as string[];
     const tamanhos = JSON.parse(form.dataset.tamanhos ?? '[]') as string[];
 
@@ -417,6 +420,7 @@ const tamanhos = [
             }
 
             const dados = new FormData(form);
+            dados.delete('_timestamp');
             const resposta = await fetch(endpoint, {
                 method: 'POST',
                 body: dados,
