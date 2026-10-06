@@ -10,8 +10,6 @@ import Dropdown from '../components/pedir-acesso/Dropdown.astro';
 // ============================================
 // Configuração do formulário
 // ============================================
-// TROCAR quando o Bruno passar o ID real do Formspree:
-// https://formspree.io/f/SEU-ID-AQUI
 const endpoint = import.meta.env.PUBLIC_FORMSPREE_URL ?? '';
 if (endpoint === '' && import.meta.env.PROD) {
     throw new Error('Defina PUBLIC_FORMSPREE_URL antes do build.');

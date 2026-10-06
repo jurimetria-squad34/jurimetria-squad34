@@ -67,13 +67,13 @@ const inclusos = [
                             </header>
 
                             <p class="flex items-baseline gap-1 pb-6 border-b border-borda">
-                                <span class="font-mono text-5xl font-medium leading-none tracking-tight">
-                                    {plano.preco}
-                                </span>
-                                <span class="text-tinta-suave">
-                                    {plano.periodo}
-                                </span>
-                            </p>
+    <span class="font-mono text-3xl font-medium leading-none tracking-tight">
+        {plano.preco ?? 'Valor a definir'}
+    </span>
+    {plano.preco && (
+        <span class="text-tinta-suave">{plano.periodo}</span>
+    )}
+</p>
 
                             <ul class="flex flex-col gap-3 list-none p-0 m-0 flex-1">
                                 {plano.recursos.map((recurso) => (

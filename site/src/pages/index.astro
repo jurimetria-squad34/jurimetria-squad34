@@ -80,7 +80,7 @@ const dores = [
 // ============================================
 const barras = relatores.relatores.map((r) => ({
     rotulo: r.nome,
-    pct: Math.round((r.taxa ?? 0) * 100),
+    pct: r.basePequena || r.taxa === null ? null : Math.round(r.taxa * 100),
     total: r.total,
     favoraveis: r.favoraveis,
 }));
@@ -99,7 +99,7 @@ const passos = [
     },
     {
         titulo: 'Confira no tribunal',
-        texto: 'Um clique abre a decisão no site oficial. Cite com segurança.',
+        texto: 'Um clique abre a decisão no site oficial. Confira antes de citar.',
     },
 ];
 
@@ -145,8 +145,7 @@ const limites = [
                     </h1>
 
                     <p class="text-lg max-w-xl mb-4">
-                        Ache o precedente certo, veja a taxa de êxito por
-                        relator e confira tudo na fonte.
+                        Ache o precedente certo, veja a taxa de decisões favoráveis por relator e confira tudo na fonte.
                     </p>
                     <p class="text-lg max-w-xl mb-9 text-tinta-suave">
                         {total} decisões. Cada uma com trecho literal e link
@@ -307,11 +306,11 @@ const limites = [
                                 <span class="block h-3 bg-papel-escuro rounded-sm overflow-hidden">
                                     <span
                                         class="barra block h-full bg-verde rounded-sm"
-                                        style={`--w:${b.pct}%`}
+                                        style={`--w:${b.pct ?? 0}%`}
                                     />
                                 </span>
                                 <span class="font-semibold tabular-nums text-right">
-                                    {b.pct}%
+                                    {b.pct === null ? "base pequena" : `${b.pct}%`}
                                 </span>
                             </li>
                         ))}

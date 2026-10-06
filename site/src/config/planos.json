@@ -3,7 +3,7 @@
         {
             "id": "profissional",
             "nome": "Profissional",
-            "preco": "R$ 000",
+            "preco": null,
             "periodo": "/mês",
             "descricao": "Para advogado autônomo que pesquisa jurisprudência no dia a dia.",
             "destaque": false,
@@ -18,7 +18,7 @@
         {
             "id": "escritorio",
             "nome": "Escritório",
-            "preco": "R$ 000",
+            "preco": null,
             "periodo": "/mês",
             "descricao": "Para escritórios com equipe que levam teses ao STJ e ao STF.",
             "destaque": true,
