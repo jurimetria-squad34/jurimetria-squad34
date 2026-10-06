@@ -329,12 +329,21 @@ const tamanhos = [
         { id: 'tamanho', validar: (v) => validarTamanho(v, tamanhos) },
     ];
 
+    function alvoVisivel(campo: HTMLElement): HTMLElement {
+        return (
+            (campo
+                .closest('.dd')
+                ?.querySelector('.dd-btn') as HTMLElement | null) ?? campo
+        );
+    }
+
     function limparErro(id: string) {
         const campo = document.getElementById(id) as HTMLInputElement;
         const erro = document.getElementById(
             `erro-${id}`,
         ) as HTMLParagraphElement;
         campo.removeAttribute('aria-invalid');
+        alvoVisivel(campo).removeAttribute('aria-invalid');
         erro.hidden = true;
         erro.textContent = '';
     }
@@ -345,6 +354,7 @@ const tamanhos = [
             `erro-${id}`,
         ) as HTMLParagraphElement;
         campo.setAttribute('aria-invalid', 'true');
+        alvoVisivel(campo).setAttribute('aria-invalid', 'true');
         erro.textContent = mensagem;
         erro.hidden = false;
     }
@@ -361,7 +371,7 @@ const tamanhos = [
             if (mensagem) {
                 mostrarErro(campo.id, mensagem);
                 ok = false;
-                if (!primeiroErro) primeiroErro = el;
+                if (!primeiroErro) primeiroErro = alvoVisivel(el);
             }
         }
 
@@ -467,6 +477,9 @@ const tamanhos = [
         const placeholder = select.options[0]?.text ?? 'Selecione…';
         const itens: HTMLLIElement[] = [];
         let ativo = -1;
+        document
+            .getElementById(`rotulo-${select.id}`)
+            ?.addEventListener('click', () => botao.focus());
 
         Array.from(select.options).forEach((opt) => {
             if (opt.value === '') return;
