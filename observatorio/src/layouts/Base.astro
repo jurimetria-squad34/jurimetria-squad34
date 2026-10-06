@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import NavPrincipal from "../components/NavPrincipal.astro";
 
 interface Props {
   title: string;
@@ -25,6 +26,7 @@ const { title, description } = Astro.props;
     >
       Pular para o conteúdo
     </a>
+    <NavPrincipal />
     <main id="conteudo" class="mx-auto max-w-6xl px-6 py-10">
       <slot />
     </main>

@@ -1,0 +1,31 @@
+---
+//Barra de navegação entre as páginas do Observatório.
+
+const paginas = [
+  { href: "/", rotulo: "Início" },
+  { href: "/serie-historica/", rotulo: "Série histórica" },
+];
+
+const caminhoAtual = Astro.url.pathname;
+---
+
+<nav aria-label="Navegação principal" class="border-b border-linha">
+  <ul class="mx-auto flex max-w-6xl gap-6 px-6 py-3 text-sm">
+    {
+      paginas.map((pagina) => {
+        const ativa = caminhoAtual === pagina.href;
+        return (
+          <li>
+            <a
+              href={pagina.href}
+              aria-current={ativa ? "page" : undefined}
+              class={ativa ? "font-semibold text-toga" : "text-tinta/70 hover:text-toga"}
+            >
+              {pagina.rotulo}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
