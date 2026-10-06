@@ -552,9 +552,21 @@ const limites = [
             gap: 5rem;
         }
     }
-    .legenda-base {
-        margin-top: 1rem;
+    .cf .fatos p {
+        text-align: center;
+    }
+
+    .cf .fatos .legenda-base {
+        border: none;
+        padding: 0 1.5rem 1.25rem;
         font-size: 0.85rem;
-        color: var(--color-tinta-suave);
+        max-width: 70rem;
+        margin-inline: auto;
+    }
+
+    @media (min-width: 48rem) {
+        .cf .fatos p:first-child {
+            padding-left: 1.5rem;
+        }
     }
 </style>
