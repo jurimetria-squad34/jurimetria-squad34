@@ -3,10 +3,18 @@
 // Imports
 // ============================================
 import Layout from '../layouts/Layout.astro';
+import universo from '../data/universo.json';
 import TelaHero from '../components/como-funciona/TelaHero.astro';
 import PassoPesquisa from '../components/como-funciona/PassoPesquisa.astro';
 
 // ============================================
+const { tribunais, decisoes, de, ate } = universo.universo;
+const total = decisoes.toLocaleString('pt-BR');
+const listaTribunais = new Intl.ListFormat('pt-BR', {
+    style: 'long',
+    type: 'conjunction',
+}).format(tribunais);
+
 // Passos da pesquisa por caso
 // ============================================
 const passos = [
@@ -98,10 +106,14 @@ const limites = [
             ============================================ */}
         <section class="fatos">
             <div class="container-site fatos-grid">
-                <p><strong>12 milhões</strong> de decisões</p>
+                <p><strong>{total}</strong> de decisões</p>
                 <p><strong>STJ e STF</strong> na mesma busca</p>
                 <p><strong>Trecho literal</strong> e link oficial em cada uma</p>
             </div>
+            <p class="container-site legenda-base">
+                Base: {total} decisões do {listaTribunais}, de {de} a {ate}.
+                {universo.criterio}
+            </p>
         </section>
 
         {/* ============================================
@@ -539,5 +551,10 @@ const limites = [
             grid-template-columns: 6fr 5fr;
             gap: 5rem;
         }
+    }
+    .legenda-base {
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: var(--color-tinta-suave);
     }
 </style>

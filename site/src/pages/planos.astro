@@ -3,12 +3,23 @@
 // Imports
 // ============================================
 import dados from '../config/planos.json';
+import universo from '../data/universo.json';
 import Layout from '../layouts/Layout.astro';
 
 const { planos, faq } = dados;
 
+// ============================================
+// Base real (universo.json): sem arredondar
+// ============================================
+const { tribunais, decisoes, de, ate } = universo.universo;
+const total = decisoes.toLocaleString('pt-BR');
+const listaTribunais = new Intl.ListFormat('pt-BR', {
+    style: 'long',
+    type: 'conjunction',
+}).format(tribunais);
+
 const inclusos = [
-    '12 milhões de decisões',
+    `${total} decisões na base`,
     'STJ e STF na mesma busca',
     'Trecho literal e link oficial em cada uma',
 ];
@@ -29,8 +40,7 @@ const inclusos = [
                 </h1>
                 <p class="md:col-span-5 text-tinta-suave text-lg">
                     Dois planos, um para advogado autônomo e outro para
-                    escritórios com equipe. Todos incluem as 12 milhões de
-                    decisões do STJ e do STF, com trecho literal e link oficial
+                    escritórios com equipe. Todos incluem as {total} decisões do STJ e do STF, com trecho literal e link oficial
                     em cada uma.
                 </p>
             </div>
@@ -101,6 +111,11 @@ const inclusos = [
                 <p class="mt-5 text-sm italic text-tinta-suave">
                     Os valores finais serão definidos em breve. Ao pedir acesso,
                     você recebe a proposta atualizada.
+                </p>
+
+                <p class="mt-3 text-sm text-tinta-suave">
+                    Base: {total} decisões do {listaTribunais}, de {de} a {ate}.
+                    {universo.criterio}
                 </p>
 
                 {/* ============================================
