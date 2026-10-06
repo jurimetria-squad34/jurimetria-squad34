@@ -20,6 +20,8 @@ interface Props {
     required?: boolean;
     /** Tamanho mínimo (opcional) */
     minlength?: number;
+    /** Tamanho máximo (opcional) */
+    maxlength?: number;
     /** Se ocupa a linha inteira do grid */
     cheio?: boolean;
 }
@@ -31,6 +33,7 @@ const {
     autocomplete,
     required = false,
     minlength,
+    maxlength,
     cheio = true,
 } = Astro.props;
 ---
@@ -45,6 +48,7 @@ const {
         type={tipo}
         required={required}
         minlength={minlength}
+        maxlength={maxlength}
         autocomplete={autocomplete}
         class="campo"
         aria-describedby={`erro-${id}`}

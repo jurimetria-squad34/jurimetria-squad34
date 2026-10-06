@@ -98,7 +98,10 @@ importa porque um ano com 50 decisões não pode pesar o mesmo que um ano com 80
 
 E o resultado é apresentado em pontos percentuais, com sinal e seta:
 
-> Exemplo ilustrativo: ▲ +4,2 p.p. (38,1% → 42,3%)
+> ▼ -2,9 p.p. (18,1% → 15,2%)
+
+
+Universo: STJ, HC, todas as matérias. Períodos: 2020-2022 contra 2023-2025. Critério: concedido, provido ou parcial.
 
 Se **qualquer uma das duas janelas** tiver menos de 30 decisões, a tendência
 não é exibida e o sistema mostra "base pequena".
