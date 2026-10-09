@@ -1,0 +1,1 @@
+// responsável por interagir com as paginas do stj e do stf
