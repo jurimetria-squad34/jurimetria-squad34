@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import Relatores from "../components/Relatores";
+---
+
+<Base
+  title="Relatores — Observatório Jurimétrico do STJ e STF"
+  description="Total, taxa favorável e tendência por relator, filtrando por tribunal, classe e matéria."
+>
+  <h1 class="font-titulo text-3xl font-semibold text-toga md:text-4xl">Relatores</h1>
+  <p class="mt-3 max-w-prose text-tinta/80">
+    Para um tribunal, uma classe e uma matéria, veja o total de decisões, a taxa favorável e a tendência de cada
+    relator — os 3 últimos anos fechados contra os 3 anteriores.
+  </p>
+
+  <div class="mt-8">
+    <Relatores client:load />
+  </div>
+</Base>
