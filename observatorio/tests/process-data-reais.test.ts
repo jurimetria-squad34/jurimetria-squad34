@@ -60,15 +60,30 @@ describe("montarResumo com o arquivo real", () => {
     expect(totais).toEqual([...totais].sort((a, b) => b - a));
   });
 
-  test("porTribunal tem STJ e STF, e a soma dos dois bate com universo.decisoes", () => {
+  test("porTribunalVolume tem STJ e STF, e a soma dos dois bate com universo.decisoes", () => {
     const dados = normalizarDados(lerObservatorio(caminhoDadosReais));
     const resumo = montarResumo(dados);
-    expect(resumo.porTribunal.map((t) => t.tribunal).sort()).toEqual(["STF", "STJ"]);
-    const soma = resumo.porTribunal.reduce((s, t) => s + t.total, 0);
+    expect(resumo.porTribunalVolume.map((t) => t.tribunal).sort()).toEqual(["STF", "STJ"]);
+    const soma = resumo.porTribunalVolume.reduce((s, t) => s + t.total, 0);
     expect(soma).toBe(dados.universo.decisoes);
   });
 
-  test("resumo.json fica bem pequeno (cabe tranquilo numa página inicial)", () => {
+  test("porAno nunca mistura duas classes diferentes no mesmo tribunal", () => {
+    const dados = normalizarDados(lerObservatorio(caminhoDadosReais));
+    const resumo = montarResumo(dados);
+    const classesPorTribunal = new Map<string, Set<string>>();
+    for (const ponto of resumo.porAno) {
+      if (!classesPorTribunal.has(ponto.tribunal)) classesPorTribunal.set(ponto.tribunal, new Set());
+      classesPorTribunal.get(ponto.tribunal)!.add(ponto.classe);
+    }
+    for (const [tribunal, classes] of classesPorTribunal) {
+      expect(classes.size, `${tribunal} tem mais de uma classe em porAno: ${[...classes].join(", ")}`).toBe(1);
+    }
+    expect(classesPorTribunal.get("STJ")).toEqual(new Set(["AREsp"]));
+    expect(classesPorTribunal.get("STF")).toEqual(new Set(["ARE"]));
+  });
+
+  test("resumo.json fica bem pequeno", () => {
     const dados = normalizarDados(lerObservatorio(caminhoDadosReais));
     const resumo = montarResumo(dados);
     const tamanhoKB = JSON.stringify(resumo).length / 1024;
