@@ -97,8 +97,9 @@ const volumesPorTribunal = resumo.porTribunalVolume.map((t) => ({
   <footer class="mt-16 border-t border-linha pt-6 text-sm text-tinta/70">
     <p>
       Dados agregados, sem nome de parte, atualizados a partir do pacote da Krohn
-      (gerado em {new Date(resumo.geradoEm).toLocaleDateString("pt-BR")}). Veja a metodologia completa para entender
-      de onde vêm os números e as limitações da base.
+      (gerado em {new Date(resumo.geradoEm).toLocaleDateString("pt-BR")}). Veja a{" "}
+      <a href="/metodologia/" class="underline hover:text-toga">metodologia completa</a> para entender de onde vêm
+      os números e as limitações da base.
     </p>
   </footer>
 </Base>
