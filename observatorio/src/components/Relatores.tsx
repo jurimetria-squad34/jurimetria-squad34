@@ -33,8 +33,20 @@ export default function Relatores() {
   const { anosAnteriores, anosRecentes } = calcularJanelasDeAnos(anoReferencia);
   const relatores = recorte ? agregarPorRelator(recorte.relatores, anosAnteriores, anosRecentes) : [];
 
+  const status = carregandoRecorte
+  ? "Carregando dados do recorte…"
+  : erroRecorte
+    ? "Não foi possível carregar este recorte."
+    : recorte
+      ? `Dados carregados: ${selecao.tribunal}, classe ${selecao.classe}.`
+      : "";
+
   return (
     <div>
+      <p className="sr-only" role="status" aria-live="polite">
+        {status}
+      </p>
+      
       <FiltrosRecorte
         tribunais={tribunais}
         classes={classes}

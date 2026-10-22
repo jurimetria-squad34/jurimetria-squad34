@@ -32,8 +32,20 @@ export default function SerieHistorica() {
 
   const taxaAgregada = entradaAtual ? calcularTaxa(entradaAtual.totalDecisoes, entradaAtual.totalFavoraveis) : null;
 
+  const status = carregandoRecorte
+  ? "Carregando dados do recorte…"
+  : erroRecorte
+    ? "Não foi possível carregar este recorte."
+    : recorte
+      ? `Dados carregados: ${selecao.tribunal}, classe ${selecao.classe}.`
+      : "";
+
   return (
     <div>
+      <p className="sr-only" role="status" aria-live="polite">
+        {status}
+      </p>
+      
       <FiltrosRecorte
         tribunais={tribunais}
         classes={classes}
@@ -58,7 +70,7 @@ export default function SerieHistorica() {
 
       {recorte && !carregandoRecorte && !erroRecorte && (
         <>
-          <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3">
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <dt className="text-sm text-tinta/70">Decisões no período</dt>
               <dd className="font-titulo text-2xl font-semibold text-toga">
