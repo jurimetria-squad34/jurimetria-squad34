@@ -70,7 +70,7 @@ export default function SerieHistorica() {
 
       {recorte && !carregandoRecorte && !erroRecorte && (
         <>
-          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <dl className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
               <dt className="text-sm text-tinta/70">Decisões no período</dt>
               <dd className="font-titulo text-2xl font-semibold text-toga">
@@ -83,7 +83,7 @@ export default function SerieHistorica() {
                 {taxaAgregada?.status === "ok" ? formatarPercentual(taxaAgregada.taxa) : "base pequena"}
               </dd>
             </div>
-          </div>
+          </dl>
 
           <section className="mt-10" aria-labelledby="titulo-taxa-mensal">
             <h2 id="titulo-taxa-mensal" className="font-titulo text-xl font-semibold text-toga">

@@ -83,7 +83,7 @@ export default function Relatores() {
               mais, de 2015 em diante).
             </p>
           ) : (
-            <div className="mt-4 overflow-x-auto">
+            <div className="mt-4 overflow-x-auto" role="region" aria-label="Tabela de relatores (rolagem horizontal)" tabIndex={0}>
               <table className="w-full min-w-[32rem] border-collapse text-sm">
                 <caption className="sr-only">
                   Relatores de {selecao.tribunal} {selecao.classe}, com total de decisões, taxa favorável e
