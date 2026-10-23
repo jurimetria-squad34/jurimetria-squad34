@@ -69,8 +69,9 @@ export default function GraficoTaxaMensal({ mensal }: Props) {
               formatter={(valor) => (typeof valor === "number" ? formatarPercentual(valor / 100) : valor)}
               contentStyle={{ fontFamily: "var(--font-corpo)", fontSize: 13, borderColor: "var(--color-linha)" }}
             />
-            <Line type="monotone" dataKey="taxa" name="Taxa favorável" stroke="var(--color-stj)" strokeWidth={2} dot={false} connectNulls={false} />
+            <Line isAnimationActive={false} type="monotone" dataKey="taxa" name="Taxa favorável" stroke="var(--color-stj)" strokeWidth={2} dot={false} connectNulls={false} />
             <Line
+              isAnimationActive={false}
               type="monotone"
               dataKey="taxaAndamento"
               stroke="var(--color-stj)"

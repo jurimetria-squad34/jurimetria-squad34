@@ -24,7 +24,7 @@ export default function GraficoVolumeMensal({ mensal }: Props) {
               labelFormatter={(mes, payload) => (payload[0]?.payload.emAndamento ? `${mes} (em andamento)` : mes)}
               contentStyle={{ fontFamily: "var(--font-corpo)", fontSize: 13, borderColor: "var(--color-linha)" }}
             />
-            <Bar dataKey="total" name="Decisões" radius={[2, 2, 0, 0]}>
+            <Bar isAnimationActive={false} dataKey="total" name="Decisões" radius={[2, 2, 0, 0]}>
               {mensal.map((l) => (
                 // o mês em andamento fica mais claro (opacidade menor), não escondido
                 <Cell key={l.mes} fill="var(--color-stj)" fillOpacity={l.emAndamento ? 0.4 : 1} />

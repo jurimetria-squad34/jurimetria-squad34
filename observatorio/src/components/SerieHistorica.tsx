@@ -1,10 +1,15 @@
+import { lazy, Suspense } from "react";
 import { useSelecaoRecorte } from "./useSelecaoRecorte";
 import FiltrosRecorte from "./FiltrosRecorte";
-import GraficoTaxaMensal from "./GraficoTaxaMensal";
-import GraficoVolumeMensal from "./GraficoVolumeMensal";
+import QuandoVisivel from "./QuandoVisivel";
 import { calcularTaxa } from "@/lib/taxa";
 import { formatarPercentual } from "@/lib/formato";
 import { rotularMateria } from "@/lib/rotulos";
+
+const GraficoTaxaMensal = lazy(() => import("./GraficoTaxaMensal"));
+const GraficoVolumeMensal = lazy(() => import("./GraficoVolumeMensal"));
+
+const CARREGANDO_GRAFICO = <p className="text-sm text-tinta/70">Carregando gráfico…</p>;
 
 export default function SerieHistorica() {
   const {
@@ -90,7 +95,11 @@ export default function SerieHistorica() {
               Taxa favorável por mês
             </h2>
             <div className="mt-4">
-              <GraficoTaxaMensal mensal={recorte.mensal} />
+              <QuandoVisivel alturaMinima={256}>
+                <Suspense fallback={CARREGANDO_GRAFICO}>
+                  <GraficoTaxaMensal mensal={recorte.mensal} />
+                </Suspense>
+              </QuandoVisivel>
             </div>
           </section>
 
@@ -99,7 +108,11 @@ export default function SerieHistorica() {
               Volume de decisões por mês
             </h2>
             <div className="mt-4">
-              <GraficoVolumeMensal mensal={recorte.mensal} />
+              <QuandoVisivel alturaMinima={224}>
+                <Suspense fallback={CARREGANDO_GRAFICO}>
+                  <GraficoVolumeMensal mensal={recorte.mensal} />
+                </Suspense>
+              </QuandoVisivel>
             </div>
           </section>
         </>

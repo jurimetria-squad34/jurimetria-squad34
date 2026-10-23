@@ -10,7 +10,7 @@ const caminhoAtual = Astro.url.pathname;
 ---
 
 <nav aria-label="Navegação principal" class="border-b border-linha">
-  <ul class="mx-auto flex max-w-6xl gap-6 px-6 py-3 text-sm">
+  <ul class="mx-auto flex max-w-6xl flex-wrap gap-x-5 gap-y-1 px-6 py-3 text-sm">
     {
       paginas.map((pagina) => {
         const ativa = caminhoAtual === pagina.href;
@@ -19,7 +19,7 @@ const caminhoAtual = Astro.url.pathname;
             <a
               href={pagina.href}
               aria-current={ativa ? "page" : undefined}
-              class={ativa ? "font-semibold text-toga" : "text-tinta/70 hover:text-toga"}
+              class={`whitespace-nowrap ${ativa ? "font-semibold text-toga" : "text-tinta/70 hover:text-toga"}`}
             >
               {pagina.rotulo}
             </a>
