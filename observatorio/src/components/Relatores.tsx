@@ -1,10 +1,12 @@
 import { useSelecaoRecorte } from "./useSelecaoRecorte";
 import FiltrosRecorte from "./FiltrosRecorte";
+import LegendaDados from "./LegendaDados";
 import { agregarPorRelator } from "@/lib/relatores";
 import { calcularJanelasDeAnos, calcularTendencia, formatarTendencia } from "@/lib/tendencia";
 import { calcularTaxa } from "@/lib/taxa";
 import { formatarPercentual } from "@/lib/formato";
-import { rotularMateria } from "@/lib/rotulos";
+import { descreverUniverso } from "@/lib/rotulos";
+import { formatarFaixaDeAnos, periodoDosRelatores } from "@/lib/periodo";
 
 export default function Relatores() {
   const {
@@ -32,6 +34,8 @@ export default function Relatores() {
   const anoReferencia = Number(manifest.geradoEm.slice(0, 4));
   const { anosAnteriores, anosRecentes } = calcularJanelasDeAnos(anoReferencia);
   const relatores = recorte ? agregarPorRelator(recorte.relatores, anosAnteriores, anosRecentes) : [];
+  const faixaAnterior = formatarFaixaDeAnos(anosAnteriores);
+  const faixaRecente = formatarFaixaDeAnos(anosRecentes);
 
   const status = carregandoRecorte
   ? "Carregando dados do recorte…"
@@ -57,17 +61,6 @@ export default function Relatores() {
         mudarMateria={mudarMateria}
       />
 
-      {recorte && (
-        <p className="mt-6 max-w-prose text-sm text-tinta/70">
-          <strong className="font-medium text-tinta">Universo:</strong> {selecao.tribunal}, classe {selecao.classe},{" "}
-          {rotularMateria(selecao.materia).toLowerCase()}.{" "}
-          <strong className="font-medium text-tinta">Critério de decisão favorável:</strong> {manifest.criterio}
-          {" "}
-          <strong className="font-medium text-tinta">Tendência:</strong> taxa agregada de {anosRecentes.join("–")}{" "}
-          contra {anosAnteriores.join("–")}.
-        </p>
-      )}
-
       {carregandoRecorte && <p className="mt-8 text-tinta/70">Carregando dados do recorte…</p>}
       {erroRecorte && <p className="mt-8 text-tinta/70">Não consegui carregar este recorte. Tente outro filtro.</p>}
 
@@ -87,7 +80,7 @@ export default function Relatores() {
               <table className="w-full min-w-[32rem] border-collapse text-sm">
                 <caption className="sr-only">
                   Relatores de {selecao.tribunal} {selecao.classe}, com total de decisões, taxa favorável e
-                  tendência entre {anosAnteriores.join("–")} e {anosRecentes.join("–")}
+                  tendência entre {faixaAnterior} e {faixaRecente}
                 </caption>
                 <thead>
                   <tr className="border-b border-linha text-left text-tinta/70">
@@ -101,7 +94,7 @@ export default function Relatores() {
                       Taxa favorável
                     </th>
                     <th scope="col" className="py-2 font-medium">
-                      Tendência ({anosAnteriores.join("–")} → {anosRecentes.join("–")})
+                      Tendência ({faixaAnterior} → {faixaRecente})
                     </th>
                   </tr>
                 </thead>
@@ -125,6 +118,15 @@ export default function Relatores() {
                 </tbody>
               </table>
             </div>
+          )}
+          
+          {relatores.length > 0 && (
+            <LegendaDados
+              universo={descreverUniverso(recorte.tribunal, recorte.classe, recorte.materia, recorte.classeOriginais)}
+              periodo={`total e taxa de ${periodoDosRelatores(recorte.relatores, anoReferencia)}; tendência: ${faixaRecente} contra ${faixaAnterior}`}
+              criterio={manifest.criterio}
+              observacao="Só entram relatores com pelo menos 20 decisões em um mesmo ano, de 2015 em diante; por isso a soma da tabela pode ser menor que o total do recorte."
+            />
           )}
         </section>
       )}

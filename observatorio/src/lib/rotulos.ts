@@ -18,3 +18,13 @@ export function rotularMateria(materia: string | null): string {
   if (materia === null) return "Sem matéria informada";
   return ROTULOS_MATERIA[materia] ?? materia; 
 }
+
+export function descreverUniverso(
+  tribunal: string,
+  classe: string,
+  materia: string | null,
+  classeOriginais: string[] = [],
+): string {
+  const grafias = classeOriginais.length > 1 ? ` (grafias unificadas: ${classeOriginais.join(", ")})` : "";
+  return `${tribunal}, classe ${classe}${grafias}, ${rotularMateria(materia).toLowerCase()}`;
+}

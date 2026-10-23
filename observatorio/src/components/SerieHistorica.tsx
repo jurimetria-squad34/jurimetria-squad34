@@ -2,9 +2,11 @@ import { lazy, Suspense } from "react";
 import { useSelecaoRecorte } from "./useSelecaoRecorte";
 import FiltrosRecorte from "./FiltrosRecorte";
 import QuandoVisivel from "./QuandoVisivel";
+import LegendaDados from "./LegendaDados";
 import { calcularTaxa } from "@/lib/taxa";
 import { formatarPercentual } from "@/lib/formato";
-import { rotularMateria } from "@/lib/rotulos";
+import { descreverUniverso } from "@/lib/rotulos";
+import { periodoDoMensal } from "@/lib/periodo";
 
 const GraficoTaxaMensal = lazy(() => import("./GraficoTaxaMensal"));
 const GraficoVolumeMensal = lazy(() => import("./GraficoVolumeMensal"));
@@ -45,6 +47,14 @@ export default function SerieHistorica() {
       ? `Dados carregados: ${selecao.tribunal}, classe ${selecao.classe}.`
       : "";
 
+  const legenda = recorte ? (
+    <LegendaDados
+      universo={descreverUniverso(recorte.tribunal, recorte.classe, recorte.materia, recorte.classeOriginais)}
+      periodo={periodoDoMensal(recorte.mensal)}
+      criterio={manifest.criterio}
+    />
+  ) : null;
+
   return (
     <div>
       <p className="sr-only" role="status" aria-live="polite">
@@ -60,15 +70,6 @@ export default function SerieHistorica() {
         mudarClasse={mudarClasse}
         mudarMateria={mudarMateria}
       />
-
-      {entradaAtual && recorte && (
-        <p className="mt-6 max-w-prose text-sm text-tinta/70">
-          <strong className="font-medium text-tinta">Universo:</strong> {selecao.tribunal}, classe {selecao.classe}
-          {recorte.classeOriginais.length > 1 ? ` (grafias unificadas: ${recorte.classeOriginais.join(", ")})` : ""}
-          , {rotularMateria(selecao.materia).toLowerCase()}.{" "}
-          <strong className="font-medium text-tinta">Critério de decisão favorável:</strong> {manifest.criterio}
-        </p>
-      )}
 
       {carregandoRecorte && <p className="mt-8 text-tinta/70">Carregando dados do recorte…</p>}
       {erroRecorte && <p className="mt-8 text-tinta/70">Não consegui carregar este recorte. Tente outro filtro.</p>}
@@ -89,6 +90,7 @@ export default function SerieHistorica() {
               </dd>
             </div>
           </dl>
+          {legenda}
 
           <section className="mt-10" aria-labelledby="titulo-taxa-mensal">
             <h2 id="titulo-taxa-mensal" className="font-titulo text-xl font-semibold text-toga">
@@ -101,6 +103,7 @@ export default function SerieHistorica() {
                 </Suspense>
               </QuandoVisivel>
             </div>
+            {legenda}
           </section>
 
           <section className="mt-10" aria-labelledby="titulo-volume-mensal">
@@ -114,6 +117,7 @@ export default function SerieHistorica() {
                 </Suspense>
               </QuandoVisivel>
             </div>
+            {legenda}
           </section>
         </>
       )}

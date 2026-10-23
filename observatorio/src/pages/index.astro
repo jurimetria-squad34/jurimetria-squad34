@@ -5,6 +5,8 @@ import Base from "../layouts/Base.astro";
 import GraficoTaxaAnual from "../components/GraficoTaxaAnual";
 import GraficoTopClasses from "../components/GraficoTopClasses";
 import GraficoTaxaPorClasse from "../components/GraficoTaxaPorClasse";
+import LegendaDados from "../components/LegendaDados";
+import { formatarPeriodo } from "@/lib/periodo";
 import type { Resumo } from "@/types/recorte";
 
 const caminhoResumo = join(process.cwd(), "public/data/resumo.json");
@@ -12,6 +14,27 @@ const resumo: Resumo = JSON.parse(readFileSync(caminhoResumo, "utf-8"));
 
 const totalDecisoes = resumo.universo.decisoes.toLocaleString("pt-BR");
 const periodo = `${resumo.universo.de}–${resumo.universo.ate}`;
+
+const anoReferencia = Number(resumo.geradoEm.slice(0, 4));
+const periodoCompleto = formatarPeriodo(
+  resumo.universo.de,
+  resumo.universo.ate,
+  resumo.universo.ate === anoReferencia ? anoReferencia : undefined,
+);
+const universoGeral = `${resumo.universo.tribunais.join(" e ")}, todas as classes e matérias`;
+
+const anosTaxaAnual = resumo.porAno.map((p) => p.ano);
+const ultimoAnoTaxaAnual = Math.max(...anosTaxaAnual);
+const periodoTaxaAnual = formatarPeriodo(
+  Math.min(...anosTaxaAnual),
+  ultimoAnoTaxaAnual,
+  resumo.porAno.some((p) => p.emAndamento) ? ultimoAnoTaxaAnual : undefined,
+);
+const classePorTribunal = new Map(resumo.porAno.map((p) => [p.tribunal, p.classe]));
+const universoTaxaAnual = `${[...classePorTribunal].map(([t, c]) => `${t}, classe ${c}`).join("; ")}; todas as matérias`;
+
+const tribunaisDasClasses = [...new Set(resumo.topClasses.map((c) => c.tribunal))].sort().join(" e ");
+const universoClasses = `${tribunaisDasClasses}, as ${resumo.topClasses.length} classes com mais decisões, todas as matérias`;
 
 const volumesPorTribunal = resumo.porTribunalVolume.map((t) => ({
   tribunal: t.tribunal,
@@ -53,21 +76,16 @@ const volumesPorTribunal = resumo.porTribunalVolume.map((t) => ({
     </dl>
   </header>
 
-  <p class="mt-6 max-w-prose text-sm text-tinta/70">
-    <strong class="font-medium text-tinta">Universo:</strong> STJ e STF, todas as classes e matérias, {periodo}.{" "}
-    <strong class="font-medium text-tinta">Critério de decisão favorável:</strong> {resumo.criterio}
-  </p>
+  <LegendaDados universo={universoGeral} periodo={periodoCompleto} criterio={resumo.criterio} />
 
   <section class="mt-14" aria-labelledby="titulo-taxa-anual">
     <h2 id="titulo-taxa-anual" class="font-titulo text-2xl font-semibold text-toga">
       Taxa favorável por ano
     </h2>
-    <p class="mt-1 max-w-prose text-sm text-tinta/70">
-      Últimos 11 anos, na classe mais volumosa de cada tribunal.
-    </p>
     <div class="mt-6 rounded-lg border border-linha p-6">
       <GraficoTaxaAnual pontos={resumo.porAno} client:visible />
     </div>
+    <LegendaDados universo={universoTaxaAnual} periodo={periodoTaxaAnual} criterio={resumo.criterio} />
   </section>
 
   <div class="mt-14 grid gap-14 md:grid-cols-2">
@@ -75,22 +93,20 @@ const volumesPorTribunal = resumo.porTribunalVolume.map((t) => ({
       <h2 id="titulo-top-classes" class="font-titulo text-2xl font-semibold text-toga">
         As classes com mais decisões
       </h2>
-      <p class="mt-1 max-w-prose text-sm text-tinta/70">Período completo, STJ e STF juntos.</p>
       <div class="mt-6">
         <GraficoTopClasses classes={resumo.topClasses} client:visible />
       </div>
+      <LegendaDados universo={universoClasses} periodo={periodoCompleto} criterio={resumo.criterio} />
     </section>
 
     <section aria-labelledby="titulo-taxa-classe">
       <h2 id="titulo-taxa-classe" class="font-titulo text-2xl font-semibold text-toga">
         Taxa favorável por classe
       </h2>
-      <p class="mt-1 max-w-prose text-sm text-tinta/70">
-        As mesmas classes do gráfico ao lado, no período completo.
-      </p>
       <div class="mt-6">
         <GraficoTaxaPorClasse classes={resumo.topClasses} client:visible />
       </div>
+      <LegendaDados universo={universoClasses} periodo={periodoCompleto} criterio={resumo.criterio} />
     </section>
   </div>
 
