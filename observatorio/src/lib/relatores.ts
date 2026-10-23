@@ -1,4 +1,6 @@
 import type { LinhaRelator } from "@/types/recorte";
+import { calcularTaxa } from "./taxa.ts";
+import { nomeCompletoRelator, nomeCurtoRelator } from "./rotulos.ts";
 
 export interface JanelaRelator {
   total: number;
@@ -45,4 +47,43 @@ export function agregarPorRelator(
   }
 
   return [...porRelator.values()].sort((a, b) => b.total - a.total);
+}
+
+export interface PontoRelatorGrafico {
+  relator: string;
+  nomeCurto: string;
+  nomeCompleto: string;
+  total: number;
+  totalAnterior: number;
+  totalRecente: number;
+  taxaAnterior: number | null;
+  taxaRecente: number | null;
+}
+
+function taxaOuNulo(janela: JanelaRelator): number | null {
+  const resultado = calcularTaxa(janela.total, janela.favoraveis);
+  return resultado.status === "ok" ? resultado.taxa : null;
+}
+
+export function selecionarRelatoresParaGrafico(
+  relatores: RelatorAgregado[],
+  limite = 10,
+): { pontos: PontoRelatorGrafico[]; elegiveis: number } {
+  const elegiveis = relatores
+    .map(
+      (r): PontoRelatorGrafico => ({
+        relator: r.relator,
+        nomeCurto: nomeCurtoRelator(r.relator),
+        nomeCompleto: nomeCompletoRelator(r.relator),
+        total: r.total,
+        totalAnterior: r.janelaAnterior.total,
+        totalRecente: r.janelaRecente.total,
+        taxaAnterior: taxaOuNulo(r.janelaAnterior),
+        taxaRecente: taxaOuNulo(r.janelaRecente),
+      }),
+    )
+    .filter((p) => p.taxaAnterior !== null || p.taxaRecente !== null)
+    .sort((a, b) => b.total - a.total);
+
+  return { pontos: elegiveis.slice(0, limite), elegiveis: elegiveis.length };
 }

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { agregarPorRelator } from "../src/lib/relatores.ts";
+import { agregarPorRelator, selecionarRelatoresParaGrafico } from "../src/lib/relatores.ts";
 import type { LinhaRelator } from "../src/types/recorte.ts";
 
 function linha(relator: string, ano: number, total: number, favoraveis: number): LinhaRelator {
@@ -50,5 +50,56 @@ describe("agregarPorRelator", () => {
     const linhas = [linha("MIN. POUCO", 2023, 30, 10), linha("MIN. MUITO", 2023, 300, 100)];
     const agregados = agregarPorRelator(linhas, anosAnteriores, anosRecentes);
     expect(agregados.map((a) => a.relator)).toEqual(["MIN. MUITO", "MIN. POUCO"]);
+  });
+});
+
+describe("selecionarRelatoresParaGrafico", () => {
+  const anteriores = [2020, 2021, 2022] as const;
+  const recentes = [2023, 2024, 2025] as const;
+  const agregar = (linhas: LinhaRelator[]) => agregarPorRelator(linhas, anteriores, recentes);
+
+  test("ordena pelos que têm mais decisões e respeita o limite", () => {
+    const relatores = agregar([
+      linha("A", 2021, 100, 50),
+      linha("A", 2024, 100, 50),
+      linha("B", 2021, 300, 90),
+      linha("B", 2024, 300, 90),
+      linha("C", 2021, 200, 80),
+      linha("C", 2024, 200, 80),
+    ]);
+    const { pontos, elegiveis } = selecionarRelatoresParaGrafico(relatores, 2);
+    expect(pontos.map((p) => p.relator)).toEqual(["B", "C"]);
+    expect(elegiveis).toBe(3);
+  });
+
+  test("janela com menos de 30 decisões fica sem taxa (base pequena não vira barra)", () => {
+    const relatores = agregar([linha("A", 2021, 20, 10), linha("A", 2024, 200, 100)]);
+    const [ponto] = selecionarRelatoresParaGrafico(relatores).pontos;
+    expect(ponto.taxaAnterior).toBeNull();
+    expect(ponto.taxaRecente).toBe(0.5);
+    expect(ponto.totalAnterior).toBe(20);
+  });
+
+  test("relator com base pequena nas duas janelas não entra no gráfico", () => {
+    const relatores = agregar([linha("A", 2021, 20, 10), linha("A", 2024, 25, 5), linha("B", 2024, 200, 100)]);
+    const { pontos, elegiveis } = selecionarRelatoresParaGrafico(relatores);
+    expect(pontos.map((p) => p.relator)).toEqual(["B"]);
+    expect(elegiveis).toBe(1);
+  });
+
+  test("relator que só tem anos fora das duas janelas não entra no gráfico", () => {
+    const relatores = agregar([linha("A", 2016, 500, 250)]);
+    expect(selecionarRelatoresParaGrafico(relatores).pontos).toEqual([]);
+  });
+
+  test("traz o nome curto e o nome completo para a tela", () => {
+    const relatores = agregar([linha("ERICSON MARANHO (DESEMBARGADOR CONVOCADO DO TJ/SP)", 2024, 100, 40)]);
+    const [ponto] = selecionarRelatoresParaGrafico(relatores).pontos;
+    expect(ponto.nomeCurto).toBe("Ericson Maranho");
+    expect(ponto.nomeCompleto).toBe("Ericson Maranho (DESEMBARGADOR CONVOCADO DO TJ/SP)");
+  });
+
+  test("sem relatores, devolve listas vazias", () => {
+    expect(selecionarRelatoresParaGrafico([])).toEqual({ pontos: [], elegiveis: 0 });
   });
 });
