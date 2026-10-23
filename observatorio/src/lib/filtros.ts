@@ -34,3 +34,31 @@ export function encontrarRecorte(
 export function recortePadrao(recortes: EntradaManifesto[]): EntradaManifesto {
   return [...recortes].sort((a, b) => b.totalDecisoes - a.totalDecisoes)[0];
 }
+
+export interface PedidoDeRecorte {
+  tribunal?: string;
+  classe?: string;
+  materia?: string | null;
+}
+
+const minusculas = (texto: string): string => texto.toLocaleLowerCase("pt-BR");
+
+export function resolverRecorte(recortes: EntradaManifesto[], pedido: PedidoDeRecorte): EntradaManifesto {
+  const tribunalPedido = pedido.tribunal?.trim().toUpperCase();
+  const tribunal = tribunalPedido === "STJ" || tribunalPedido === "STF" ? tribunalPedido : undefined;
+  const classe = pedido.classe?.trim() || undefined;
+  const materia = pedido.materia === "" ? undefined : pedido.materia;
+
+  const tentativas: PedidoDeRecorte[] = [{ tribunal, classe, materia }, { tribunal, classe }, { tribunal }];
+  for (const t of tentativas) {
+    const candidatos = recortes.filter(
+      (r) =>
+        (t.tribunal === undefined || r.tribunal === t.tribunal) &&
+        (t.classe === undefined || minusculas(r.classe) === minusculas(t.classe)) &&
+        (t.materia === undefined ||
+          (t.materia === null ? r.materia === null : r.materia !== null && minusculas(r.materia) === minusculas(t.materia))),
+    );
+    if (candidatos.length > 0) return recortePadrao(candidatos);
+  }
+  return recortePadrao(recortes);
+}

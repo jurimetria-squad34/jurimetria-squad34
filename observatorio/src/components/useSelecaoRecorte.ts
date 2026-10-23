@@ -3,9 +3,10 @@ import {
   classesDisponiveis,
   encontrarRecorte,
   materiasDisponiveis,
-  recortePadrao,
+  resolverRecorte,
   tribunaisDisponiveis,
 } from "@/lib/filtros";
+import type { PedidoDeRecorte } from "@/lib/filtros";
 import type { ArquivoRecorte, Manifesto, Tribunal } from "@/types/recorte";
 
 const SEM_MATERIA = "sem-materia";
@@ -18,15 +19,13 @@ export interface Selecao {
   materia: string | null;
 }
 
-function lerSelecaoDaUrl(): Partial<Selecao> {
+function lerPedidoDaUrl(): PedidoDeRecorte {
   const params = new URLSearchParams(window.location.search);
-  const tribunal = params.get("tribunal");
-  const classe = params.get("classe");
-  const materiaParam = params.get("materia");
+  const materia = params.get("materia");
   return {
-    tribunal: tribunal === "STJ" || tribunal === "STF" ? tribunal : undefined,
-    classe: classe ?? undefined,
-    materia: materiaParam !== null ? materiaDoParametro(materiaParam) : undefined,
+    tribunal: params.get("tribunal") ?? undefined,
+    classe: params.get("classe") ?? undefined,
+    materia: materia === null ? undefined : materiaDoParametro(materia),
   };
 }
 
@@ -62,13 +61,7 @@ export function useSelecaoRecorte() {
     if (!manifest || jaLeuUrl.current) return;
     jaLeuUrl.current = true;
 
-    const daUrl = lerSelecaoDaUrl();
-    const recorteDaUrl =
-      daUrl.tribunal && daUrl.classe !== undefined && daUrl.materia !== undefined
-        ? encontrarRecorte(manifest.recortes, daUrl.tribunal, daUrl.classe, daUrl.materia)
-        : undefined;
-
-    const entrada = recorteDaUrl ?? recortePadrao(manifest.recortes);
+    const entrada = resolverRecorte(manifest.recortes, lerPedidoDaUrl());
     setSelecao({ tribunal: entrada.tribunal, classe: entrada.classe, materia: entrada.materia });
   }, [manifest]);
 

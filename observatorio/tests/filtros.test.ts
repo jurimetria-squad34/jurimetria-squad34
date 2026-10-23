@@ -5,6 +5,7 @@ import {
   materiasDisponiveis,
   recortePadrao,
   tribunaisDisponiveis,
+  resolverRecorte,
 } from "../src/lib/filtros.ts";
 import type { EntradaManifesto } from "../src/types/recorte.ts";
 
@@ -65,5 +66,89 @@ describe("encontrarRecorte", () => {
 describe("recortePadrao", () => {
   test("escolhe o de maior volume (STJ HC penal, 300 decisões)", () => {
     expect(recortePadrao(montarRecortesDeExemplo()).arquivo).toBe("recortes/STJ-HC-penal.json");
+  });
+});
+
+describe("resolverRecorte", () => {
+  const entrada = (tribunal: "STJ" | "STF", classe: string, materia: string | null, totalDecisoes: number): EntradaManifesto => ({
+    tribunal,
+    classe,
+    materia,
+    totalDecisoes,
+    totalFavoraveis: 0,
+    arquivo: `recortes/${tribunal}-${classe}-${materia ?? "sem-materia"}.json`,
+  });
+
+  const recortes: EntradaManifesto[] = [
+    entrada("STJ", "REsp", "civil", 100),
+    entrada("STJ", "REsp", "penal", 50),
+    entrada("STJ", "REsp", null, 10),
+    entrada("STJ", "HC", "penal", 300),
+    entrada("STF", "HC", "penal", 20),
+    entrada("STF", "HC", null, 900),
+    entrada("STF", "RE", "constitucional", 70),
+    entrada("STF", "AC", "civil", 80),
+    entrada("STJ", "AC", "civil", 5),
+  ];
+  const arquivoDe = (pedido: Parameters<typeof resolverRecorte>[1]) => resolverRecorte(recortes, pedido).arquivo;
+
+  test("pedido completo acha o recorte exato", () => {
+    expect(arquivoDe({ tribunal: "STJ", classe: "REsp", materia: "penal" })).toBe("recortes/STJ-REsp-penal.json");
+  });
+
+  test("a URL do desafio, sem tribunal, funciona: ?classe=HC&materia=penal", () => {
+    expect(arquivoDe({ classe: "HC", materia: "penal" })).toBe("recortes/STJ-HC-penal.json");
+  });
+
+  test("classe que existe nos dois tribunais: vence o recorte com mais decisões", () => {
+    expect(arquivoDe({ classe: "AC", materia: "civil" })).toBe("recortes/STF-AC-civil.json");
+    expect(arquivoDe({ classe: "HC" })).toBe("recortes/STF-HC-sem-materia.json");
+  });
+
+  test("com o tribunal pedido, só olha aquele tribunal", () => {
+    expect(arquivoDe({ tribunal: "STJ", classe: "AC" })).toBe("recortes/STJ-AC-civil.json");
+  });
+
+  test("sem matéria pedida, escolhe a matéria da classe com mais decisões", () => {
+    expect(arquivoDe({ tribunal: "STJ", classe: "REsp" })).toBe("recortes/STJ-REsp-civil.json");
+  });
+
+  test("matéria null pede o recorte 'sem matéria'", () => {
+    expect(arquivoDe({ classe: "REsp", materia: null })).toBe("recortes/STJ-REsp-sem-materia.json");
+  });
+
+  test("não liga para maiúsculas e minúsculas e devolve a grafia certa da classe", () => {
+    const recorte = resolverRecorte(recortes, { tribunal: "stj", classe: "resp", materia: "CIVIL" });
+    expect(recorte.arquivo).toBe("recortes/STJ-REsp-civil.json");
+    expect(recorte.classe).toBe("REsp");
+  });
+
+  test("só o tribunal: o recorte com mais decisões dele", () => {
+    expect(arquivoDe({ tribunal: "STF" })).toBe("recortes/STF-HC-sem-materia.json");
+    expect(arquivoDe({ tribunal: "STJ" })).toBe("recortes/STJ-HC-penal.json");
+  });
+
+  test("só a matéria: o recorte dela com mais decisões", () => {
+    expect(arquivoDe({ materia: "civil" })).toBe("recortes/STJ-REsp-civil.json");
+  });
+
+  test("matéria que a classe não tem: ignora a matéria e fica com a classe", () => {
+    expect(arquivoDe({ classe: "HC", materia: "civil" })).toBe("recortes/STF-HC-sem-materia.json");
+    expect(arquivoDe({ tribunal: "STJ", classe: "HC", materia: "civil" })).toBe("recortes/STJ-HC-penal.json");
+  });
+
+  test("classe que não existe: cai no recorte mais volumoso do tribunal pedido", () => {
+    expect(arquivoDe({ tribunal: "STF", classe: "XYZ", materia: "penal" })).toBe("recortes/STF-HC-sem-materia.json");
+  });
+
+  test("tribunal inválido é ignorado", () => {
+    expect(arquivoDe({ tribunal: "TST", classe: "REsp", materia: "civil" })).toBe("recortes/STJ-REsp-civil.json");
+  });
+
+  test("pedido vazio, texto vazio ou tudo inválido: vale o recorte padrão", () => {
+    const padrao = recortePadrao(recortes).arquivo;
+    expect(arquivoDe({})).toBe(padrao);
+    expect(arquivoDe({ tribunal: "", classe: "", materia: "" })).toBe(padrao);
+    expect(arquivoDe({ classe: "XYZ", materia: "penal" })).toBe(padrao);
   });
 });
