@@ -46,6 +46,23 @@ describe("formatarTendencia", () => {
     expect(formatarTendencia(resultado)).toBe("▼ -10,0 p.p. (50,0% → 40,0%)");
   });
 
+  test("diferença que arredonda para 0,0 não ganha seta nem sinal", () => {
+    const igual = calcularTendencia({ total: 1000, favoraveis: 500 }, { total: 1000, favoraveis: 500 });
+    expect(formatarTendencia(igual)).toBe("= 0,0 p.p. (50,0% → 50,0%)");
+
+    // 50,04% → 50,00%: cai 0,04 p.p. e antes aparecia "▼ -0,0 p.p."
+    const quedaMinima = calcularTendencia({ total: 10000, favoraveis: 5004 }, { total: 10000, favoraveis: 5000 });
+    expect(formatarTendencia(quedaMinima)).toBe("= 0,0 p.p. (50,0% → 50,0%)");
+
+    const altaMinima = calcularTendencia({ total: 10000, favoraveis: 5000 }, { total: 10000, favoraveis: 5004 });
+    expect(formatarTendencia(altaMinima)).toBe("= 0,0 p.p. (50,0% → 50,0%)");
+  });
+
+  test("a primeira diferença que aparece como 0,1 ainda tem seta e sinal", () => {
+    const resultado = calcularTendencia({ total: 10000, favoraveis: 5000 }, { total: 10000, favoraveis: 5010 });
+    expect(formatarTendencia(resultado)).toBe("▲ +0,1 p.p. (50,0% → 50,1%)");
+  });
+
   test('mostra "base pequena" como texto, sem número', () => {
     const resultado = calcularTendencia({ total: 5, favoraveis: 1 }, { total: 1000, favoraveis: 400 });
     expect(formatarTendencia(resultado)).toBe("base pequena");

@@ -2,6 +2,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import Base from "../layouts/Base.astro";
+import { LIMITE_BASE_PEQUENA } from "@/lib/taxa";
 import type { Resumo } from "@/types/recorte";
 
 const caminhoResumo = join(process.cwd(), "public/data/resumo.json");
@@ -87,7 +88,7 @@ const URL_PRODUTO = "#";
     <h2 id="titulo-regras" class="font-titulo text-xl font-semibold text-toga">Como lidamos com essas limitações</h2>
     <ul class="mt-3 list-disc space-y-3 pl-5 leading-relaxed text-tinta/90">
       <li>
-        <strong class="font-medium text-tinta">Base pequena.</strong> Um recorte com menos de 30 decisões não
+        <strong class="font-medium text-tinta">Base pequena.</strong> Um recorte com menos de {LIMITE_BASE_PEQUENA} decisões não
         mostra porcentagem — mostra o texto "base pequena". Com poucos casos, um punhado de decisões muda o número
         inteiro, e uma porcentagem ali passaria uma precisão que não existe.
       </li>

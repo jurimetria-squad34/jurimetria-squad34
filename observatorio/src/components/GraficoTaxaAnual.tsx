@@ -51,11 +51,12 @@ export default function GraficoTaxaAnual({ pontos }: Props) {
   const anoAndamento = pontos.find((p) => p.emAndamento)?.ano;
   const classeStj = pontos.find((p) => p.tribunal === "STJ")?.classe;
   const classeStf = pontos.find((p) => p.tribunal === "STF")?.classe;
+  const anos = pontos.map((p) => p.ano);
 
   return (
     <div
       role="img"
-      aria-label={`Gráfico de linha: taxa favorável por ano, classe ${classeStj} no STJ e classe ${classeStf} no STF, dos últimos 11 anos`}
+      aria-label={`Gráfico de linha: taxa favorável por ano, classe ${classeStj} no STJ e classe ${classeStf} no STF, de ${Math.min(...anos)} a ${Math.max(...anos)}`}
     >
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">

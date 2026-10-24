@@ -87,3 +87,5 @@ export function selecionarRelatoresParaGrafico(
 
   return { pontos: elegiveis.slice(0, limite), elegiveis: elegiveis.length };
 }
+
+export const MINIMO_DECISOES_RELATOR_ANO = 20;

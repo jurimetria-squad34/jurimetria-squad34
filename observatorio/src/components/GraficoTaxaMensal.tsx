@@ -1,5 +1,5 @@
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { calcularTaxa } from "@/lib/taxa";
+import { calcularTaxa, LIMITE_BASE_PEQUENA } from "@/lib/taxa";
 import { formatarPercentual } from "@/lib/formato";
 import type { LinhaMensal } from "@/types/recorte";
 
@@ -40,7 +40,7 @@ export default function GraficoTaxaMensal({ mensal }: Props) {
   if (!temAlgumPonto) {
     return (
       <p className="text-sm text-tinta/70">
-        Nenhum mês deste recorte tem 30 decisões ou mais, então nenhuma taxa mensal pode ser mostrada aqui.
+        Nenhum mês deste recorte tem {LIMITE_BASE_PEQUENA} decisões ou mais, então nenhuma taxa mensal pode ser mostrada aqui.
       </p>
     );
   }
@@ -87,7 +87,7 @@ export default function GraficoTaxaMensal({ mensal }: Props) {
       {(temMesEmAndamento || temMesBasePequena) && (
         <p className="mt-2 text-sm text-tinta/70">
           {temMesEmAndamento && "O trecho tracejado é o mês em andamento, ainda incompleto. "}
-          {temMesBasePequena && "Meses com menos de 30 decisões ficam fora da linha (base pequena)."}
+          {temMesBasePequena && `Meses com menos de ${LIMITE_BASE_PEQUENA} decisões ficam fora da linha (base pequena).`}
         </p>
       )}
     </div>

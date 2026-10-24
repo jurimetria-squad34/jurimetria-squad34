@@ -3,7 +3,7 @@ import { useSelecaoRecorte } from "./useSelecaoRecorte";
 import FiltrosRecorte from "./FiltrosRecorte";
 import LegendaDados from "./LegendaDados";
 import QuandoVisivel from "./QuandoVisivel";
-import { agregarPorRelator, selecionarRelatoresParaGrafico } from "@/lib/relatores";
+import { agregarPorRelator, MINIMO_DECISOES_RELATOR_ANO, selecionarRelatoresParaGrafico } from "@/lib/relatores";
 import { LIMITE_BASE_PEQUENA } from "@/lib/taxa";
 import { calcularJanelasDeAnos, calcularTendencia, formatarTendencia } from "@/lib/tendencia";
 import { calcularTaxa } from "@/lib/taxa";
@@ -116,8 +116,8 @@ export default function Relatores() {
 
           {relatores.length === 0 ? (
             <p className="mt-4 text-sm text-tinta/70">
-              Nenhum relator com dados suficientes neste recorte (a fonte só traz relator-ano com 20 decisões ou
-              mais, de 2015 em diante).
+              Nenhum relator com dados suficientes neste recorte (a fonte só traz relatores com{" "}
+              {MINIMO_DECISOES_RELATOR_ANO} decisões ou mais em um mesmo ano).
             </p>
           ) : (
             <div className="mt-10">
@@ -172,7 +172,7 @@ export default function Relatores() {
               universo={descreverUniverso(recorte.tribunal, recorte.classe, recorte.materia, recorte.classeOriginais)}
               periodo={`total e taxa de ${periodoDosRelatores(recorte.relatores, anoReferencia)}; tendência: ${faixaRecente} contra ${faixaAnterior}`}
               criterio={manifest.criterio}
-              observacao="Só entram relatores com pelo menos 20 decisões em um mesmo ano, de 2015 em diante; por isso a soma da tabela pode ser menor que o total do recorte."
+              observacao={`Só entram relatores com pelo menos ${MINIMO_DECISOES_RELATOR_ANO} decisões em um mesmo ano; por isso a soma da tabela pode ser menor que o total do recorte.`}
             />
           )}
         </section>
