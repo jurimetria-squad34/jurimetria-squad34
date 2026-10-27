@@ -52,8 +52,8 @@ Nesse caso, o sistema mostra "base pequena" em vez de uma porcentagem.
 
 A jurimetria ajuda o advogado a:
 
-- avaliar se vale a pena entrar com uma ação;
-- escolher a tese com maior chance de sucesso;
+- ver como casos parecidos foram decididos antes de entrar com uma ação;
+- escolher a tese mais aceita pelos tribunais;
 - fundamentar a estratégia em números, não em impressão;
 - mostrar ao cliente por que uma decisão foi tomada.
 

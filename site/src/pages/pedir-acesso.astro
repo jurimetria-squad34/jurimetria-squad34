@@ -10,9 +10,10 @@ import Dropdown from '../components/pedir-acesso/Dropdown.astro';
 // ============================================
 // Configuração do formulário
 // ============================================
-// TROCAR quando o Bruno passar o ID real do Formspree:
-// https://formspree.io/f/SEU-ID-AQUI
-const endpoint = 'https://formspree.io/f/SEU-ID-AQUI';
+const endpoint = import.meta.env.PUBLIC_FORMSPREE_URL ?? '';
+if (endpoint === '' && import.meta.env.PROD) {
+    throw new Error('Defina PUBLIC_FORMSPREE_URL antes do build.');
+}
 
 const areas = [
     'Cível',
@@ -82,6 +83,7 @@ const tamanhos = [
                                 autocomplete="name"
                                 required={true}
                                 minlength={2}
+                                maxlength={100}
                             />
 
                             <CampoTexto
@@ -90,6 +92,7 @@ const tamanhos = [
                                 tipo="email"
                                 autocomplete="email"
                                 required={true}
+                                maxlength={254}
                             />
 
                             <CampoTexto
@@ -97,6 +100,7 @@ const tamanhos = [
                                 rotulo="Escritório"
                                 autocomplete="organization"
                                 required={true}
+                                maxlength={150}
                             />
 
                             <Dropdown
@@ -302,7 +306,7 @@ const tamanhos = [
     // Configuração — vem dos data-attributes do form
     // ============================================
     const endpoint = form.dataset.endpoint ?? '';
-    const ehModoTeste = endpoint.includes('SEU-ID-AQUI');
+    const ehModoTeste = import.meta.env.DEV && endpoint === '';
     const areas = JSON.parse(form.dataset.areas ?? '[]') as string[];
     const tamanhos = JSON.parse(form.dataset.tamanhos ?? '[]') as string[];
 
@@ -325,12 +329,21 @@ const tamanhos = [
         { id: 'tamanho', validar: (v) => validarTamanho(v, tamanhos) },
     ];
 
+    function alvoVisivel(campo: HTMLElement): HTMLElement {
+        return (
+            (campo
+                .closest('.dd')
+                ?.querySelector('.dd-btn') as HTMLElement | null) ?? campo
+        );
+    }
+
     function limparErro(id: string) {
         const campo = document.getElementById(id) as HTMLInputElement;
         const erro = document.getElementById(
             `erro-${id}`,
         ) as HTMLParagraphElement;
         campo.removeAttribute('aria-invalid');
+        alvoVisivel(campo).removeAttribute('aria-invalid');
         erro.hidden = true;
         erro.textContent = '';
     }
@@ -341,6 +354,7 @@ const tamanhos = [
             `erro-${id}`,
         ) as HTMLParagraphElement;
         campo.setAttribute('aria-invalid', 'true');
+        alvoVisivel(campo).setAttribute('aria-invalid', 'true');
         erro.textContent = mensagem;
         erro.hidden = false;
     }
@@ -357,7 +371,7 @@ const tamanhos = [
             if (mensagem) {
                 mostrarErro(campo.id, mensagem);
                 ok = false;
-                if (!primeiroErro) primeiroErro = el;
+                if (!primeiroErro) primeiroErro = alvoVisivel(el);
             }
         }
 
@@ -417,6 +431,7 @@ const tamanhos = [
             }
 
             const dados = new FormData(form);
+            dados.delete('_timestamp');
             const resposta = await fetch(endpoint, {
                 method: 'POST',
                 body: dados,
@@ -462,6 +477,9 @@ const tamanhos = [
         const placeholder = select.options[0]?.text ?? 'Selecione…';
         const itens: HTMLLIElement[] = [];
         let ativo = -1;
+        document
+            .getElementById(`rotulo-${select.id}`)
+            ?.addEventListener('click', () => botao.focus());
 
         Array.from(select.options).forEach((opt) => {
             if (opt.value === '') return;

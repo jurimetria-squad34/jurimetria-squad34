@@ -3,12 +3,12 @@
         {
             "id": "profissional",
             "nome": "Profissional",
-            "preco": "R$ 000",
+            "preco": null,
             "periodo": "/mês",
             "descricao": "Para advogado autônomo que pesquisa jurisprudência no dia a dia.",
             "destaque": false,
             "recursos": [
-                "Busca por palavra e por sentido nos 12 milhões de decisões",
+                "Busca por palavra e por sentido em toda a base de decisões",
                 "Filtros de tribunal, classe, matéria, relator e resultado",
                 "Jurimetria por classe, matéria, relator e ano",
                 "Alertas de decisão nova",
@@ -18,7 +18,7 @@
         {
             "id": "escritorio",
             "nome": "Escritório",
-            "preco": "R$ 000",
+            "preco": null,
             "periodo": "/mês",
             "descricao": "Para escritórios com equipe que levam teses ao STJ e ao STF.",
             "destaque": true,
@@ -45,8 +45,8 @@
             "resposta": "Você preenche o formulário da página Pedir acesso com nome, e-mail, escritório, área de atuação e tamanho do escritório. Nós entramos em contato para apresentar o produto e liberar o acesso."
         },
         {
-            "pergunta": "Posso cancelar quando quiser?",
-            "resposta": "Sim. O plano é mensal, sem fidelidade. Você pode cancelar quando quiser, e o acesso continua até o fim do período já pago."
+            "pergunta": "Como é a contratação?",
+            "resposta": "As condições de contratação serão informadas na proposta."
         },
         {
             "pergunta": "Os valores já estão definidos?",

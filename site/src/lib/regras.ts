@@ -21,7 +21,6 @@ export function podeMostrarTaxa(total: number): boolean {
  */
 export function calcularTaxa(favoraveis: number, total: number): number | null {
     if (!podeMostrarTaxa(total)) return null;
-    if (total === 0) return null;
     return favoraveis / total;
 }
 

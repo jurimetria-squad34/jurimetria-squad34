@@ -21,11 +21,25 @@ export async function getStaticPaths() {
 // ============================================
 const { item } = Astro.props;
 const { Content } = await render(item);
+
+// ============================================
+// Schema.org — Article
+// ============================================
+const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: item.data.titulo,
+    description: item.data.descricao,
+    inLanguage: 'pt-BR',
+    author: { '@type': 'Organization', name: 'Jurimetria' },
+    publisher: { '@type': 'Organization', name: 'Jurimetria' },
+};
 ---
 
 <Layout
     title={`${item.data.titulo} — Jurimetria`}
     description={item.data.descricao}
+    schema={schema}
 >
     <div class="bg-papel text-tinta font-corpo">
         <article class="max-w-3xl mx-auto px-6 py-20">

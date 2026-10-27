@@ -8,7 +8,7 @@ ordem: 2
 
 O habeas corpus é um dos remédios constitucionais mais usados no Superior
 Tribunal de Justiça. Quando o advogado impetra um HC, ele quer saber qual é
-a chance real de o tribunal conceder a ordem. A jurimetria ajuda a responder
+a frequência com que o tribunal concede a ordem. A jurimetria ajuda a responder
 essa pergunta, mas exige cuidado: uma taxa sem universo, período e critério
 declarados não diz nada.
 
@@ -98,7 +98,10 @@ importa porque um ano com 50 decisões não pode pesar o mesmo que um ano com 80
 
 E o resultado é apresentado em pontos percentuais, com sinal e seta:
 
-> ▲ +4,2 p.p. (38,1% → 42,3%)
+> ▼ -2,9 p.p. (18,1% → 15,2%)
+
+
+Universo: STJ, HC, todas as matérias. Períodos: 2020-2022 contra 2023-2025. Critério: concedido, provido ou parcial.
 
 Se **qualquer uma das duas janelas** tiver menos de 30 decisões, a tendência
 não é exibida e o sistema mostra "base pequena".
@@ -107,9 +110,9 @@ não é exibida e o sistema mostra "base pequena".
 
 A taxa de concessão de HC no STJ ajuda o advogado a:
 
-- **avaliar se vale a pena impetrar** o habeas corpus;
+- **ver a taxa de concessão** antes de impetrar o habeas corpus;
 - **escolher a turma** com maior taxa de concessão para o tema;
-- **identificar relatores** mais receptivos à tese;
+- **ver a taxa de concessão por relator**;
 - **mostrar ao cliente** por que uma decisão foi tomada.
 
 Mas ela não substitui a leitura das decisões. O advogado precisa conferir o

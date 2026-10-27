@@ -19,9 +19,8 @@
                 "http://localhost:4321/privacidade",
                 "http://localhost:4321/termos"
             ],
-            "numberOfRuns": 1,
+            "numberOfRuns": 3,
             "settings": {
-                "preset": "desktop",
                 "onlyCategories": [
                     "performance",
                     "accessibility",
@@ -53,7 +52,7 @@
                 "categories:best-practices": [
                     "warn",
                     {
-                        "minScore": 0.8
+                        "minScore": 0.85
                     }
                 ]
             }

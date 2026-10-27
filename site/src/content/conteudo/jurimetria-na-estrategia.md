@@ -15,7 +15,7 @@ escritório, com exemplo concreto.
 
 ## Aplicação 1 — Decidir se vale a pena aceitar o caso
 
-Antes de aceitar um caso, o advogado avalia a chance de sucesso. A
+Antes de aceitar um caso, o advogado avalia os riscos. A
 jurimetria ajuda a calibrar essa avaliação com números.
 
 O caminho é:
@@ -34,7 +34,7 @@ e a estratégia. A jurimetria entra como mais um insumo.
 ## Aplicação 2 — Escolher a tese
 
 Um mesmo caso pode ser sustentado por teses diferentes. A jurimetria ajuda
-a escolher a tese com maior chance de sucesso.
+a escolher a tese mais aceita pelos tribunais.
 
 Exemplo prático: um cliente teve o nome negativado indevidamente. O
 advogado pode sustentar a tese com base em:
@@ -55,7 +55,7 @@ O mesmo raciocínio se aplica a:
 
 ## Aplicação 3 — Conversar com o cliente
 
-O cliente quer saber qual é a chance real de ganhar. Sem números, o
+O cliente quer saber como casos parecidos foram decididos. Sem números, o
 advogado responde com base em experiência — o que funciona, mas gera
 expectativa descalibrada.
 

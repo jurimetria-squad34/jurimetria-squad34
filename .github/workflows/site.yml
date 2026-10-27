@@ -4,11 +4,16 @@ on:
   push:
     paths:
       - 'site/**'
+      - 'observatorio/dados/**'
       - '.github/workflows/site.yml'
   pull_request:
     paths:
       - 'site/**'
+      - 'observatorio/dados/**'
       - '.github/workflows/site.yml'
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -30,5 +35,7 @@ jobs:
       - run: npm run extrair-universo
       - run: npm run extrair-recortes
       - run: npm run extrair-relatores
-      - run: npm run build
       - run: npm run test
+      - run: npm run build
+        env:
+          PUBLIC_FORMSPREE_URL: https://formspree.io/f/ci-build

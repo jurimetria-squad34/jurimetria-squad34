@@ -23,7 +23,7 @@ const listaTribunais = new Intl.ListFormat('pt-BR', {
 const funcoes = [
     {
         titulo: 'Busca de jurisprudência',
-        resumo: 'Pesquisa por palavra ou por sentido em milhões de decisões.',
+        resumo: 'Pesquisa por palavra ou por sentido em toda a base de decisões.',
         imagem: '',
     },
     {
@@ -70,7 +70,7 @@ const dores = [
         texto: 'Citar de memória ou de resumo de IA expõe você. O juiz confere.',
     },
     {
-        titulo: 'Chance de êxito no feeling',
+        titulo: 'Estratégia sem número',
         texto: 'Sem número, o cliente decide no escuro. E você também.',
     },
 ];
@@ -80,7 +80,7 @@ const dores = [
 // ============================================
 const barras = relatores.relatores.map((r) => ({
     rotulo: r.nome,
-    pct: Math.round((r.taxa ?? 0) * 100),
+    pct: r.basePequena || r.taxa === null ? null : Math.round(r.taxa * 100),
     total: r.total,
     favoraveis: r.favoraveis,
 }));
@@ -99,7 +99,7 @@ const passos = [
     },
     {
         titulo: 'Confira no tribunal',
-        texto: 'Um clique abre a decisão no site oficial. Cite com segurança.',
+        texto: 'Um clique abre a decisão no site oficial. Confira antes de citar.',
     },
 ];
 
@@ -145,8 +145,7 @@ const limites = [
                     </h1>
 
                     <p class="text-lg max-w-xl mb-4">
-                        Ache o precedente certo, veja a taxa de êxito por
-                        relator e confira tudo na fonte.
+                        Ache o precedente certo, veja a taxa de decisões favoráveis por relator e confira tudo na fonte.
                     </p>
                     <p class="text-lg max-w-xl mb-9 text-tinta-suave">
                         {total} decisões. Cada uma com trecho literal e link
@@ -274,7 +273,7 @@ const limites = [
                         relator e ano.
                     </p>
                     <p class="max-w-md mb-8">
-                        Decida se vale recorrer. Mostre ao cliente o que os
+                        Veja como casos parecidos foram decididos. Mostre ao cliente o que os
                         tribunais já decidiram.
                     </p>
                     <a href="/pedir-acesso" class="botao botao-primario">
@@ -307,18 +306,18 @@ const limites = [
                                 <span class="block h-3 bg-papel-escuro rounded-sm overflow-hidden">
                                     <span
                                         class="barra block h-full bg-verde rounded-sm"
-                                        style={`--w:${b.pct}%`}
+                                        style={`--w:${b.pct ?? 0}%`}
                                     />
                                 </span>
                                 <span class="font-semibold tabular-nums text-right">
-                                    {b.pct}%
+                                    {b.pct === null ? "base pequena" : `${b.pct}%`}
                                 </span>
                             </li>
                         ))}
                     </ul>
 
                     <p class="mt-5 text-sm text-tinta-suave m-0">
-                        Critério: {relatores.criterio}. Base:{' '}
+                        Critério: {relatores.criterio} Base:{' '}
                         {relatores.recorte.minimoDecisoes}+ decisões por
                         relator.
                     </p>

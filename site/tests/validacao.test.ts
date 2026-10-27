@@ -113,3 +113,19 @@ describe('validarTamanho', () => {
         expect(validarTamanho('Autônomo', TAMANHOS)).toBeNull();
     });
 });
+
+describe('limites de tamanho', () => {
+    it('recusa nome com mais de 100 caracteres', () => {
+        expect(validarNome('a'.repeat(101))).not.toBeNull();
+        expect(validarNome('a'.repeat(100))).toBeNull();
+    });
+
+    it('recusa e-mail com mais de 254 caracteres', () => {
+        expect(validarEmail('a'.repeat(250) + '@b.co')).not.toBeNull();
+    });
+
+    it('recusa escritório com mais de 150 caracteres', () => {
+        expect(validarEscritorio('a'.repeat(151))).not.toBeNull();
+        expect(validarEscritorio('a'.repeat(150))).toBeNull();
+    });
+});

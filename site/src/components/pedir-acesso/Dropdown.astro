@@ -26,7 +26,7 @@ const { id, rotulo, opcoes, required = false, cheio = false } = Astro.props;
 ---
 
 <div class:list={['grupo', { cheio }]}>
-    <label for={id} id={`rotulo-${id}`} class="rotulo">
+    <label id={`rotulo-${id}`} class="rotulo">
         {rotulo}
     </label>
     <div class="dd">
@@ -49,6 +49,7 @@ const { id, rotulo, opcoes, required = false, cheio = false } = Astro.props;
             class="dd-btn vazio"
             aria-haspopup="listbox"
             aria-expanded="false"
+            aria-describedby={`erro-${id}`}
             aria-labelledby={`rotulo-${id} valor-${id}`}
         >
             <span class="dd-valor" id={`valor-${id}`}>

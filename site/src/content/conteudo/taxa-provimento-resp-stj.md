@@ -53,10 +53,10 @@ Três razões pelas quais a taxa de provimento do REsp pode enganar:
 Muitos recursos especiais não são conhecidos — o STJ entende que a matéria
 não se encaixa nos requisitos do recurso. Esses recursos entram no
 denominador da taxa, mas não no numerador. Isso faz a taxa parecer menor do
-que a chance real de provimento **para os recursos que são conhecidos**.
+que a taxa de provimento **entre os recursos conhecidos**.
 
-Se o advogado quer medir a chance de provimento de um recurso que
-**certamente será conhecido**, o recorte precisa excluir os não conhecidos.
+Se o advogado quer medir a taxa de provimento de recursos que
+**certamente serão conhecidos**, o recorte precisa excluir os não conhecidos.
 
 ### 2. A matéria pesa
 
@@ -110,9 +110,9 @@ começar pela taxa geral e ir afunilando até o recorte que interessa.
 
 A taxa de provimento do REsp ajuda o advogado a:
 
-- **avaliar se vale a pena recorrer** ao STJ;
-- **escolher a tese** com maior chance de provimento;
-- **fundamentar a expectativa do cliente** com números;
+- **ver a taxa de provimento** antes de recorrer ao STJ;
+- **escolher a tese** com maior taxa de provimento;
+- **mostrar ao cliente** como o STJ decidiu casos parecidos;
 - **identificar relatores** mais receptivos à tese.
 
 Mas ela não substitui a leitura das decisões. O advogado precisa conferir o

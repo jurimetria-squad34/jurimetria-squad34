@@ -11,6 +11,7 @@ export function validarNome(valor: string): string | null {
     const limpo = valor.trim();
     if (limpo.length === 0) return 'Informe o nome completo.';
     if (limpo.length < 2) return 'O nome precisa ter pelo menos 2 caracteres.';
+    if (limpo.length > 100) return 'O nome pode ter no máximo 100 caracteres.';
     return null;
 }
 
@@ -23,6 +24,7 @@ export function validarEmail(valor: string): string | null {
     if (limpo.length === 0) return 'Informe o e-mail.';
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regex.test(limpo)) return 'Informe um e-mail válido.';
+    if (limpo.length > 254) return 'O e-mail pode ter no máximo 254 caracteres.';
     return null;
 }
 
@@ -32,6 +34,8 @@ export function validarEmail(valor: string): string | null {
  */
 export function validarEscritorio(valor: string): string | null {
     if (valor.trim().length === 0) return 'Informe o escritório.';
+    if (valor.trim().length > 150)
+        return 'O escritório pode ter no máximo 150 caracteres.';
     return null;
 }
 

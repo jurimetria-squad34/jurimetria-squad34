@@ -31,6 +31,20 @@ const {
 // ============================================
 const url = new URL(Astro.url.pathname, Astro.site);
 const imagemAbsoluta = new URL(image, Astro.site);
+
+// ============================================
+// Schema.org — fallback quando a página não passa um
+// ============================================
+const schemaFinal = schema ?? {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description,
+    url: url.href,
+    inLanguage: 'pt-BR',
+    isPartOf: { '@type': 'WebSite', name: 'Jurimetria', url: Astro.site?.href },
+};
+const schemaJson = JSON.stringify(schemaFinal).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -38,27 +52,12 @@ const imagemAbsoluta = new URL(image, Astro.site);
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta http-equiv="X-Content-Type-Options" content="nosniff" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
 
         {/* ============================================
             Fontes — carregamento sem bloqueio
             ============================================ */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
-            media="print"
-            onload="this.media='all'"
-        />
-        <noscript>
-            <link
-                rel="stylesheet"
-                href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
-            />
-        </noscript>
 
         {/* ============================================
             SEO
@@ -89,12 +88,7 @@ const imagemAbsoluta = new URL(image, Astro.site);
         {/* ============================================
             Schema.org
             ============================================ */}
-        {schema && (
-            <script
-                type="application/ld+json"
-                set:html={JSON.stringify(schema)}
-            />
-        )}
+        <script type="application/ld+json" set:html={schemaJson} />
     </head>
     <body>
         {/* Skip link */}

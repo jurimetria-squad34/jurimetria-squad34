@@ -13,6 +13,7 @@ const menu = [
 // Rota atual
 // ============================================
 const rotaAtual = Astro.url.pathname;
+const urlEntrar = import.meta.env.PUBLIC_URL_ENTRAR || '#';
 ---
 
 <header class="cabecalho sticky top-0 z-50 border-b border-borda/60">
@@ -48,13 +49,21 @@ const rotaAtual = Astro.url.pathname;
             })}
         </nav>
 
-        {/* CTA desktop */}
-        <a
-            href="/pedir-acesso"
-            class="hidden md:inline-block text-sm font-medium no-underline bg-verde text-white px-4 py-2 rounded hover:bg-verde-claro transition-colors"
-        >
-            Pedir acesso
-        </a>
+        {/* Ações desktop */}
+<div class="hidden md:flex items-center gap-4">
+    <a
+        href={urlEntrar}
+        class="text-sm font-medium text-tinta no-underline hover:text-verde transition-colors"
+    >
+        Entrar
+    </a>
+    <a
+        href="/pedir-acesso"
+        class="inline-block text-sm font-medium no-underline bg-verde text-white px-4 py-2 rounded hover:bg-verde-claro transition-colors"
+    >
+        Pedir acesso
+    </a>
+</div>
 
         {/* Botão hambúrguer — mobile */}
         <button
@@ -100,6 +109,14 @@ const rotaAtual = Astro.url.pathname;
                         </li>
                     );
                 })}
+                <li>
+    <a
+        href={urlEntrar}
+        class="block py-3.5 px-1 text-base font-medium no-underline border-b border-borda text-tinta hover:text-verde"
+    >
+        Entrar
+    </a>
+</li>
                 <li>
                     <a
                         href="/pedir-acesso"
