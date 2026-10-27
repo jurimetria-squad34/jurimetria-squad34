@@ -1,0 +1,60 @@
+{
+    "planos": [
+        {
+            "id": "profissional",
+            "nome": "Profissional",
+            "preco": null,
+            "periodo": "/mês",
+            "descricao": "Para advogado autônomo que pesquisa jurisprudência no dia a dia.",
+            "destaque": false,
+            "recursos": [
+                "Busca por palavra e por sentido em toda a base de decisões",
+                "Filtros de tribunal, classe, matéria, relator e resultado",
+                "Jurimetria por classe, matéria, relator e ano",
+                "Alertas de decisão nova",
+                "Link oficial do tribunal em cada decisão"
+            ]
+        },
+        {
+            "id": "escritorio",
+            "nome": "Escritório",
+            "preco": null,
+            "periodo": "/mês",
+            "descricao": "Para escritórios com equipe que levam teses ao STJ e ao STF.",
+            "destaque": true,
+            "recursos": [
+                "Tudo do plano Profissional",
+                "Pesquisa por caso com IA",
+                "Precedentes separados em favoráveis, contrários e de distinção",
+                "Múltiplos usuários",
+                "Relatórios prontos para o cliente"
+            ]
+        }
+    ],
+    "faq": [
+        {
+            "pergunta": "O que é a pesquisa por caso?",
+            "resposta": "É a função em que o advogado cola os fatos ou a petição, revisa o plano de busca, e a IA devolve precedentes separados em favoráveis, contrários e de distinção. Cada precedente vem com trecho literal da decisão e link oficial do tribunal. A IA não inventa nada: tudo vem da base."
+        },
+        {
+            "pergunta": "O Jurimetria gera petição ou prevê o resultado de um processo?",
+            "resposta": "Não. O Jurimetria mostra como casos parecidos foram decididos, com trecho literal e link oficial. A peça é escrita pelo advogado, e a decisão do processo é do juiz."
+        },
+        {
+            "pergunta": "Como funciona o pedido de acesso?",
+            "resposta": "Você preenche o formulário da página Pedir acesso com nome, e-mail, escritório, área de atuação e tamanho do escritório. Nós entramos em contato para apresentar o produto e liberar o acesso."
+        },
+        {
+            "pergunta": "Como é a contratação?",
+            "resposta": "As condições de contratação serão informadas na proposta."
+        },
+        {
+            "pergunta": "Os valores já estão definidos?",
+            "resposta": "Os valores finais serão definidos em breve. Ao pedir acesso, você recebe a proposta atualizada e pode tirar dúvidas com o nosso time."
+        },
+        {
+            "pergunta": "O Jurimetria busca por nome de parte?",
+            "resposta": "Não. A base não tem nome de parte, e o produto não procura por esse dado em nenhum lugar. Todo número de jurimetria aparece com universo, período e critério."
+        }
+    ]
+}

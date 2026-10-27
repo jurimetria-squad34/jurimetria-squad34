@@ -1,0 +1,218 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const atualizado = 'outubro de 2026';
+---
+
+<Layout
+    title="Termos de Uso — Jurimetria"
+    description="Condições de uso do Jurimetria, ferramenta de pesquisa de jurisprudência e jurimetria do STJ e do STF."
+>
+    <div class="bg-papel text-tinta font-corpo">
+        <article class="max-w-3xl mx-auto px-6 py-20">
+            {/* ============================================
+                Cabeçalho
+                ============================================ */}
+            <header class="mb-12">
+                <p class="text-sm text-tinta-suave uppercase tracking-wider mb-3">
+                    Documento legal
+                </p>
+                <h1 class="font-titulo text-4xl md:text-5xl font-bold leading-tight mb-6">
+                    Termos de Uso
+                </h1>
+                <p class="text-tinta-suave">Última atualização: {atualizado}</p>
+            </header>
+
+            <div class="prosa">
+                <p>
+                    Estes Termos de Uso regulam o acesso e a utilização da
+                    plataforma Jurimetria, ferramenta de pesquisa de
+                    jurisprudência e de jurimetria das decisões do Superior
+                    Tribunal de Justiça (STJ) e do Supremo Tribunal Federal
+                    (STF). Ao solicitar acesso ou utilizar a plataforma, o
+                    usuário declara ter lido e concordado com as condições
+                    abaixo.
+                </p>
+
+                <h2>1. Objeto</h2>
+                <p>O Jurimetria disponibiliza funcionalidades de:</p>
+                <ul>
+                    <li>busca de jurisprudência do STJ e do STF;</li>
+                    <li>
+                        visualização de ementas, dispositivos e inteiro teor;
+                    </li>
+                    <li>jurimetria, com taxas de decisões favoráveis;</li>
+                    <li>
+                        pesquisa por caso com apoio de inteligência artificial;
+                    </li>
+                    <li>alertas de decisão nova.</li>
+                </ul>
+                <p>
+                    Toda decisão apresentada na plataforma é acompanhada de
+                    trecho literal e link oficial para o documento no site do
+                    tribunal correspondente.
+                </p>
+
+                <h2>2. O que o Jurimetria não faz</h2>
+                <p>
+                    O Jurimetria não gera peças processuais, não prevê o
+                    resultado de processos e não realiza busca por nome de
+                    parte. A plataforma não substitui a análise técnica de um
+                    advogado nem a decisão de um magistrado.
+                </p>
+
+                <h2>3. Acesso e cadastro</h2>
+                <p>
+                    O acesso à plataforma depende de liberação prévia,
+                    solicitada pelo formulário disponível no site. O usuário é
+                    responsável pela veracidade das informações fornecidas e
+                    pela guarda das suas credenciais de acesso.
+                </p>
+
+                <h2>4. Uso aceitável</h2>
+                <p>
+                    O usuário compromete-se a utilizar a plataforma de forma
+                    lícita e de acordo com a finalidade a que se destina. É
+                    vedado:
+                </p>
+                <ul>
+                    <li>
+                        realizar raspagem automatizada de dados da plataforma;
+                    </li>
+                    <li>
+                        reproduzir, revender ou redistribuir o conteúdo sem
+                        autorização;
+                    </li>
+                    <li>
+                        utilizar a plataforma para fins ilícitos ou contrários à
+                        ordem pública;
+                    </li>
+                    <li>tentar acessar áreas restritas sem autorização;</li>
+                    <li>
+                        comprometer a segurança ou a integridade do sistema.
+                    </li>
+                </ul>
+
+                <h2>5. Propriedade intelectual</h2>
+                <p>
+                    A estrutura, o layout, os textos e os elementos visuais do
+                    Jurimetria são protegidos por direitos autorais. As decisões
+                    judiciais exibidas são documentos públicos, de titularidade
+                    dos tribunais competentes, e são apresentadas com link
+                    oficial para a fonte.
+                </p>
+
+                <h2>6. Limitação de responsabilidade</h2>
+                <p>
+                    O Jurimetria envidará esforços razoáveis para manter a
+                    exatidão das informações e a disponibilidade da plataforma,
+                    mas não se responsabiliza por:
+                </p>
+                <ul>
+                    <li>
+                        decisões tomadas pelo usuário com base nas informações
+                        apresentadas;
+                    </li>
+                    <li>
+                        interrupções temporárias do serviço por motivos
+                        técnicos;
+                    </li>
+                    <li>
+                        alterações nos documentos publicados pelos tribunais;
+                    </li>
+                    <li>uso indevido da plataforma por terceiros.</li>
+                </ul>
+
+                <h2>7. Alterações dos Termos</h2>
+                <p>
+                    Estes Termos podem ser atualizados a qualquer momento para
+                    refletir mudanças na legislação, no produto ou nas práticas
+                    do Jurimetria. A versão vigente é sempre a publicada nesta
+                    página, com a data de atualização indicada no topo.
+                </p>
+
+                <h2>8. Foro</h2>
+                <p>
+                    Eventuais controvérsias decorrentes destes Termos serão
+                    resolvidas no foro da comarca do domicílio do usuário,
+                    quando aplicável a legislação consumerista, ou no foro
+                    eleito pelo Jurimetria nos demais casos.
+                </p>
+
+                <h2>9. Contato</h2>
+                <p>Dúvidas sobre estes Termos podem ser encaminhadas para:</p>
+                <p>
+                    <a href="mailto:exemplo@gmail.com">exemplo@gmail.com</a>
+                </p>
+
+                <hr />
+
+                <p class="text-sm text-tinta-suave italic">
+                    Somente rascunho! Verificar dps
+                </p>
+            </div>
+        </article>
+    </div>
+</Layout>
+
+<style>
+    .prosa h2 {
+        font-family: var(--font-titulo);
+        font-size: 1.5rem;
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--color-tinta);
+        margin-top: 2.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .prosa p {
+        margin: 0 0 1rem;
+        font-size: 1.0625rem;
+        line-height: 1.65;
+        color: var(--color-tinta);
+    }
+
+    .prosa ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1rem;
+    }
+
+    .prosa ul li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        color: var(--color-tinta);
+    }
+
+    .prosa ul li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.7em;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-verde);
+    }
+
+    .prosa a {
+        color: var(--color-verde);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+    }
+
+    .prosa a:hover {
+        color: var(--color-verde-claro);
+    }
+
+    .prosa hr {
+        border: none;
+        border-top: 1px solid var(--color-borda);
+        margin: 3rem 0 1.5rem;
+    }
+</style>

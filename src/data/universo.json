@@ -1,0 +1,13 @@
+{
+    "gerado_em": "2026-09-23T15:21:20.992Z",
+    "criterio": "Favorável = resultado concedido, provido ou parcial, conforme campo estruturado da fonte (STJ: teor; STF: andamento), refinado pelo dispositivo quando lido.",
+    "universo": {
+        "tribunais": [
+            "STF",
+            "STJ"
+        ],
+        "decisoes": 11957116,
+        "de": 1892,
+        "ate": 2026
+    }
+}

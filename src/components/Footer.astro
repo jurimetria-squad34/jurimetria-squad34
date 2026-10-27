@@ -1,0 +1,141 @@
+---
+// ============================================
+// Rodapé — enxuto: marca, uma fileira de links
+// e uma linha final. O menu principal já está
+// no Header, então aqui só entram links de apoio.
+// ============================================
+const ano = new Date().getFullYear();
+
+const links = [
+    { texto: 'Como funciona', href: '/como-funciona' },
+    { texto: 'Planos', href: '/planos' },
+    { texto: 'Conteúdo', href: '/conteudo' },
+    { texto: 'Privacidade', href: '/privacidade' },
+    { texto: 'Termos de uso', href: '/termos' },
+];
+---
+
+<footer class="rodape">
+    <div class="rodape-wrap">
+        <div class="rodape-topo">
+            <div class="rodape-marca">
+                <p class="rodape-nome">
+                    Jurimetria<span class="rodape-ponto" aria-hidden="true"></span>
+                </p>
+                <p class="rodape-desc">
+                    Jurisprudência verificável do STJ e do STF.
+                </p>
+            </div>
+
+            <nav aria-label="Rodapé">
+                <ul>
+                    {links.map((link) => (
+                        <li>
+                            <a href={link.href}>{link.texto}</a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </div>
+
+        <p class="rodape-fim">
+            © {ano} Jurimetria. Ferramenta de pesquisa: não substitui a análise
+            de um advogado.
+        </p>
+    </div>
+</footer>
+
+<style>
+    .rodape {
+        background: var(--color-tinta);
+        color: var(--color-papel);
+        font-family: var(--font-corpo);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        border-top: 3px solid var(--color-ouro);
+    }
+
+    .rodape p,
+    .rodape ul {
+        margin: 0;
+    }
+
+    .rodape-wrap {
+        max-width: 70rem;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .rodape-topo {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid rgba(238, 242, 240, 0.15);
+    }
+
+    .rodape-nome {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: var(--font-titulo);
+        font-size: 1.3rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 0.3rem;
+        color: var(--color-papel);
+    }
+
+    .rodape-ponto {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: var(--color-ouro);
+    }
+
+    .rodape-desc {
+        color: rgba(238, 242, 240, 0.75);
+    }
+
+    .rodape ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+        list-style: none;
+        padding: 0;
+    }
+
+    .rodape a {
+        color: rgba(238, 242, 240, 0.8);
+        text-decoration: none;
+        transition: color 0.15s ease;
+    }
+
+    .rodape a:hover {
+        color: var(--color-ouro-claro);
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+        text-decoration-thickness: 1px;
+    }
+
+    .rodape a:focus-visible {
+        outline: 3px solid var(--color-ouro);
+        outline-offset: 3px;
+        border-radius: 2px;
+    }
+
+    .rodape-fim {
+        padding-top: 1rem;
+        color: rgba(238, 242, 240, 0.65);
+        font-size: 0.825rem;
+    }
+
+    @media (min-width: 48rem) {
+        .rodape-topo {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            gap: 3rem;
+        }
+    }
+</style>

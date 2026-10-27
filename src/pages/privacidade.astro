@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const atualizado = 'outubro de 2026';
+---
+
+<Layout
+    title="Política de Privacidade — Jurimetria"
+    description="Como o Jurimetria coleta, usa e protege os dados pessoais enviados pelo formulário de pedido de acesso."
+>
+    <div class="bg-papel text-tinta font-corpo">
+        <article class="max-w-3xl mx-auto px-6 py-20">
+            {/* ============================================
+                Cabeçalho
+                ============================================ */}
+            <header class="mb-12">
+                <p class="text-sm text-tinta-suave uppercase tracking-wider mb-3">
+                    Documento legal
+                </p>
+                <h1 class="font-titulo text-4xl md:text-5xl font-bold leading-tight mb-6">
+                    Política de Privacidade
+                </h1>
+                <p class="text-tinta-suave">Última atualização: {atualizado}</p>
+            </header>
+
+            <div class="prosa">
+                <p>
+                    Esta Política de Privacidade descreve como o Jurimetria
+                    coleta, utiliza, armazena e protege os dados pessoais
+                    fornecidos pelos usuários, em conformidade com a Lei Geral
+                    de Proteção de Dados Pessoais (Lei nº 13.709/2018).
+                </p>
+
+                <h2>1. Quais dados são coletados</h2>
+                <p>
+                    O Jurimetria coleta apenas os dados informados
+                    voluntariamente pelo usuário no formulário de pedido de
+                    acesso:
+                </p>
+                <ul>
+                    <li>nome completo;</li>
+                    <li>endereço de e-mail;</li>
+                    <li>nome do escritório;</li>
+                    <li>área de atuação;</li>
+                    <li>tamanho do escritório.</li>
+                </ul>
+                <p>
+                    Não são coletados dados sensíveis, dados de pagamento nem
+                    informações sobre processos ou clientes do usuário.
+                </p>
+
+                <h2>2. Finalidade do tratamento</h2>
+                <p>Os dados são utilizados exclusivamente para:</p>
+                <ul>
+                    <li>
+                        entrar em contato com o usuário a respeito do pedido de
+                        acesso;
+                    </li>
+                    <li>apresentar o produto e esclarecer dúvidas;</li>
+                    <li>gerenciar a liberação de acesso à plataforma.</li>
+                </ul>
+                <p>
+                    Os dados não são utilizados para envio de comunicações
+                    promocionais não solicitadas, nem compartilhados com
+                    terceiros para fins comerciais.
+                </p>
+
+                <h2>3. Compartilhamento de dados</h2>
+                <p>
+                    O envio do formulário é processado por um serviço externo de
+                    formulários. Esse serviço atua como operador de dados e
+                    processa as informações exclusivamente para viabilizar o
+                    recebimento da mensagem. O Jurimetria não vende, aluga nem
+                    cede dados pessoais a terceiros.
+                </p>
+
+                <h2>4. Armazenamento e prazo de retenção</h2>
+                <p>
+                    Os dados enviados pelo formulário são armazenados pelo tempo
+                    necessário ao atendimento do pedido de acesso e ao
+                    cumprimento de obrigações legais. Encerrado esse prazo, os
+                    dados são eliminados ou anonimizados.
+                </p>
+
+                <h2>5. Direitos do titular</h2>
+                <p>
+                    Nos termos da LGPD, o titular dos dados pode, a qualquer
+                    momento, solicitar:
+                </p>
+                <ul>
+                    <li>confirmação da existência de tratamento;</li>
+                    <li>acesso aos dados armazenados;</li>
+                    <li>correção de dados incompletos ou desatualizados;</li>
+                    <li>
+                        anonimização, bloqueio ou eliminação de dados
+                        desnecessários;
+                    </li>
+                    <li>informações sobre compartilhamento de dados;</li>
+                    <li>revogação do consentimento.</li>
+                </ul>
+                <p>
+                    As solicitações podem ser feitas pelo e-mail indicado no
+                    item 7 desta Política.
+                </p>
+
+                <h2>6. Segurança</h2>
+                <p>
+                    O Jurimetria adota medidas técnicas e administrativas
+                    razoáveis para proteger os dados pessoais contra acessos não
+                    autorizados, perda, alteração ou destruição. O site é
+                    servido por conexão segura (HTTPS) e não mantém banco de
+                    dados próprio de usuários.
+                </p>
+
+                <h2>7. Contato</h2>
+                <p>
+                    Dúvidas, solicitações ou reclamações relacionadas a esta
+                    Política podem ser encaminhadas para o endereço eletrônico:
+                </p>
+                <p>
+                    <a href="mailto:exemplo@gmail.com">exemplo@gmail.com</a>
+                </p>
+
+                <h2>8. Alterações desta Política</h2>
+                <p>
+                    Esta Política pode ser atualizada a qualquer momento para
+                    refletir mudanças na legislação ou nas práticas do
+                    Jurimetria. A versão vigente é sempre a publicada nesta
+                    página, com a data de atualização indicada no topo.
+                </p>
+
+                <hr />
+
+                <p class="text-sm text-tinta-suave italic">
+                    Rascunho! Verificar dps
+                </p>
+            </div>
+        </article>
+    </div>
+</Layout>
+
+<style>
+    .prosa h2 {
+        font-family: var(--font-titulo);
+        font-size: 1.5rem;
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--color-tinta);
+        margin-top: 2.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .prosa p {
+        margin: 0 0 1rem;
+        font-size: 1.0625rem;
+        line-height: 1.65;
+        color: var(--color-tinta);
+    }
+
+    .prosa ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1rem;
+    }
+
+    .prosa ul li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        color: var(--color-tinta);
+    }
+
+    .prosa ul li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.7em;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-verde);
+    }
+
+    .prosa a {
+        color: var(--color-verde);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+    }
+
+    .prosa a:hover {
+        color: var(--color-verde-claro);
+    }
+
+    .prosa hr {
+        border: none;
+        border-top: 1px solid var(--color-borda);
+        margin: 3rem 0 1.5rem;
+    }
+</style>
