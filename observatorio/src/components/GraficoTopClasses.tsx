@@ -20,7 +20,7 @@ export default function GraficoTopClasses({ classes }: Props) {
   }));
 
   return (
-    <div role="img" aria-label="Gráfico de barras: as 8 classes processuais com mais decisões, STJ e STF juntos">
+    <div role="img" aria-label={`Gráfico de barras: as ${classes.length} classes processuais com mais decisões, STJ e STF juntos`}>
       <div className="h-80 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={dados} layout="vertical" margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>

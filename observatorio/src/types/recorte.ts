@@ -1,6 +1,7 @@
 /**
  * Tipos dos arquivos menores que scripts/process-data.ts gera dentro de public/data/
  */
+export type { Tribunal } from "./observatorio.ts";
 import type { Tribunal } from "./observatorio.ts";
 
 export interface LinhaMensal {
@@ -44,8 +45,9 @@ export interface Manifesto {
   recortes: EntradaManifesto[];
 }
 
-export interface PontoAnual {
+export interface PontoAnualClasse {
   tribunal: Tribunal;
+  classe: string;
   ano: number;
   total: number;
   favoraveis: number;
@@ -59,17 +61,16 @@ export interface ClasseDestaque {
   favoraveis: number;
 }
 
-export interface TribunalResumo {
+export interface VolumePorTribunal {
   tribunal: Tribunal;
   total: number;
-  favoraveis: number;
 }
 
 export interface Resumo {
   geradoEm: string;
   criterio: string;
   universo: { tribunais: Tribunal[]; decisoes: number; de: number; ate: number };
-  porAno: PontoAnual[];
-  porTribunal: TribunalResumo[];
+  porAno: PontoAnualClasse[];
+  porTribunalVolume: VolumePorTribunal[];
   topClasses: ClasseDestaque[];
 }

@@ -1,0 +1,120 @@
+---
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import Base from "../layouts/Base.astro";
+import { LIMITE_BASE_PEQUENA } from "@/lib/taxa";
+import type { Resumo } from "@/types/recorte";
+
+const caminhoResumo = join(process.cwd(), "public/data/resumo.json");
+const resumo: Resumo = JSON.parse(readFileSync(caminhoResumo, "utf-8"));
+
+const totalDecisoes = resumo.universo.decisoes.toLocaleString("pt-BR");
+const periodo = `${resumo.universo.de} a ${resumo.universo.ate}`;
+const tribunais = resumo.universo.tribunais.join(" e ");
+const atualizadoEm = new Date(resumo.geradoEm).toLocaleDateString("pt-BR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+// TODO: trocar pelo link real do produto.
+const URL_PRODUTO = "#";
+---
+
+<Base
+  title="Metodologia — Observatório Jurimétrico do STJ e STF"
+  description="De onde vêm os dados do Observatório, o que conta como decisão favorável, e as limitações da base."
+>
+  <h1 class="font-titulo text-3xl font-semibold text-toga md:text-4xl">Metodologia</h1>
+  <p class="mt-3 max-w-prose text-tinta/80">
+    Esta página explica de onde vêm os números do Observatório, o que conta como uma decisão favorável, e os
+    limites do que esses números conseguem mostrar.
+  </p>
+
+  <section class="mt-10 max-w-prose" aria-labelledby="titulo-origem">
+    <h2 id="titulo-origem" class="font-titulo text-xl font-semibold text-toga">De onde vêm os dados</h2>
+    <p class="mt-3 leading-relaxed text-tinta/90">
+      Os números vêm de um arquivo que a Krohn gera a partir do banco de dados do Jurimetria e atualiza toda
+      semana. Esse arquivo traz só contagens agregadas — quantas decisões, de que tipo, em que mês ou ano, quantas
+      delas foram favoráveis. Ele não tem o texto de nenhuma decisão, e não tem nome de nenhuma das partes
+      envolvidas, só o nome do relator (ministros são autoridades públicas, por isso aparecem).
+    </p>
+    <p class="mt-3 leading-relaxed text-tinta/90">
+      A versão atual cobre {tribunais}, com {totalDecisoes} decisões, de {periodo}, atualizada em {atualizadoEm}.
+      O site inteiro é gerado a partir desse arquivo: trocar o arquivo e publicar o site de novo atualiza todos os
+      números automaticamente, sem edição manual em nenhuma página.
+    </p>
+  </section>
+
+  <section class="mt-10 max-w-prose" aria-labelledby="titulo-criterio">
+    <h2 id="titulo-criterio" class="font-titulo text-xl font-semibold text-toga">O que conta como decisão favorável</h2>
+    <p class="mt-3 leading-relaxed text-tinta/90">
+      Essa definição não é nossa — vem de como a Krohn já classifica cada decisão na fonte, e é o texto exato que
+      aparece em toda tela do Observatório que mostra uma taxa:
+    </p>
+    <blockquote class="mt-4 border-l-2 border-stj pl-4 text-tinta">{resumo.criterio}</blockquote>
+  </section>
+
+  <section class="mt-10 max-w-prose" aria-labelledby="titulo-limitacoes">
+    <h2 id="titulo-limitacoes" class="font-titulo text-xl font-semibold text-toga">Limitações</h2>
+    <ul class="mt-3 list-disc space-y-3 pl-5 leading-relaxed text-tinta/90">
+      <li>
+        <strong class="font-medium text-tinta">Decisões antigas têm um resultado menos confiável.</strong> Em boa
+        parte do acervo mais recente, o resultado vem de um campo estruturado do tribunal (o "teor", no STJ; o
+        "andamento", no STF). No acervo antigo, esse campo nem sempre existe, e o resultado precisa ser lido do
+        texto da própria decisão — um processo com mais chance de erro do que ler um campo já pronto.
+      </li>
+      <li>
+        <strong class="font-medium text-tinta">A cobertura varia por período.</strong> O STJ só existe desde 1988;
+        antes disso, qualquer dado é do STF. E mesmo dentro de cada tribunal, quanto mais antiga a década, menor
+        costuma ser a cobertura e mais inconsistente o registro — os números de décadas recentes são mais completos
+        e mais confiáveis do que os do início do século passado.
+      </li>
+      <li>
+        <strong class="font-medium text-tinta">Matéria pode vir sem informação.</strong> Quando o tribunal não
+        registrou a matéria de uma decisão, o Observatório mostra "Sem matéria informada" — que é diferente de
+        "Outras matérias", usado quando o tribunal registrou a matéria, só que numa categoria que não é nenhuma das
+        comuns.
+      </li>
+      <li>
+        <strong class="font-medium text-tinta">Classes com grafia diferente foram unificadas.</strong> O mesmo tipo
+        de processo às vezes aparece escrito de formas diferentes na fonte (por exemplo, "REsp" e "RESP"). O
+        Observatório junta essas grafias numa só, escolhendo a mais usada como forma oficial.
+      </li>
+    </ul>
+  </section>
+
+  <section class="mt-10 max-w-prose" aria-labelledby="titulo-regras">
+    <h2 id="titulo-regras" class="font-titulo text-xl font-semibold text-toga">Como lidamos com essas limitações</h2>
+    <ul class="mt-3 list-disc space-y-3 pl-5 leading-relaxed text-tinta/90">
+      <li>
+        <strong class="font-medium text-tinta">Base pequena.</strong> Um recorte com menos de {LIMITE_BASE_PEQUENA} decisões não
+        mostra porcentagem — mostra o texto "base pequena". Com poucos casos, um punhado de decisões muda o número
+        inteiro, e uma porcentagem ali passaria uma precisão que não existe.
+      </li>
+      <li>
+        <strong class="font-medium text-tinta">Mês e ano em andamento.</strong> O período mais recente de cada
+        recorte ainda está sendo publicado pelo tribunal quando o arquivo é gerado — decisões monocráticas costumam
+        sair antes das colegiadas, então a taxa desse período tende a estar artificialmente baixa. Os gráficos
+        marcam esse trecho de forma diferente (linha tracejada ou barra mais clara) e avisam no texto ao lado.
+      </li>
+      <li>
+        <strong class="font-medium text-tinta">Nenhuma taxa mistura tipos de processo diferentes.</strong> Um
+        recurso especial (REsp) e um agravo (AREsp), por exemplo, podem ter taxas bem diferentes entre si — somar
+        os dois numa taxa só esconderia essa diferença em vez de mostrar. Por isso toda taxa do Observatório é
+        sempre de uma classe específica, nunca de um tribunal inteiro somando todas as classes.
+      </li>
+    </ul>
+  </section>
+
+  <section class="mt-10 max-w-prose rounded-lg border border-linha p-6" aria-labelledby="titulo-produto">
+    <h2 id="titulo-produto" class="font-titulo text-xl font-semibold text-toga">Veja os casos de verdade</h2>
+    <p class="mt-3 leading-relaxed text-tinta/90">
+      O Observatório mostra só números agregados. Para pesquisar decisões específicas, com ementa, inteiro teor e
+      link oficial do tribunal, conheça o Jurimetria.
+    </p>
+    <a href={URL_PRODUTO} class="mt-4 inline-block rounded bg-toga px-4 py-2 font-medium text-white hover:bg-toga/90">
+      Conhecer o Jurimetria
+    </a>
+  </section>
+</Base>

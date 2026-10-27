@@ -1,10 +1,10 @@
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { calcularTaxa } from "@/lib/taxa";
 import { formatarPercentual } from "@/lib/formato";
-import type { PontoAnual } from "@/types/recorte";
+import type { PontoAnualClasse } from "@/types/recorte";
 
 interface Props {
-  pontos: PontoAnual[];
+  pontos: PontoAnualClasse[];
 }
 
 interface LinhaGrafico {
@@ -15,9 +15,9 @@ interface LinhaGrafico {
   taxaStfAndamento: number | null;
 }
 
-function prepararDados(pontos: PontoAnual[]): LinhaGrafico[] {
+function prepararDados(pontos: PontoAnualClasse[]): LinhaGrafico[] {
   const porAno = new Map<number, LinhaGrafico>();
-  const taxaDoPonto = (p: PontoAnual): number | null => {
+  const taxaDoPonto = (p: PontoAnualClasse): number | null => {
     const resultado = calcularTaxa(p.total, p.favoraveis);
     return resultado.status === "ok" ? resultado.taxa * 100 : null;
   };
@@ -49,9 +49,15 @@ function prepararDados(pontos: PontoAnual[]): LinhaGrafico[] {
 export default function GraficoTaxaAnual({ pontos }: Props) {
   const dados = prepararDados(pontos);
   const anoAndamento = pontos.find((p) => p.emAndamento)?.ano;
+  const classeStj = pontos.find((p) => p.tribunal === "STJ")?.classe;
+  const classeStf = pontos.find((p) => p.tribunal === "STF")?.classe;
+  const anos = pontos.map((p) => p.ano);
 
   return (
-    <div role="img" aria-label="Gráfico de linha: taxa favorável por ano, STJ e STF, dos últimos 11 anos">
+    <div
+      role="img"
+      aria-label={`Gráfico de linha: taxa favorável por ano, classe ${classeStj} no STJ e classe ${classeStf} no STF, de ${Math.min(...anos)} a ${Math.max(...anos)}`}
+    >
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={dados} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
@@ -70,11 +76,18 @@ export default function GraficoTaxaAnual({ pontos }: Props) {
               contentStyle={{ fontFamily: "var(--font-corpo)", fontSize: 13, borderColor: "var(--color-linha)" }}
             />
             <Legend wrapperStyle={{ fontSize: 13, fontFamily: "var(--font-corpo)" }} />
-            <Line type="monotone" dataKey="taxaStj" name="STJ" stroke="var(--color-stj)" strokeWidth={2} dot={{ r: 3 }} connectNulls={false} />
+            <Line
+              type="monotone"
+              dataKey="taxaStj"
+              name={`STJ · ${classeStj}`}
+              stroke="var(--color-stj)"
+              strokeWidth={2}
+              dot={{ r: 3 }}
+              connectNulls={false}
+            />
             <Line
               type="monotone"
               dataKey="taxaStjAndamento"
-              name="STJ (em andamento)"
               stroke="var(--color-stj)"
               strokeWidth={2}
               strokeDasharray="5 4"
@@ -82,11 +95,18 @@ export default function GraficoTaxaAnual({ pontos }: Props) {
               legendType="none"
               connectNulls={false}
             />
-            <Line type="monotone" dataKey="taxaStf" name="STF" stroke="var(--color-stf)" strokeWidth={2} dot={{ r: 3 }} connectNulls={false} />
+            <Line
+              type="monotone"
+              dataKey="taxaStf"
+              name={`STF · ${classeStf}`}
+              stroke="var(--color-stf)"
+              strokeWidth={2}
+              dot={{ r: 3 }}
+              connectNulls={false}
+            />
             <Line
               type="monotone"
               dataKey="taxaStfAndamento"
-              name="STF (em andamento)"
               stroke="var(--color-stf)"
               strokeWidth={2}
               strokeDasharray="5 4"

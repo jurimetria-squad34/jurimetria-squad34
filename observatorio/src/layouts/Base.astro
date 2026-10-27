@@ -1,5 +1,11 @@
 ---
 import "../styles/global.css";
+import NavPrincipal from "../components/NavPrincipal.astro";
+import sans400 from "@fontsource/public-sans/files/public-sans-latin-400-normal.woff2?url";
+import sans500 from "@fontsource/public-sans/files/public-sans-latin-500-normal.woff2?url";
+import sans600 from "@fontsource/public-sans/files/public-sans-latin-600-normal.woff2?url";
+import serif600 from "@fontsource/source-serif-4/files/source-serif-4-latin-600-normal.woff2?url";
+const fontesCriticas = [sans400, sans500, sans600, serif600];
 
 interface Props {
   title: string;
@@ -15,6 +21,7 @@ const { title, description } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
+    {fontesCriticas.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin="anonymous" />)}
     <title>{title}</title>
     <meta name="description" content={description} />
   </head>
@@ -25,6 +32,7 @@ const { title, description } = Astro.props;
     >
       Pular para o conteúdo
     </a>
+    <NavPrincipal />
     <main id="conteudo" class="mx-auto max-w-6xl px-6 py-10">
       <slot />
     </main>

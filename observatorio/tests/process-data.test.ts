@@ -135,10 +135,19 @@ function montarDadosParaResumo(): ObservatorioNormalizado {
 }
 
 describe("montarResumo", () => {
-  test("porTribunal soma TODO o período, incluindo o ano de 2005 fora da janela", () => {
+  test("porTribunalVolume soma TODO o período e TODAS as classes", () => {
     const resumo = montarResumo(montarDadosParaResumo());
-    const stf = resumo.porTribunal.find((t) => t.tribunal === "STF")!;
+    const stf = resumo.porTribunalVolume.find((t) => t.tribunal === "STF")!;
     expect(stf.total).toBe(260); 
+  });
+
+  test("porAno (STJ) só traz a classe mais volumosa (REsp, 170), nunca soma com HC (30)", () => {
+    const resumo = montarResumo(montarDadosParaResumo());
+    const pontosStj = resumo.porAno.filter((p) => p.tribunal === "STJ");
+    expect(pontosStj.every((p) => p.classe === "REsp")).toBe(true);
+    const ponto2025 = pontosStj.find((p) => p.ano === 2025)!;
+    expect(ponto2025.total).toBe(150); 
+    expect(ponto2025.favoraveis).toBe(50); 
   });
 
   test("porAno NÃO inclui o ano de 2005 (fora da janela de anos do resumo)", () => {

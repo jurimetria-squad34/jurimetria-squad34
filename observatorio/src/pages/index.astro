@@ -4,34 +4,47 @@ import { join } from "node:path";
 import Base from "../layouts/Base.astro";
 import GraficoTaxaAnual from "../components/GraficoTaxaAnual";
 import GraficoTopClasses from "../components/GraficoTopClasses";
-import GraficoTaxaPorTribunal from "../components/GraficoTaxaPorTribunal";
-import { calcularTaxa } from "@/lib/taxa";
-import { formatarPercentual } from "@/lib/formato";
+import GraficoTaxaPorClasse from "../components/GraficoTaxaPorClasse";
+import LegendaDados from "../components/LegendaDados";
+import { formatarPeriodo } from "@/lib/periodo";
 import type { Resumo } from "@/types/recorte";
 
-// Lê o resumo.json direto do disco, em tempo de build (não é um fetch no
-// navegador): o predev/prebuild já gerou esse arquivo antes do Astro rodar.
-// process.cwd() é a raiz do projeto (onde o npm script roda), e não muda
-// mesmo quando o Astro empacota este arquivo num lugar diferente dentro de
-// dist/ — usar import.meta.url aqui quebraria por esse motivo.
-// Como os números não mudam depois que a página carrega, não precisam de
-// nenhum JavaScript no navegador — só os 3 gráficos (que são interativos,
-// com tooltip) é que viram ilhas React.
 const caminhoResumo = join(process.cwd(), "public/data/resumo.json");
 const resumo: Resumo = JSON.parse(readFileSync(caminhoResumo, "utf-8"));
 
 const totalDecisoes = resumo.universo.decisoes.toLocaleString("pt-BR");
 const periodo = `${resumo.universo.de}–${resumo.universo.ate}`;
 
-const taxasPorTribunal = resumo.porTribunal.map((t) => {
-  const r = calcularTaxa(t.total, t.favoraveis);
-  return { tribunal: t.tribunal, texto: r.status === "ok" ? formatarPercentual(r.taxa) : "base pequena" };
-});
+const anoReferencia = Number(resumo.geradoEm.slice(0, 4));
+const periodoCompleto = formatarPeriodo(
+  resumo.universo.de,
+  resumo.universo.ate,
+  resumo.universo.ate === anoReferencia ? anoReferencia : undefined,
+);
+const universoGeral = `${resumo.universo.tribunais.join(" e ")}, todas as classes e matérias`;
+
+const anosTaxaAnual = resumo.porAno.map((p) => p.ano);
+const ultimoAnoTaxaAnual = Math.max(...anosTaxaAnual);
+const periodoTaxaAnual = formatarPeriodo(
+  Math.min(...anosTaxaAnual),
+  ultimoAnoTaxaAnual,
+  resumo.porAno.some((p) => p.emAndamento) ? ultimoAnoTaxaAnual : undefined,
+);
+const classePorTribunal = new Map(resumo.porAno.map((p) => [p.tribunal, p.classe]));
+const universoTaxaAnual = `${[...classePorTribunal].map(([t, c]) => `${t}, classe ${c}`).join("; ")}; todas as matérias`;
+
+const tribunaisDasClasses = [...new Set(resumo.topClasses.map((c) => c.tribunal))].sort().join(" e ");
+const universoClasses = `${tribunaisDasClasses}, as ${resumo.topClasses.length} classes com mais decisões, todas as matérias`;
+
+const volumesPorTribunal = resumo.porTribunalVolume.map((t) => ({
+  tribunal: t.tribunal,
+  texto: t.total.toLocaleString("pt-BR"),
+}));
 ---
 
 <Base
   title="Observatório Jurimétrico do STJ e STF"
-  description="Como o STJ e o STF decidem: taxa de decisões favoráveis por classe, matéria, relator e ano, a partir de 12 milhões de decisões."
+  description={`Como o STJ e o STF decidem: taxa de decisões favoráveis por classe, matéria, relator e ano, a partir de ${totalDecisoes} decisões.`}
 >
   <header class="grid gap-10 border-b border-linha pb-10 md:grid-cols-[1.3fr_1fr]">
     <div>
@@ -43,7 +56,7 @@ const taxasPorTribunal = resumo.porTribunal.map((t) => {
         gráficos, a taxa de decisões favoráveis por tribunal, classe, matéria, relator e ano.
       </p>
     </div>
-    <dl class="grid grid-cols-2 gap-6 border-linha md:border-l md:pl-10">
+    <dl class="grid grid-cols-1 gap-6 border-linha sm:grid-cols-2 md:border-l md:pl-10">
       <div>
         <dt class="text-sm text-tinta/70">Decisões analisadas</dt>
         <dd class="font-titulo text-3xl font-semibold text-toga">{totalDecisoes}</dd>
@@ -52,30 +65,27 @@ const taxasPorTribunal = resumo.porTribunal.map((t) => {
         <dt class="text-sm text-tinta/70">Período coberto</dt>
         <dd class="font-titulo text-3xl font-semibold text-toga">{periodo}</dd>
       </div>
-      {
-        taxasPorTribunal.map((t) => (
-          <div>
-            <dt class="text-sm text-tinta/70">Taxa favorável · {t.tribunal}</dt>
-            <dd class="font-titulo text-3xl font-semibold text-toga">{t.texto}</dd>
-          </div>
-        ))
-      }
+        {
+          volumesPorTribunal.map((t) => (
+            <div>
+              <dt class="text-sm text-tinta/70">Decisões no {t.tribunal}</dt>
+              <dd class="font-titulo text-3xl font-semibold text-toga">{t.texto}</dd>
+            </div>
+          ))
+        }
     </dl>
   </header>
 
-  <p class="mt-6 max-w-prose text-sm text-tinta/70">
-    <strong class="font-medium text-tinta">Universo:</strong> STJ e STF, todas as classes e matérias, {periodo}.{" "}
-    <strong class="font-medium text-tinta">Critério de decisão favorável:</strong> {resumo.criterio}
-  </p>
+  <LegendaDados universo={universoGeral} periodo={periodoCompleto} criterio={resumo.criterio} />
 
   <section class="mt-14" aria-labelledby="titulo-taxa-anual">
     <h2 id="titulo-taxa-anual" class="font-titulo text-2xl font-semibold text-toga">
       Taxa favorável por ano
     </h2>
-    <p class="mt-1 max-w-prose text-sm text-tinta/70">Últimos 11 anos, STJ e STF.</p>
     <div class="mt-6 rounded-lg border border-linha p-6">
       <GraficoTaxaAnual pontos={resumo.porAno} client:visible />
     </div>
+    <LegendaDados universo={universoTaxaAnual} periodo={periodoTaxaAnual} criterio={resumo.criterio} />
   </section>
 
   <div class="mt-14 grid gap-14 md:grid-cols-2">
@@ -83,28 +93,29 @@ const taxasPorTribunal = resumo.porTribunal.map((t) => {
       <h2 id="titulo-top-classes" class="font-titulo text-2xl font-semibold text-toga">
         As classes com mais decisões
       </h2>
-      <p class="mt-1 max-w-prose text-sm text-tinta/70">Período completo, STJ e STF juntos.</p>
       <div class="mt-6">
         <GraficoTopClasses classes={resumo.topClasses} client:visible />
       </div>
+      <LegendaDados universo={universoClasses} periodo={periodoCompleto} criterio={resumo.criterio} />
     </section>
 
-    <section aria-labelledby="titulo-taxa-tribunal">
-      <h2 id="titulo-taxa-tribunal" class="font-titulo text-2xl font-semibold text-toga">
-        Taxa favorável por tribunal
+    <section aria-labelledby="titulo-taxa-classe">
+      <h2 id="titulo-taxa-classe" class="font-titulo text-2xl font-semibold text-toga">
+        Taxa favorável por classe
       </h2>
-      <p class="mt-1 max-w-prose text-sm text-tinta/70">Período completo.</p>
       <div class="mt-6">
-        <GraficoTaxaPorTribunal porTribunal={resumo.porTribunal} client:visible />
+        <GraficoTaxaPorClasse classes={resumo.topClasses} client:visible />
       </div>
+      <LegendaDados universo={universoClasses} periodo={periodoCompleto} criterio={resumo.criterio} />
     </section>
   </div>
 
   <footer class="mt-16 border-t border-linha pt-6 text-sm text-tinta/70">
     <p>
       Dados agregados, sem nome de parte, atualizados a partir do pacote da Krohn
-      (gerado em {new Date(resumo.geradoEm).toLocaleDateString("pt-BR")}). Veja a metodologia completa para entender
-      de onde vêm os números e as limitações da base.
+      (gerado em {new Date(resumo.geradoEm).toLocaleDateString("pt-BR")}). Veja a{" "}
+      <a href="/metodologia/" class="underline hover:text-toga">metodologia completa</a> para entender de onde vêm
+      os números e as limitações da base.
     </p>
   </footer>
 </Base>

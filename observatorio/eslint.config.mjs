@@ -14,4 +14,14 @@ export default defineConfig([
   // componentes React (.tsx): liga as regras de acessibilidade originais.
   // Não repetimos "plugins" porque o plugin já foi registrado na linha acima.
   { files: ["**/*.tsx"], rules: jsxA11y.flatConfigs.recommended.rules },
+
+    {
+    files: ["**/*.tsx"],
+    rules: {
+      "jsx-a11y/no-noninteractive-tabindex": [
+        "error",
+        { tags: [], roles: ["tabpanel", "region"], allowExpressionValues: true },
+      ],
+    },
+  },
 ]);

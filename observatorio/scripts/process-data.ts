@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { lerObservatorio, normalizarDados } from "./ler-dados.ts";
 import type { MensalNormalizado, ObservatorioNormalizado, RelatorNormalizado } from "./ler-dados.ts";
-import type { ArquivoRecorte, ClasseDestaque, EntradaManifesto, Manifesto, PontoAnual, Resumo, TribunalResumo } from "../src/types/recorte.ts";
+import type { ArquivoRecorte, ClasseDestaque, EntradaManifesto, Manifesto, PontoAnualClasse, Resumo, Tribunal, VolumePorTribunal } from "../src/types/recorte.ts";
 
 const CAMINHO_DADOS = fileURLToPath(new URL("../dados/observatorio.json", import.meta.url));
 const PASTA_SAIDA = fileURLToPath(new URL("../public/data", import.meta.url));
@@ -131,47 +131,69 @@ export function montarResumo(dados: ObservatorioNormalizado): Resumo {
   const anoReferencia = Number(dados.gerado_em.slice(0, 4));
   const anoMinimoResumo = anoReferencia - (ANOS_RESUMO - 1);
 
-  const porAno = new Map<string, PontoAnual>();
-  const porTribunal = new Map<string, TribunalResumo>();
+  // 1) ranking de classes por volume, todo o período, juntando as matérias
+  // (mas nunca juntando classes diferentes entre si).
   const porClasse = new Map<string, ClasseDestaque>();
-
   for (const linha of dados.mensal) {
-    const ano = Number(linha.mes.slice(0, 4));
-
-    if (!porTribunal.has(linha.tribunal)) {
-      porTribunal.set(linha.tribunal, { tribunal: linha.tribunal, total: 0, favoraveis: 0 });
+    const chave = `${linha.tribunal}::${linha.classe}`;
+    if (!porClasse.has(chave)) {
+      porClasse.set(chave, { tribunal: linha.tribunal, classe: linha.classe, total: 0, favoraveis: 0 });
     }
-    const totalTribunal = porTribunal.get(linha.tribunal)!;
-    totalTribunal.total += linha.total;
-    totalTribunal.favoraveis += linha.favoraveis;
+    const classe = porClasse.get(chave)!;
+    classe.total += linha.total;
+    classe.favoraveis += linha.favoraveis;
+  }
+  const todasClasses = [...porClasse.values()].sort((a, b) => b.total - a.total);
+  const topClasses = todasClasses.slice(0, 8);
 
-    const chaveClasse = `${linha.tribunal}::${linha.classe}`;
-    if (!porClasse.has(chaveClasse)) {
-      porClasse.set(chaveClasse, { tribunal: linha.tribunal, classe: linha.classe, total: 0, favoraveis: 0 });
-    }
-    const totalClasse = porClasse.get(chaveClasse)!;
-    totalClasse.total += linha.total;
-    totalClasse.favoraveis += linha.favoraveis;
+  // 2) volume por tribunal: é só contagem, então pode somar toda classe —
+  // o problema é só com taxa (favoraveis/total), não com volume.
+  const volumePorTribunal = new Map<Tribunal, number>();
+  for (const classe of todasClasses) {
+    volumePorTribunal.set(classe.tribunal, (volumePorTribunal.get(classe.tribunal) ?? 0) + classe.total);
+  }
 
-    if (ano >= anoMinimoResumo) {
-      const chaveAno = `${linha.tribunal}::${ano}`;
-      if (!porAno.has(chaveAno)) {
-        porAno.set(chaveAno, { tribunal: linha.tribunal, ano, total: 0, favoraveis: 0, emAndamento: ano === anoReferencia });
-      }
-      const totalAno = porAno.get(chaveAno)!;
-      totalAno.total += linha.total;
-      totalAno.favoraveis += linha.favoraveis;
+  // 3) a classe mais volumosa de CADA tribunal (todasClasses já está
+  // ordenada, então a primeira vez que um tribunal aparece é a sua maior).
+  const classeDestaquePorTribunal = new Map<Tribunal, string>();
+  for (const classe of todasClasses) {
+    if (!classeDestaquePorTribunal.has(classe.tribunal)) {
+      classeDestaquePorTribunal.set(classe.tribunal, classe.classe);
     }
   }
 
-  const topClasses = [...porClasse.values()].sort((a, b) => b.total - a.total).slice(0, 8);
+  // 4) taxa por ano, só da classe de destaque de cada tribunal — nunca duas
+  // classes diferentes no mesmo ponto do gráfico.
+  const porAno = new Map<string, PontoAnualClasse>();
+  for (const linha of dados.mensal) {
+    if (classeDestaquePorTribunal.get(linha.tribunal) !== linha.classe) continue;
+    const ano = Number(linha.mes.slice(0, 4));
+    if (ano < anoMinimoResumo) continue;
+
+    const chaveAno = `${linha.tribunal}::${ano}`;
+    if (!porAno.has(chaveAno)) {
+      porAno.set(chaveAno, {
+        tribunal: linha.tribunal,
+        classe: linha.classe,
+        ano,
+        total: 0,
+        favoraveis: 0,
+        emAndamento: ano === anoReferencia,
+      });
+    }
+    const totalAno = porAno.get(chaveAno)!;
+    totalAno.total += linha.total;
+    totalAno.favoraveis += linha.favoraveis;
+  }
 
   return {
     geradoEm: dados.gerado_em,
     criterio: dados.criterio,
     universo: dados.universo,
     porAno: [...porAno.values()].sort((a, b) => a.tribunal.localeCompare(b.tribunal) || a.ano - b.ano),
-    porTribunal: [...porTribunal.values()].sort((a, b) => a.tribunal.localeCompare(b.tribunal)),
+    porTribunalVolume: [...volumePorTribunal.entries()]
+      .map(([tribunal, total]): VolumePorTribunal => ({ tribunal, total }))
+      .sort((a, b) => a.tribunal.localeCompare(b.tribunal)),
     topClasses,
   };
 }
