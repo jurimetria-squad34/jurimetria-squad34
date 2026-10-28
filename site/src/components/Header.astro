@@ -13,17 +13,17 @@ const menu = [
 // Rota atual
 // ============================================
 const rotaAtual = Astro.url.pathname;
-const urlEntrar = import.meta.env.PUBLIC_URL_ENTRAR || '#';
+const urlEntrar = import.meta.env.PUBLIC_URL_ENTRAR || '/entrar';
 ---
 
-<header class="cabecalho sticky top-0 z-50 border-b border-borda/60">
+<header class="cabecalho sticky top-0 z-50 border-b-2 border-ouro/60">
     <div class="container-site py-4 flex items-center justify-between gap-8">
         {/* Logo */}
         <a
             href="/"
             class="font-titulo text-xl font-bold text-tinta no-underline tracking-tight leading-none hover:text-verde transition-colors"
         >
-            Jurimetria
+            Jurimetria<span class="inline-block w-2 h-2 ml-1 rounded-full bg-ouro" aria-hidden="true"></span>
         </a>
 
         {/* Menu desktop */}
@@ -36,10 +36,10 @@ const urlEntrar = import.meta.env.PUBLIC_URL_ENTRAR || '#';
                     <a
                         href={item.href}
                         class:list={[
-                            'text-[0.95rem] font-medium no-underline transition-colors',
+                            'text-[0.95rem] font-medium no-underline transition-colors border-b-2 pb-0.5',
                             ativo
-                                ? 'text-verde font-semibold'
-                                : 'text-tinta-suave hover:text-tinta',
+                                ? 'text-verde font-semibold border-ouro'
+                                : 'text-tinta-suave hover:text-tinta border-transparent',
                         ]}
                         aria-current={ativo ? 'page' : undefined}
                     >
@@ -59,7 +59,7 @@ const urlEntrar = import.meta.env.PUBLIC_URL_ENTRAR || '#';
     </a>
     <a
         href="/pedir-acesso"
-        class="inline-block text-sm font-medium no-underline bg-verde text-white px-4 py-2 rounded hover:bg-verde-claro transition-colors"
+        class="inline-block text-sm font-medium no-underline bg-verde text-white px-4 py-2 rounded hover:bg-verde-claro transition-colors shadow-[inset_0_-2px_0_var(--color-ouro)]"
     >
         Pedir acesso
     </a>
@@ -120,7 +120,7 @@ const urlEntrar = import.meta.env.PUBLIC_URL_ENTRAR || '#';
                 <li>
                     <a
                         href="/pedir-acesso"
-                        class="block mt-3 py-3.5 px-5 text-center bg-verde text-white font-semibold no-underline rounded hover:bg-verde-claro transition-colors"
+                        class="block mt-3 py-3.5 px-5 text-center bg-verde text-white font-semibold no-underline rounded hover:bg-verde-claro transition-colors shadow-[inset_0_-3px_0_var(--color-ouro)]"
                     >
                         Pedir acesso
                     </a>

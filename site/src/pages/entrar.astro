@@ -1,0 +1,161 @@
+---
+// ============================================
+// Entrar — tela de acesso (pré-visualização)
+// Usada enquanto PUBLIC_URL_ENTRAR estiver vazia.
+// Quando o endereço do produto existir, o botão
+// "Entrar" do Header passa a apontar direto para ele.
+// Esta página não envia nem guarda nenhum dado.
+// ============================================
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+    title="Entrar — Jurimetria"
+    description="Acesse sua conta no Jurimetria."
+    noindex
+>
+    <section class="entrar">
+        <div class="entrar-card">
+            <p class="entrar-eyebrow">Área do cliente</p>
+            <h1>Entrar no Jurimetria</h1>
+            <p class="entrar-sub">
+                O acesso é liberado por convite. Se você já recebeu o seu, entre
+                com o e-mail cadastrado.
+            </p>
+
+            <form id="form-entrar" novalidate>
+                <label for="email">E-mail</label>
+                <input
+                    id="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="voce@escritorio.com.br"
+                />
+
+                <label for="senha">Senha</label>
+                <input
+                    id="senha"
+                    type="password"
+                    autocomplete="current-password"
+                />
+
+                <button type="submit" class="botao botao-primario">
+                    Entrar
+                </button>
+
+                <p id="aviso" class="entrar-aviso" role="status" hidden>
+                    O login ainda não está ativo neste site de apresentação.
+                    Peça acesso e avisamos assim que o seu for liberado.
+                </p>
+            </form>
+
+            <p class="entrar-rodape">
+                Ainda não tem acesso?
+                <a href="/pedir-acesso">Pedir acesso</a>
+            </p>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    const form = document.getElementById('form-entrar');
+    const aviso = document.getElementById('aviso');
+    form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (aviso) aviso.hidden = false;
+    });
+</script>
+
+<style>
+    .entrar {
+        display: flex;
+        justify-content: center;
+        padding: 3rem 1.5rem 4rem;
+    }
+
+    .entrar-card {
+        width: 100%;
+        max-width: 26rem;
+        background: #ffffff;
+        border: 1px solid var(--color-borda);
+        border-top: 3px solid var(--color-ouro);
+        border-radius: 8px;
+        padding: 2rem 1.75rem;
+        box-shadow: 0 26px 50px -34px rgba(22, 35, 31, 0.45);
+    }
+
+    .entrar-eyebrow {
+        margin: 0 0 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-ouro-escuro);
+    }
+
+    h1 {
+        font-size: 1.9rem;
+        margin: 0 0 0.75rem;
+    }
+
+    .entrar-sub {
+        margin: 0 0 1.5rem;
+        color: var(--color-tinta-suave);
+        font-size: 0.95rem;
+    }
+
+    form {
+        display: grid;
+        gap: 0.4rem;
+    }
+
+    label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-top: 0.6rem;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.7rem 0.85rem;
+        border: 1px solid var(--color-borda);
+        border-radius: 4px;
+        font: inherit;
+        background: var(--color-papel);
+        color: var(--color-tinta);
+    }
+
+    input:focus-visible {
+        outline: 2px solid var(--color-ouro);
+        outline-offset: 1px;
+        border-color: var(--color-ouro);
+    }
+
+    button {
+        margin-top: 1.1rem;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+    }
+
+    .entrar-aviso {
+        margin: 0.8rem 0 0;
+        padding: 0.7rem 0.85rem;
+        font-size: 0.875rem;
+        background: #fbf4dc;
+        border-left: 3px solid var(--color-ouro);
+        border-radius: 3px;
+    }
+
+    .entrar-aviso[hidden] {
+        display: none;
+    }
+
+    .entrar-rodape {
+        margin: 1.5rem 0 0;
+        padding-top: 1.1rem;
+        border-top: 1px solid var(--color-borda);
+        font-size: 0.9rem;
+        text-align: center;
+    }
+</style>

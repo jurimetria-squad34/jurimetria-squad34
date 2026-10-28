@@ -5,7 +5,7 @@
 import Layout from '../layouts/Layout.astro';
 import universo from '../data/universo.json';
 import TelaHero from '../components/como-funciona/TelaHero.astro';
-import PassoPesquisa from '../components/como-funciona/PassoPesquisa.astro';
+import DemoPesquisa from '../components/como-funciona/DemoPesquisa.astro';
 
 // ============================================
 const { tribunais, decisoes, de, ate } = universo.universo;
@@ -111,7 +111,7 @@ const limites = [
                 <p><strong>Trecho literal</strong> e link oficial em cada uma</p>
             </div>
             <p class="container-site legenda-base">
-                Base: {total} decisões do {listaTribunais}, de {de} a {ate}.
+                Base: {total} decisões do {listaTribunais}, de {de} a {ate}.{' '}
                 {universo.criterio}
             </p>
         </section>
@@ -123,21 +123,12 @@ const limites = [
             <div class="container-site">
                 <h2>Do caso ao precedente, em cinco passos</h2>
 
-                <ol class="lista-passos">
-                    {passos.map((passo, i) => (
-                        <PassoPesquisa
-                            indice={i + 1}
-                            id={passo.id}
-                            titulo={passo.titulo}
-                            texto={passo.texto}
-                        />
-                    ))}
-                </ol>
-
-                <p class="nota-telas">
-                    Telas ilustrativas. Números, relator, data e link são do
-                    tribunal.
+                <p class="passos-intro">
+                    Teste a pesquisa por caso aqui mesmo: edite o texto, avance
+                    pelos passos e clique nos resultados.
                 </p>
+
+                <DemoPesquisa />
             </div>
         </section>
 
@@ -284,12 +275,12 @@ const limites = [
     }
 
     .cf .btn-claro {
-        background: #ffffff;
-        color: var(--color-verde);
+        background: var(--color-ouro);
+        color: var(--color-tinta);
     }
 
     .cf .btn-claro:hover {
-        background: var(--color-mostarda);
+        background: var(--color-ouro-claro);
     }
 
     .cf .link {
@@ -318,7 +309,7 @@ const limites = [
        Hero
        ============================================ */
     .cf .hero {
-        padding: 4.5rem 0 4rem;
+        padding: 3rem 0 3rem;
     }
 
     .cf .hero-grid {
@@ -363,7 +354,7 @@ const limites = [
        Passos
        ============================================ */
     .cf .passos {
-        padding: 5rem 0 4.5rem;
+        padding: 3.5rem 0 3.5rem;
     }
 
     .cf .lista-passos {
@@ -394,17 +385,17 @@ const limites = [
         max-width: 30rem;
     }
 
-    .cf .nota-telas {
-        margin-top: 1.5rem;
-        font-size: 0.85rem;
-        font-style: italic;
+    .cf .passos-intro {
+        margin-top: 0.75rem;
         color: var(--color-tinta-suave);
+        max-width: 36rem;
     }
 
     /* ============================================
        Regra de ouro
        ============================================ */
     .cf .regra {
+        border-top: 3px solid var(--color-ouro);
         background: var(--color-tinta);
         color: var(--color-papel);
         padding: 4.5rem 0;
@@ -443,7 +434,7 @@ const limites = [
        Limites
        ============================================ */
     .cf .limites {
-        padding: 5rem 0 4.5rem;
+        padding: 3.5rem 0 3.5rem;
     }
 
     .cf .limites-lista {
@@ -477,6 +468,7 @@ const limites = [
        CTA final
        ============================================ */
     .cf .cta {
+        border-top: 4px solid var(--color-ouro);
         background: var(--color-verde);
         color: #ffffff;
         padding: 4.5rem 0;
@@ -532,6 +524,15 @@ const limites = [
     }
 
     @media (min-width: 64rem) {
+        .cf .hero {
+            padding: 4.5rem 0 4rem;
+        }
+
+        .cf .passos,
+        .cf .limites {
+            padding: 5rem 0 4.5rem;
+        }
+
         .cf .hero-grid {
             grid-template-columns: 6fr 5fr;
             gap: 5rem;

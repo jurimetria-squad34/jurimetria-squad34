@@ -21,7 +21,7 @@ const conteudos = (await getCollection('conteudo')).sort(
         {/* ============================================
             Hero — título e introdução
             ============================================ */}
-        <section class="container-site pt-20 pb-12">
+        <section class="container-site pt-12 md:pt-20 pb-8 md:pb-12">
             <p class="text-sm text-tinta-suave uppercase tracking-wider mb-3">
                 Conteúdo
             </p>
@@ -38,7 +38,7 @@ const conteudos = (await getCollection('conteudo')).sort(
         {/* ============================================
             Grid de artigos — lê da coleção
             ============================================ */}
-        <section class="container-site pb-20">
+        <section class="container-site pb-12 md:pb-20">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {conteudos.map((item) => (
                     <a

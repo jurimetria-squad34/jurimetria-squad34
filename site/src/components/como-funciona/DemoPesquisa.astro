@@ -1,0 +1,883 @@
+---
+// ============================================
+// Demonstração interativa da pesquisa por caso
+// Roda inteira no navegador, sem enviar nada.
+// Os resultados são ilustrativos (nomes e números
+// demonstrativos); a decisão real vem do exemplo.json.
+// ============================================
+import exemplo from '../../data/exemplo.json';
+
+const passos = [
+    {
+        titulo: 'Descreva o caso',
+        texto: 'O advogado cola os fatos ou a petição inteira, em linguagem comum. Edite o texto ao lado e clique em "Buscar precedentes".',
+    },
+    {
+        titulo: 'Revise o plano de busca',
+        texto: 'O sistema mostra o que vai procurar: as teses, as classes mais prováveis e os filtros. Ajuste antes de buscar.',
+    },
+    {
+        titulo: 'Veja os precedentes',
+        texto: 'Três blocos: favoráveis, contrários e de distinção. Troque de aba e clique em um caso da lista.',
+    },
+    {
+        titulo: 'Confira o trecho e o link',
+        texto: 'O trecho aparece idêntico ao inteiro teor, com os termos destacados, e o link abre o documento oficial.',
+    },
+    {
+        titulo: 'Decida com a fonte',
+        texto: 'O advogado lê a decisão completa, com número do processo e data de publicação à vista.',
+    },
+];
+
+const blocos = [
+    {
+        id: 'fav',
+        nome: 'Favoráveis',
+        itens: [
+            { numero: 'REsp 0.000.001', nome: 'Caso demonstrativo A' },
+            { numero: 'AREsp 0.000.002', nome: 'Caso demonstrativo B' },
+            { numero: 'REsp 0.000.003', nome: 'Caso demonstrativo C' },
+        ],
+    },
+    {
+        id: 'con',
+        nome: 'Contrários',
+        itens: [
+            { numero: 'REsp 0.000.004', nome: 'Caso demonstrativo D' },
+            { numero: 'AgInt 0.000.005', nome: 'Caso demonstrativo E' },
+        ],
+    },
+    {
+        id: 'dis',
+        nome: 'De distinção',
+        itens: [
+            { numero: 'RE 0.000.006', nome: 'Caso demonstrativo F' },
+            { numero: 'AREsp 0.000.007', nome: 'Caso demonstrativo G' },
+        ],
+    },
+];
+
+const classes = ['REsp', 'AREsp', 'AgInt', 'RE'];
+const tribunais = ['STJ', 'STF'];
+---
+
+<div class="demo" data-demo>
+    <ol class="nav" aria-label="Passos da demonstração">
+        {passos.map((p, i) => (
+            <li>
+                <button
+                    type="button"
+                    class="nav-btn"
+                    data-ir={i + 1}
+                    aria-current={i === 0 ? 'step' : undefined}
+                >
+                    <span class="nav-n" aria-hidden="true">{i + 1}</span>
+                    <span class="nav-corpo">
+                        <span class="nav-titulo">{p.titulo}</span>
+                        <span class="nav-texto">{p.texto}</span>
+                    </span>
+                </button>
+            </li>
+        ))}
+    </ol>
+
+    <div class="tela" aria-label="Demonstração interativa">
+        <div class="tela-topo">
+            <span data-rotulo-topo>Descrição do caso</span>
+            <span class="tela-passo" data-contador>Passo 1 de 5</span>
+        </div>
+
+        <div class="carregando" data-carregando hidden>
+            <span class="spinner" aria-hidden="true"></span>
+            <span>Analisando o caso…</span>
+        </div>
+
+        <p class="sr-only" role="status" aria-live="polite" data-live></p>
+
+        {/* ===== Passo 1 ===== */}
+        <div class="painel ativo" data-painel="1">
+            <label class="rotulo" for="demo-caso">Fatos do caso</label>
+            <textarea id="demo-caso" rows="5">{exemplo.caso.descricao}</textarea>
+            <button type="button" class="acao" data-acao="buscar">
+                Buscar precedentes
+            </button>
+        </div>
+
+        {/* ===== Passo 2 ===== */}
+        <div class="painel" data-painel="2">
+            <p class="aviso-demo">
+                Aqui o sistema mostrará as teses que identificou no seu caso, as
+                classes mais prováveis e os filtros aplicados.
+            </p>
+            <dl class="plano">
+                <div>
+                    <dt>Teses</dt>
+                    <dd>{exemplo.plano.teses}</dd>
+                </div>
+                <div>
+                    <dt>Classes</dt>
+                    <dd class="chips">
+                        {classes.map((c, i) => (
+                            <button
+                                type="button"
+                                class="chip"
+                                data-chip
+                                aria-pressed={i < 2 ? 'true' : 'false'}
+                            >
+                                {c}
+                            </button>
+                        ))}
+                    </dd>
+                </div>
+                <div>
+                    <dt>Tribunais</dt>
+                    <dd class="chips">
+                        {tribunais.map((t) => (
+                            <button
+                                type="button"
+                                class="chip"
+                                data-chip
+                                aria-pressed="true"
+                            >
+                                {t}
+                            </button>
+                        ))}
+                    </dd>
+                </div>
+            </dl>
+            <button type="button" class="acao" data-acao="confirmar">
+                Confirmar e buscar
+            </button>
+        </div>
+
+        {/* ===== Passo 3 ===== */}
+        <div class="painel" data-painel="3">
+            <p class="aviso-demo">
+                Aqui mostrará casos similares ao seu, classificados em uma lista
+                com o número do processo e um nome demonstrativo.
+            </p>
+
+            <div class="abas" role="tablist" aria-label="Tipos de precedente">
+                {blocos.map((b, i) => (
+                    <button
+                        type="button"
+                        role="tab"
+                        class="aba"
+                        data-aba={b.id}
+                        aria-selected={i === 0 ? 'true' : 'false'}
+                    >
+                        {b.nome}
+                        <span class="aba-qtd">{b.itens.length}</span>
+                    </button>
+                ))}
+            </div>
+
+            {blocos.map((b, i) => (
+                <ul class="lista" data-lista={b.id} hidden={i !== 0}>
+                    {b.itens.map((item) => (
+                        <li>
+                            <button
+                                type="button"
+                                class="item"
+                                data-item
+                                data-bloco={b.nome}
+                                data-numero={item.numero}
+                                data-nome={item.nome}
+                            >
+                                <span class="item-num">{item.numero}</span>
+                                <span class="item-nome">{item.nome}</span>
+                                <span class="item-seta" aria-hidden="true">→</span>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            ))}
+        </div>
+
+        {/* ===== Passo 4 ===== */}
+        <div class="painel" data-painel="4">
+            <p class="sel">
+                <span class="sel-bloco" data-sel-bloco>Favoráveis</span>
+                <span class="sel-num" data-sel-numero>REsp 0.000.001</span>
+                <span data-sel-nome>Caso demonstrativo A</span>
+            </p>
+            <p class="trecho">
+                …aqui aparecerá o <mark>trecho literal</mark> da decisão, igual
+                ao inteiro teor, com os termos do seu caso em destaque…
+            </p>
+            <p class="link-demo">
+                Abrir no site do tribunal
+                <small>(na versão real, abre o documento oficial)</small>
+            </p>
+            <div class="acoes-linha">
+                <button type="button" class="acao" data-acao="decisao">
+                    Ver decisão completa
+                </button>
+                <button type="button" class="acao-sec" data-acao="lista">
+                    Voltar à lista
+                </button>
+            </div>
+        </div>
+
+        {/* ===== Passo 5 ===== */}
+        <div class="painel" data-painel="5">
+            <p class="aviso-demo">
+                Aqui aparecerá a decisão completa: ementa, inteiro teor e dados
+                do julgamento.
+            </p>
+            <dl class="plano">
+                <div>
+                    <dt>Processo</dt>
+                    <dd data-sel-numero>REsp 0.000.001</dd>
+                </div>
+                <div>
+                    <dt>Caso</dt>
+                    <dd data-sel-nome>Caso demonstrativo A</dd>
+                </div>
+                <div>
+                    <dt>Relator</dt>
+                    <dd>Nome do relator</dd>
+                </div>
+                <div>
+                    <dt>Publicação</dt>
+                    <dd>dd/mm/aaaa</dd>
+                </div>
+                <div>
+                    <dt>Resultado</dt>
+                    <dd>Concedido, negado ou parcial</dd>
+                </div>
+            </dl>
+            <div class="acoes-linha">
+                <a href="/pedir-acesso" class="acao acao-link">
+                    Pedir acesso
+                </a>
+                <button type="button" class="acao-sec" data-acao="reiniciar">
+                    Recomeçar demonstração
+                </button>
+            </div>
+        </div>
+
+        <p class="rodape-tela">
+            Demonstração ilustrativa, feita no seu navegador. Nada é enviado. No
+            produto, aparecem decisões reais da base, com número, relator, data
+            e link do tribunal.
+        </p>
+    </div>
+</div>
+
+<script>
+    const raiz = document.querySelector<HTMLElement>('[data-demo]');
+
+    if (raiz) {
+        raiz.classList.add('js');
+
+        const titulos = [
+            'Descrição do caso',
+            'Plano de busca',
+            'Precedentes',
+            'Trecho e fonte',
+            'Decisão completa',
+        ];
+        const reduzido = window.matchMedia(
+            '(prefers-reduced-motion: reduce)',
+        ).matches;
+
+        const paineis = raiz.querySelectorAll<HTMLElement>('[data-painel]');
+        const botoesNav = raiz.querySelectorAll<HTMLButtonElement>('[data-ir]');
+        const carregando = raiz.querySelector<HTMLElement>('[data-carregando]')!;
+        const rotuloTopo = raiz.querySelector<HTMLElement>('[data-rotulo-topo]')!;
+        const contador = raiz.querySelector<HTMLElement>('[data-contador]')!;
+        const live = raiz.querySelector<HTMLElement>('[data-live]')!;
+        let timer: number | undefined;
+
+        function mostrar(n: number) {
+            paineis.forEach((p) =>
+                p.classList.toggle('ativo', p.dataset.painel === String(n)),
+            );
+            botoesNav.forEach((b) => {
+                if (b.dataset.ir === String(n)) b.setAttribute('aria-current', 'step');
+                else b.removeAttribute('aria-current');
+            });
+            rotuloTopo.textContent = titulos[n - 1];
+            contador.textContent = `Passo ${n} de 5`;
+            live.textContent = `Passo ${n} de 5: ${titulos[n - 1]}`;
+        }
+
+        function ir(n: number, comEspera = false) {
+            window.clearTimeout(timer);
+            carregando.hidden = true;
+            if (comEspera && !reduzido) {
+                carregando.hidden = false;
+                timer = window.setTimeout(() => {
+                    carregando.hidden = true;
+                    mostrar(n);
+                }, 700);
+            } else {
+                mostrar(n);
+            }
+        }
+
+        // Navegação lateral
+        botoesNav.forEach((b) =>
+            b.addEventListener('click', () => ir(Number(b.dataset.ir))),
+        );
+
+        // Ações dentro da tela
+        raiz.querySelectorAll<HTMLElement>('[data-acao]').forEach((el) => {
+            el.addEventListener('click', () => {
+                const acao = el.dataset.acao;
+                if (acao === 'buscar') ir(2, true);
+                else if (acao === 'confirmar') ir(3, true);
+                else if (acao === 'decisao') ir(5);
+                else if (acao === 'lista') ir(3);
+                else if (acao === 'reiniciar') ir(1);
+            });
+        });
+
+        // Chips alternáveis (classes e tribunais)
+        raiz.querySelectorAll<HTMLButtonElement>('[data-chip]').forEach((c) =>
+            c.addEventListener('click', () => {
+                const on = c.getAttribute('aria-pressed') === 'true';
+                c.setAttribute('aria-pressed', String(!on));
+            }),
+        );
+
+        // Abas dos blocos
+        const abas = raiz.querySelectorAll<HTMLButtonElement>('[data-aba]');
+        const listas = raiz.querySelectorAll<HTMLElement>('[data-lista]');
+        abas.forEach((a) =>
+            a.addEventListener('click', () => {
+                abas.forEach((x) =>
+                    x.setAttribute('aria-selected', String(x === a)),
+                );
+                listas.forEach((l) => {
+                    l.hidden = l.dataset.lista !== a.dataset.aba;
+                });
+            }),
+        );
+
+        // Seleção de um caso da lista
+        raiz.querySelectorAll<HTMLButtonElement>('[data-item]').forEach((it) =>
+            it.addEventListener('click', () => {
+                raiz
+                    .querySelectorAll<HTMLElement>('[data-sel-numero]')
+                    .forEach((e) => (e.textContent = it.dataset.numero ?? ''));
+                raiz
+                    .querySelectorAll<HTMLElement>('[data-sel-nome]')
+                    .forEach((e) => (e.textContent = it.dataset.nome ?? ''));
+                raiz
+                    .querySelectorAll<HTMLElement>('[data-sel-bloco]')
+                    .forEach((e) => (e.textContent = it.dataset.bloco ?? ''));
+                ir(4);
+            }),
+        );
+    }
+</script>
+
+<style>
+    .demo {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 2.5rem;
+    }
+
+    /* Sem JavaScript, mostra todos os painéis empilhados */
+    .painel {
+        display: grid;
+        gap: 0.9rem;
+        padding: 1.1rem;
+    }
+    .demo.js .painel {
+        display: none;
+    }
+    .demo.js .painel.ativo {
+        display: grid;
+        animation: entrar 0.25s ease-out;
+    }
+
+    @keyframes entrar {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    /* ===== Navegação por passos ===== */
+    .nav {
+        display: grid;
+        gap: 0.4rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-btn {
+        display: flex;
+        gap: 0.9rem;
+        width: 100%;
+        text-align: left;
+        padding: 0.75rem 0.9rem;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font: inherit;
+        color: var(--color-tinta);
+        cursor: pointer;
+        transition:
+            background-color 0.15s,
+            border-color 0.15s;
+    }
+
+    .nav-btn:hover {
+        background: #ffffff;
+        border-color: var(--color-borda);
+    }
+
+    .nav-btn:focus-visible {
+        outline: 3px solid var(--color-ouro);
+        outline-offset: 2px;
+    }
+
+    .nav-btn[aria-current='step'] {
+        background: #ffffff;
+        border-color: var(--color-ouro);
+        box-shadow: inset 4px 0 0 var(--color-ouro);
+    }
+
+    .nav-n {
+        flex: none;
+        display: grid;
+        place-items: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: 1.5px solid var(--color-tinta-suave);
+        font-family: var(--font-titulo);
+        font-weight: 700;
+        color: var(--color-tinta-suave);
+    }
+
+    .nav-btn[aria-current='step'] .nav-n {
+        background: var(--color-ouro);
+        border-color: var(--color-ouro);
+        color: var(--color-tinta);
+    }
+
+    .nav-corpo {
+        display: grid;
+        gap: 0.25rem;
+    }
+
+    .nav-titulo {
+        font-family: var(--font-titulo);
+        font-size: 1.15rem;
+        font-weight: 600;
+        line-height: 1.25;
+    }
+
+    .nav-texto {
+        display: none;
+        color: var(--color-tinta-suave);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .nav-btn[aria-current='step'] .nav-texto,
+    .demo:not(.js) .nav-texto {
+        display: block;
+    }
+
+    /* ===== Tela ===== */
+    .tela {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid var(--color-borda);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow:
+            0 1px 0 var(--color-borda),
+            0 26px 50px -34px rgba(22, 35, 31, 0.55);
+        align-self: start;
+    }
+
+    .tela-topo {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        background: var(--color-papel-escuro);
+        border-bottom: 2px solid var(--color-ouro);
+        padding: 0.6rem 1.1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-tinta-suave);
+    }
+
+    .tela-passo {
+        font-variant-numeric: tabular-nums;
+        font-weight: 500;
+    }
+
+    .carregando {
+        position: absolute;
+        inset: 2.5rem 0 0;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem;
+        background: rgba(255, 255, 255, 0.92);
+        font-weight: 500;
+        color: var(--color-tinta-suave);
+    }
+
+    .carregando[hidden] {
+        display: none;
+    }
+
+    .spinner {
+        width: 1.1rem;
+        height: 1.1rem;
+        border: 2px solid var(--color-borda);
+        border-top-color: var(--color-ouro);
+        border-radius: 50%;
+        animation: girar 0.7s linear infinite;
+    }
+
+    @keyframes girar {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .rotulo {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-tinta-suave);
+    }
+
+    textarea {
+        width: 100%;
+        resize: vertical;
+        font: inherit;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        padding: 0.7rem 0.9rem;
+        background: var(--color-papel);
+        border: 1px solid var(--color-borda);
+        border-radius: 6px;
+        color: var(--color-tinta);
+    }
+
+    textarea:focus-visible {
+        outline: 2px solid var(--color-ouro);
+        outline-offset: 1px;
+    }
+
+    .aviso-demo {
+        margin: 0;
+        padding: 0.6rem 0.85rem;
+        font-size: 0.9rem;
+        background: #fbf4dc;
+        border-left: 3px solid var(--color-ouro);
+        border-radius: 3px;
+        color: var(--color-tinta);
+    }
+
+    /* ===== Botões ===== */
+    .acao,
+    .acao-sec {
+        justify-self: start;
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 600;
+        padding: 0.55rem 1.1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.15s;
+    }
+
+    .acao {
+        background: var(--color-verde);
+        color: #ffffff;
+        border: 1px solid var(--color-verde);
+        box-shadow: inset 0 -3px 0 var(--color-ouro);
+    }
+
+    .acao:hover {
+        background: var(--color-verde-claro);
+        color: #ffffff;
+    }
+
+    .acao-sec {
+        background: transparent;
+        color: var(--color-tinta);
+        border: 1px solid var(--color-tinta-suave);
+    }
+
+    .acao-sec:hover {
+        background: var(--color-papel);
+    }
+
+    .acao:focus-visible,
+    .acao-sec:focus-visible {
+        outline: 3px solid var(--color-ouro);
+        outline-offset: 2px;
+    }
+
+    .acoes-linha {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    /* ===== Plano ===== */
+    .plano {
+        margin: 0;
+        padding: 0;
+    }
+
+    .plano > div {
+        display: grid;
+        grid-template-columns: 6rem 1fr;
+        gap: 1rem;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid var(--color-borda);
+        font-size: 0.95rem;
+    }
+
+    .plano > div:last-child {
+        border-bottom: none;
+    }
+
+    .plano dt {
+        color: var(--color-tinta-suave);
+    }
+
+    .plano dd {
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    .chip {
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+        border: 1px solid var(--color-borda);
+        background: var(--color-papel);
+        color: var(--color-tinta-suave);
+        cursor: pointer;
+    }
+
+    .chip[aria-pressed='true'] {
+        background: var(--color-verde);
+        border-color: var(--color-verde);
+        color: #ffffff;
+    }
+
+    .chip:focus-visible {
+        outline: 3px solid var(--color-ouro);
+        outline-offset: 2px;
+    }
+
+    /* ===== Abas e lista ===== */
+    .abas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        border-bottom: 1px solid var(--color-borda);
+    }
+
+    .aba {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font: inherit;
+        font-size: 0.9rem;
+        padding: 0.45rem 0.8rem;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        color: var(--color-tinta-suave);
+        cursor: pointer;
+    }
+
+    .aba[aria-selected='true'] {
+        color: var(--color-verde);
+        font-weight: 600;
+        border-bottom-color: var(--color-ouro);
+    }
+
+    .aba:focus-visible {
+        outline: 3px solid var(--color-ouro);
+        outline-offset: 2px;
+    }
+
+    .aba-qtd {
+        font-size: 0.75rem;
+        padding: 0.05rem 0.45rem;
+        border-radius: 999px;
+        background: var(--color-papel-escuro);
+        color: var(--color-tinta);
+    }
+
+    .lista {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 0.5rem;
+    }
+
+    .lista[hidden] {
+        display: none;
+    }
+
+    .item {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 0.2rem 0.9rem;
+        width: 100%;
+        text-align: left;
+        font: inherit;
+        padding: 0.65rem 0.9rem;
+        background: #ffffff;
+        border: 1px solid var(--color-borda);
+        border-left: 4px solid var(--color-ouro);
+        border-radius: 5px;
+        cursor: pointer;
+        transition:
+            background-color 0.15s,
+            transform 0.15s;
+    }
+
+    .item:hover {
+        background: #fbf7e6;
+        transform: translateX(2px);
+    }
+
+    .item:focus-visible {
+        outline: 3px solid var(--color-ouro);
+        outline-offset: 2px;
+    }
+
+    .item-num {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .item-nome {
+        color: var(--color-tinta-suave);
+        font-size: 0.92rem;
+    }
+
+    .item-seta {
+        color: var(--color-ouro-escuro);
+        font-weight: 700;
+    }
+
+    /* ===== Trecho ===== */
+    .sel {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.4rem 0.8rem;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .sel-bloco {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.1rem 0.5rem;
+        border-radius: 3px;
+        background: var(--color-ouro);
+        color: var(--color-tinta);
+    }
+
+    .sel-num {
+        font-family: var(--font-mono);
+        font-weight: 500;
+    }
+
+    .trecho {
+        margin: 0;
+        font-family: var(--font-titulo);
+        font-size: 1.12rem;
+        line-height: 1.55;
+    }
+
+    .trecho mark {
+        background: var(--color-mostarda);
+        color: inherit;
+        padding: 0 0.15em;
+    }
+
+    .link-demo {
+        margin: 0;
+        color: var(--color-verde);
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: underline;
+        text-underline-offset: 0.25em;
+    }
+
+    .link-demo small {
+        color: var(--color-tinta-suave);
+        font-weight: 400;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .rodape-tela {
+        margin: 0;
+        padding: 0.6rem 1.1rem;
+        border-top: 1px solid var(--color-borda);
+        font-size: 0.8rem;
+        font-style: italic;
+        color: var(--color-tinta-suave);
+    }
+
+    /* ===== Telas maiores ===== */
+    @media (min-width: 64rem) {
+        .demo {
+            grid-template-columns: 5fr 6fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .nav {
+            position: sticky;
+            top: 6rem;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .demo.js .painel.ativo,
+        .spinner {
+            animation: none;
+        }
+        .item {
+            transition: none;
+        }
+    }
+</style>

@@ -1,0 +1,111 @@
+---
+// ============================================
+// Botão fixo "Pedir acesso" — só no celular.
+// Aparece depois de rolar a página e some quando
+// o rodapé entra na tela. Não aparece nas páginas
+// de pedir acesso e entrar.
+// ============================================
+const caminho = Astro.url.pathname;
+const esconder = ['/pedir-acesso', '/entrar'].some((p) =>
+    caminho.startsWith(p),
+);
+---
+
+{
+    !esconder && (
+        <div class="cta-fixo" data-cta-fixo>
+            <p>Veja o Jurimetria por dentro.</p>
+            <a href="/pedir-acesso">Pedir acesso</a>
+        </div>
+    )
+}
+
+<script>
+    const barra = document.querySelector<HTMLElement>('[data-cta-fixo]');
+    const rodape = document.querySelector('footer');
+
+    if (barra) {
+        let noRodape = false;
+
+        const atualizar = () => {
+            barra.classList.toggle('visivel', window.scrollY > 480 && !noRodape);
+        };
+
+        if (rodape) {
+            new IntersectionObserver((entradas) => {
+                noRodape = entradas[0].isIntersecting;
+                atualizar();
+            }).observe(rodape);
+        }
+
+        window.addEventListener('scroll', atualizar, { passive: true });
+        atualizar();
+    }
+</script>
+
+<style>
+    .cta-fixo {
+        position: fixed;
+        inset: auto 0 0 0;
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.7rem 1.25rem calc(0.7rem + env(safe-area-inset-bottom));
+        background: var(--color-tinta);
+        border-top: 2px solid var(--color-ouro);
+        transform: translateY(100%);
+        visibility: hidden;
+        transition:
+            transform 0.25s ease,
+            visibility 0s linear 0.25s;
+    }
+
+    .cta-fixo.visivel {
+        transform: none;
+        visibility: visible;
+        transition: transform 0.25s ease;
+    }
+
+    .cta-fixo p {
+        margin: 0;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--color-papel);
+    }
+
+    .cta-fixo a {
+        flex: none;
+        padding: 0.6rem 1.1rem;
+        border-radius: 4px;
+        background: var(--color-ouro);
+        color: var(--color-tinta);
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .cta-fixo a:hover {
+        background: var(--color-ouro-claro);
+        color: var(--color-tinta);
+    }
+
+    .cta-fixo a:focus-visible {
+        outline: 3px solid #ffffff;
+        outline-offset: 2px;
+    }
+
+    @media (min-width: 48rem) {
+        .cta-fixo {
+            display: none;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .cta-fixo,
+        .cta-fixo.visivel {
+            transition: none;
+        }
+    }
+</style>
