@@ -14,9 +14,20 @@ function parametroValido(valor: string | null, formato: RegExp): valor is string
     return valor !== null && formato.test(valor);
 }
 
-export function criarServidor(pastaExemplos: string): Server {
+export function criarServidor(pastaExemplos: string, paginaLocal?: string): Server {
     return createServer(async (req, res) => {
         const url = new URL(req.url ?? "/", "http://127.0.0.1");
+        if (
+            paginaLocal &&
+            req.method === "GET" &&
+            (url.pathname === "/" || url.pathname === "/pagina-local.html")
+        ) {
+            const html = await readFile(paginaLocal);
+            res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+            res.end(html);
+            return;
+        }
+
         if (url.pathname === ROTA && req.method === "OPTIONS") {
             res.writeHead(204, {
                 ...CABECALHOS,

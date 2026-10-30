@@ -51,3 +51,36 @@ describe("servidor local", () => {
         assert.equal(resposta.status, 400);
     });
 });
+
+describe("página de exemplo", () => {
+    let servidor: Server;
+    let base: string;
+
+    before(async () => {
+        const pagina = join(dirname(fileURLToPath(import.meta.url)), "../pagina-local.html");
+        servidor = criarServidor(pasta, pagina);
+        await new Promise<void>((resolve) => {
+            servidor.listen(0, "127.0.0.1", resolve);
+        });
+        const endereco = servidor.address();
+        if (!endereco || typeof endereco === "string") {
+            throw new Error("porta do servidor indisponivel");
+        }
+        base = `http://127.0.0.1:${endereco.port}`;
+    });
+
+    after(async () => {
+        await new Promise<void>((resolve, reject) => {
+            servidor.close((erro) => (erro ? reject(erro) : resolve()));
+        });
+    });
+
+    it("mostra a ementa na raiz", async () => {
+        const resposta = await fetch(base);
+        const html = await resposta.text();
+
+        assert.equal(resposta.status, 200);
+        assert.match(resposta.headers.get("content-type") ?? "", /text\/html/);
+        assert.match(html, /HC 1000028/);
+    });
+});
