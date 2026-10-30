@@ -4,8 +4,9 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-strip-types --test tests/parser.test.ts tests/servidor.test.ts tests/api.test.ts",
-    "serve": "node --experimental-strip-types src/servir.ts"
+    "test": "node --experimental-strip-types --test tests/parser.test.ts tests/servidor.test.ts tests/api.test.ts tests/config.test.ts",
+    "serve": "node --experimental-strip-types src/servir.ts",
+    "build": "node scripts/build.mjs"
   },
   "keywords": [],
   "author": "",

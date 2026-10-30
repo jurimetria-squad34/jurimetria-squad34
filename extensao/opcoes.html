@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Jurimetria no tribunal</title>
+    <style>
+        body {
+            font: 16px/1.45 system-ui, sans-serif;
+            max-width: 36rem;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            color: #1c1917;
+        }
+        label { display: block; font-weight: 650; margin-bottom: 0.35rem; }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.5rem 0.6rem;
+            font: inherit;
+        }
+        button {
+            margin-top: 0.8rem;
+            font: inherit;
+            padding: 0.45rem 0.9rem;
+        }
+        #aviso { min-height: 1.4em; }
+    </style>
+</head>
+<body>
+    <h1>Jurimetria no tribunal</h1>
+    <p>Endereço da API usada para buscar a ficha da decisão.</p>
+    <form>
+        <label for="base">BASE</label>
+        <input id="base" name="base" type="url" required spellcheck="false" placeholder="http://127.0.0.1:8787">
+        <button type="submit">Salvar</button>
+    </form>
+    <p id="aviso" role="status"></p>
+    <script src="dist/opcoes.js"></script>
+</body>
+</html>

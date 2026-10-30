@@ -7,6 +7,7 @@ const ROTA = "/api/decisoes/por-numero";
 const CABECALHOS = {
     "Content-Type": "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Private-Network": "true",
 };
 
 function parametroValido(valor: string | null, formato: RegExp): valor is string {
@@ -16,6 +17,16 @@ function parametroValido(valor: string | null, formato: RegExp): valor is string
 export function criarServidor(pastaExemplos: string): Server {
     return createServer(async (req, res) => {
         const url = new URL(req.url ?? "/", "http://127.0.0.1");
+        if (url.pathname === ROTA && req.method === "OPTIONS") {
+            res.writeHead(204, {
+                ...CABECALHOS,
+                "Access-Control-Allow-Methods": "GET, OPTIONS",
+                "Access-Control-Allow-Headers": "*",
+            });
+            res.end();
+            return;
+        }
+
         if (req.method !== "GET" || url.pathname !== ROTA) {
             res.writeHead(404, CABECALHOS);
             res.end(JSON.stringify({ erro: "rota nao encontrada" }));
