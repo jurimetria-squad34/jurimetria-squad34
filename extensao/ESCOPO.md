@@ -63,13 +63,13 @@ certo pela query) e configurem o `BASE` para ele.
 
 ## Critérios de aceite
 
-- [ ] Parser com pelo menos 30 casos de teste, a maioria tirada de `numeros-reais-de-ementas.txt`, incluindo casos
+- [x] Parser com pelo menos 30 casos de teste, a maioria tirada de `numeros-reais-de-ementas.txt`, incluindo casos
       que não podem casar (datas, CPF, números de página, artigos de lei).
-- [ ] A extensão não quebra o layout das páginas dos tribunais e só consulta a API para número que o parser
+- [x] A extensão não quebra o layout das páginas dos tribunais e só consulta a API para número que o parser
       reconheceu.
-- [ ] Não lê, guarda nem envia o conteúdo das páginas: só classe e número vão para a API.
-- [ ] A ficha funciona com teclado, mostra o link oficial e trata os três estados: carregando, não encontrado, erro.
-- [ ] README com como instalar em modo desenvolvedor e um GIF curto mostrando o uso.
+- [x] Não lê, guarda nem envia o conteúdo das páginas: só classe e número vão para a API.
+- [x] A ficha funciona com teclado, mostra o link oficial e trata os três estados: carregando, não encontrado, erro.
+- [x] README com como instalar em modo desenvolvedor e um GIF curto mostrando o uso.
 
 ## Fora do escopo
 
