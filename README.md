@@ -7,15 +7,15 @@ O repositório está organizado em pastas independentes. Cada uma tem seu própr
 ## 👥 Integrantes do Squad 34
 
 - Caio Seabra de Queiroz
-- Caua de Paula Bento Neves
+- Cauã de Paula Bento Neves
 - Davi Luiz Abrantes Lima
 - Eduardo Martins Rodrigues
-- Joao Pedro Cunha Avila
+- João Pedro Cunha Ávila
 - Leonardo Yudi Umetsu Ueyama
 - Lucas Alves Izaias
 - Lucas Daniel Antunes Amorim
 - Luiz Miguel Nunes Pimenta
-- Murilo Goncalves de Lira
+- Murilo Gonçalves de Lira
 
 ## 📂 Estrutura do repositório
 
