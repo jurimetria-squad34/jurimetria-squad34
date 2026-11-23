@@ -4,6 +4,19 @@ Este é o repositório do **Squad 34** para o Desafio Jurimetria. Ele contém a 
 
 O repositório está organizado em pastas independentes. Cada uma tem seu próprio ecossistema (dependências, testes e CI), permitindo que sejam desenvolvidas e publicadas de forma isolada.
 
+## 👥 Integrantes do Squad 34
+
+- Caio Seabra de Queiroz
+- Caua de Paula Bento Neves
+- Davi Luiz Abrantes Lima
+- Eduardo Martins Rodrigues
+- Joao Pedro Cunha Avila
+- Leonardo Yudi Umetsu Ueyama
+- Lucas Alves Izaias
+- Lucas Daniel Antunes Amorim
+- Luiz Miguel Nunes Pimenta
+- Murilo Goncalves de Lira
+
 ## 📂 Estrutura do repositório
 
 | Pasta | Desafio | O que é? |
