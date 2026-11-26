@@ -27,6 +27,11 @@ O repositório está organizado em pastas independentes. Cada uma tem seu própr
 
 > 💡 **Documentação detalhada:** Cada pasta possui o seu próprio `README.md` com instruções específicas de instalação, execução, testes e publicação. **Recomendamos a leitura individual de cada uma.**
 
+## 🔎 Links do Observatório e Site
+
+- **Observatorio:** https://observatorio-dyo.pages.dev/
+- **Site:** https://site-produto.pages.dev/
+  
 ## 🚀 Como rodar o projeto localmente
 
 Como as pastas são independentes, você deve entrar em cada uma e instalar as dependências. É necessário ter o **Node.js 22 ou superior** instalado.
